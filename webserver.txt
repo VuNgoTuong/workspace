@@ -1,0 +1,4 @@
+xampp 
+wamp
+nginx: Dùng phải import php, mysql,... vào và không cần start
+docker: máy ảo chạy nhiều project

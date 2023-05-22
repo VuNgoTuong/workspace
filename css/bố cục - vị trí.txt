@@ -1,0 +1,40 @@
+Position (vị trí)
+
+Mặc định: position: static
+Cố định: position: fixed
+Tương đối: position: relative
+Tuyệt đối: Position: absolute (được định vị tương đối với cha được định vị gần nhất)
+Cuộn chuột: position: sticky
+
+	thêm các thuộc tính bổ sung  {left, bottom, top, right, width,height, border}
+
+
+Display: inline-block (hiển thị): cho phép thiết lập chiều rộng chiều cao của phần tử
+ 	  display: -webkit-box; (scroll man hinh nhu kieu slider)
+
+Z-index: chỉ định nằm đè hoặc nằm sau
+
+
+Overflow(phần tràn)
+
+	(visible, hidden, scroll, auto)
+
+
+Float (rõ ràng)
+
+	(right, left, none, inherit, both)
+
+Transform (chuyển đổi)
+	thay đổi vị trí, hình dáng, xoay theo nhiều hướng
+
+
+Căn chỉnh theo chiều ngang và chiều dọc
+	display: block, margin: auto (nó sẽ nằm giữa)
+
+      
+
+
+
+
+
+

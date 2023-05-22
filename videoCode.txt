@@ -1,0 +1,101 @@
+<?php
+
+function iFrame_Video($argc){
+     $idd = rand();
+    ?>
+    <style>
+        .fa-solid {
+            color: black;
+            opacity: 1;
+        }
+        .active {
+            opacity: 0.5;
+            cursor: none;
+        }
+
+        .text_box_inner {
+            width: 250px;
+            z-index: 1;
+            position: absolute;
+            color: white;
+            left: 10%;
+            top: 30%;
+        }
+
+        .text_box_inner > h2 {
+            color:white;
+            display: flex;
+            line-height: 88px;
+            font-size: 72px;
+            font-weight:500
+        }
+
+        .text_box_inner > p {
+            font-size: 24px;
+        }
+
+        .text_box_inner > button {
+            font-size: 24px;
+            border:1px solid white;
+            border-radius:5px;
+            width: 100%;
+        }
+
+        .video_container_btn_control {
+            position: absolute;
+            right: 40px;
+            bottom:0;
+            scale: 2;
+        }
+
+        .video_container_btn_control > button {
+            color:white;
+            padding: 0;
+        }
+
+
+    </style>
+    <!-- Autoplay is allowed. -->
+    <div>
+
+        <?php if ($argc['is_text_box']==1) { ?>
+        <div class="text_box_inner" >
+            <p> <?php echo $argc['title_1_text_box']?> </p>
+            <h2> <?php echo $argc['title_2_text_box'] ?></h2>
+            <button type="button" onclick="window.open('<?php echo $argc['url_shop_now']?>')">SHOP NOW</button>
+        </div>
+        <?php } ?>
+        <div class="video_container">
+        <video id="<?php echo 'video_iframe_'.$idd  ?>" class="video_iframe" src="<?php echo $argc['url']; ?>" loop="on" autoplay="on" playinline="" muted="true" style="width:100%; height:50%">
+        </video>
+        <div class="video_container_btn_control">
+            <button class="fa-solid fa-pause fa-pause_<?php echo $idd ?>" type="button" onclick="pause_<?php echo $idd ?>()"></button>
+            <button class="fa-solid fa-play fa-play_<?php echo $idd ?> active" type="button" onclick="play_<?php echo $idd ?>()"></button>
+        </div>
+        </div>
+    </div>
+    <script>
+        function play_<?php echo $idd ?>()  {
+            document.getElementById('video_iframe_' + <?php echo $idd ?>).play();
+        }
+        function pause_<?php echo $idd ?>() {
+            document.getElementById('video_iframe_' + <?php echo $idd ?>).pause();
+        }
+
+        jQuery(function($)  {
+
+            $('.fa-pause_<?php echo $idd ?>').click(function() {
+                $(this).addClass("active");
+                $('.fa-play_<?php echo $idd ?>').removeClass("active");
+            });
+            $('.fa-play_<?php echo $idd ?>').click(function() {
+                $(this).addClass("active");
+                $('.fa-pause_<?php echo $idd ?>').removeClass("active");
+            });
+        });
+    </script>
+    <?php
+}
+
+add_shortcode('iFrameVideo','iFrame_Video');
+?>

@@ -1,0 +1,24 @@
+have_posts: trả về true sẽ hiển thị vòng lặp này, còn trả về false sẽ chạy 1 lần 
+the_post: đánh dấu vị trí cho mỗi post trong query => để đánh dấu bài này có rồi sẽ hiển thị bài kế tiếp chứ không
+           lặp đi lặp lại 1 post   
+endwhile để kết thúc vòng lặp
+
+
+//pagination
+
+<div class="pagination">
+      <?php posts_nav_link(); ?>  
+</div>
+
+
+// ở trong vòng lặp while chỉ cần viết template_tag
+// Muốn tạo query mới (ví dụ dùng để phân ra từng block)
+<?php 
+$vu_query_args = array ('page_id' => 2);
+$vu_query = new WP_Query($args);
+	while( $vu_query->have_posts() ): $vu_query->the_posts();
+	echo get_the_title();
+	endwhile;
+
+
+cat, category_not_in, category_in, category_name

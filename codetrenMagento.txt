@@ -1,0 +1,72 @@
+ css nam trong /pub/static/frontend/Magento/luma/en_US/css/styles-l.css.
+
+
+file footer nam o app> code > magento > cms > setup > patch > data > createDefaultPages 
+
+
+padding-left: 10px;
+    padding-right: 10px;  => style.css
+Code trên file index.php: pub -> static -> index.php
+
+file?: styles.css, styles-m.css, styles-l.css, mage---1e2_AFA, index.php, createDefaultPages.php, default.xml
+styles.css: file tự custom css. nằm ở  pub -> static ->frontend->Home\ten\en_US -> css (có styles-l.css và styles-m.css)->theme (magezon_builder)->css->styles.css
+code: chứa các module, design chứa các theme
+Module: app-> code-> magento
+
+image: C:\xampp\htdocs1\pub\static\frontend\Home\ten\en_US\images
+
+
+
+file header, footer default
+app/code/magento/theme/view/frontend/layout/default.xml
+app/code/magento/theme/view/frontend/templates/html/absolute_footer.phtml
+
+
+Cách mvc: Username.php (viết function xử lý) (controller)
+          username.phtml (khai báo biến = $block-> function đó)
+          customer_account.xml (viết có class= link block đó, template = link template đó)
+
+	
+file: Username.php 
+       public function getName(){
+        return 'vu';
+    }
+
+username.phtml
+$customer =  $block->getCustomerFullname();
+?>
+<div class="header-username">
+    <?php if ($customer) : ?>
+        <?= __($customer) ?>
+    <?php endif; ?>
+</div>
+
+
+customer_account.xml
+
+  <referenceContainer name="content">
+			<block class="Dafc\Customer\Block\Attributes\Username" name="username_logging" template="Magento_Customer::widget/username.phtml" cacheable="false"/>
+</referenceContainer>
+
+
+Block 
+là để tương tác với hệ thống Magento để lấy dữ liệu từ Model, trong khi các file template phtml 
+sẽ phát sinh code HTML cần thiết cho một trang.
+
+Models
+Việc gọi method $product->getPrice(); sẽ “get” thuộc tính Model “price”.
+Và gọi $product->setPrice(); sẽ “set” thuộc tính Model “price”.
+Nếu bạn muốn lấy tất cả dữ liệu trên một Model, gọi hàm $product->getData(); sẽ trả về một array (mảng) chứa các 
+thuộc tính.
+Đó là bởi vì mỗi thiết lập – set method sẽ trả lại và instance của Model. Đây là một pattern (mô hình mẫu) bạn
+ sẽ thấy đuợc sử dụng khá nhiều trong hệ thống codebase của Magento.
+ORM của Magento cũng có một cách để truy vấn nhiều các Object – đối tượng thông qua một giao diện Collections.
+
+Helpers
+Các class Helper trong Magento chứa các method hữu ích mà sẽ cho phép bạn thực hiện những tác vụ phổ biến trên các object và các biến. Ví dụ:
+$helper = Mage::helper('catalog');
+Bạn sẽ nhận thấy chúng ta đã để lại phần thứ hai của grouped class name. Mỗi Module có một class Data Helper mặc định. Dưới đây là tương đương với ví dụ trên:
+$helper = Mage::helper('catalog/data');
+Hầu hết Helpers kế thừa từ Mage_Core_Helper_Abstract, mà sẽ cho bạn nhiều method mặc định hữu ích.
+
+

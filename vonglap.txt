@@ -1,0 +1,22 @@
+Foreach ($page as pages = $value)
+	dung de duyệt các phần tử của mảng
+		Giá trị đầu tiên của mảng $page sẽ gán vào biến tạm $value ở vòng lặp đầu tiên
+		Sau đó, qua mỗi vòng lặp thì biến tạm sẽ được gán giá trị của phần tử tiếp theo của mảng, duyệt đến cuối
+If ($page[]) : neu $page[] la dung thi chay dieu kien
+
+$count;
+while ($n < $count) {
+	$count++;
+} :tang một giá trị biến trên mỗi lần lặp của vòng lặp và bố đếm tăng lên cho đến khi nó đạt đến 10 khi 
+đánh giá là sai và vòng lặp kết thúc.
+
+Câu lệnh do…. while sẽ thực thi một khối mã ít nhất một lần - sau đó sẽ lặp lại 
+vòng lặp miễn là một điều kiện đã cho là đúng.
+
+Từ khóa break trong PHP được sử dụng để kết thúc sớm việc thực thi một vòng lặp. 
+Câu lệnh break nằm bên trong khối câu lệnh, Nó cung cấp cho bạn quyền kiểm soát và bất cứ khi 
+nào bạn cần thoát khỏi vòng lặp, bạn có thể thoát ra ngoài ngay khi cần. Sau khi thoát khỏi vòng lặp, 
+câu lệnh của vòng lặp sẽ được thực thi.
+
+
+$this->name : la mot object

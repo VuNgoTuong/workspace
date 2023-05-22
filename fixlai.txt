@@ -1,0 +1,4 @@
+viet short code, array vao tung type, lay type
+tim hieu shortcode
+
+lúc truyền vào thì render ra khác id, nhưng js chỉ nhận 1 id đó, dùng type vào id để nó tạo ra

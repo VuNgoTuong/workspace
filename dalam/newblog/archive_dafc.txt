@@ -1,0 +1,1354 @@
+<?php
+
+// global $wp_query;
+
+//Get title page.
+$title = get_queried_object();
+
+// write_log($wp_query->get( $var, $cat ));
+// write_log(get_query_var('cat'));
+
+?>
+<?php if (have_posts()) : ?>
+    <?php
+    //Get url
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $lang = strpos($request_uri, '/en/') !== false ? 'en' : 'vi';
+    if ($lang == 'en') {
+        $read_more = 'Read more';
+        $day_text = 'Day';
+        $month_text = 'Month';
+        $year_text = 'Year';
+        $post_connection = 'RELATED NEWS';
+        $latest_update  = 'LATEST UPDATE';
+        $all_news  = 'ALL NEWS';
+    } else {
+        $read_more = 'Tiếp tục đọc';
+        $day_text = 'Ngày';
+        $month_text = 'Tháng';
+        $year_text = 'Năm';
+        $post_connection = 'TIN TỨC LIÊN QUAN';
+        $latest_update  = 'CẬP NHẬT GẦN NHẤT';
+        $all_news  = 'TIN MỚI';
+    }
+
+    //Get post last
+    $post_last_id = get_the_ID();
+
+    $promotion = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'cat' => 48,
+        'posts_per_page' => 1,
+        'order' => 'DESC'
+    );
+    $promotion_query = new WP_Query($promotion);
+
+
+    $fashion_event = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'cat' => 47,
+        'posts_per_page' => 1,
+        'order' => 'DESC'
+    );
+    $fashion_event_query = new WP_Query($fashion_event);
+
+
+    $dafc_new = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'cat' => 45,
+        'posts_per_page' => 1,
+        'order' => 'DESC'
+    );
+    $dafc_new_query = new WP_Query($dafc_new);
+
+
+    $fashion_new = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'cat' => 54,
+        'posts_per_page' => 1,
+        'order' => 'DESC'
+    );
+    $fashion_new_query = new WP_Query($fashion_new);
+    $count = 0;
+    while (have_posts() && $count < 1) : the_post();
+        $count = 1;
+        if (true) {
+    ?>
+            <style>
+                /*Begin Post archive css*/
+
+                .post-last-container {
+
+                    height: 65vh;
+
+                    display: flex;
+
+                }
+
+                .post-last-container-image {
+
+                    flex: 2;
+
+                    padding: 0;
+
+                }
+
+                .post-last-container-image>img {
+
+                    object-fit: cover;
+
+                    width: 100%;
+
+                    height: 100%;
+
+                }
+
+                .post-last-container-content {
+
+                    flex: 1;
+
+                    display: flex;
+
+                    flex-direction: column;
+
+                    background-color: black;
+
+                }
+
+
+
+                .post-last-container-content-short-description {
+
+                    flex-grow: 1;
+
+                    text-align: justify !important;
+
+                    overflow: hidden;
+
+                    display: -webkit-box;
+
+                    -webkit-line-clamp: 6;
+
+                    -webkit-box-orient: vertical;
+
+                }
+
+
+                .post-list-container-image {
+
+                    padding-right: 30px;
+
+                    flex: 1;
+
+                }
+
+                .post-list-container {
+                    height: unset;
+                    display: unset;
+                    margin-bottom: unset;
+                }
+
+
+                .post-list-container-image>img {
+
+                    object-fit: cover;
+
+                    width: 100%;
+
+                    height: 100%;
+
+                }
+
+
+
+                .post-list-container-content {
+
+                    flex: 1;
+
+                    display: flex;
+
+                    flex-direction: column;
+
+                }
+
+
+
+                .post-list-container-content-short-description {
+
+                    flex-grow: 1;
+
+                    text-align: justify !important;
+
+                    overflow: hidden;
+
+                    display: -webkit-box;
+
+                    -webkit-line-clamp: 6;
+
+                    -webkit-box-orient: vertical;
+
+                }
+
+
+
+                .post-last {
+
+                    margin: 0 50px 7vh 50px;
+
+                }
+
+
+
+                .post-last-categories>h3 {
+
+                    text-align: justify;
+
+                }
+
+
+
+                .post-last-categories>h3>i {
+
+                    margin: 0 0.8em;
+
+                }
+
+
+
+                .post-last-categories>h3>i:nth-last-child(1) {
+
+                    margin-bottom: 0.2em;
+
+                }
+
+
+
+                .post-last-categories>p {
+
+                    text-align: justify;
+
+                }
+
+
+
+                .icon-cross-bar {
+
+                    height: 0.15em;
+
+                    width: 15em;
+
+                    background-color: black;
+
+                }
+
+
+
+                .post-last-container-content-date {
+
+                    font-size: 14px;
+
+                    color: #D6D6D6;
+
+                }
+
+
+
+                .post-last-container-content-title {
+
+                    text-align: justify;
+
+                    margin: 1em 0;
+
+
+                }
+
+                .post-last-container-content-title>h3 {
+
+                    size: 32px;
+
+                    color: #D7B797;
+
+                }
+
+
+
+                .post-last-container-content-readmore {
+
+                    display: flex;
+
+                    justify-content: flex-start;
+
+                }
+
+
+
+                .post-last-container-content-readmore>span {
+
+                    display: none;
+
+                    flex: 1;
+
+                    text-align: left;
+
+                }
+
+
+
+                .post-last-container-content-readmore>a>button {
+
+                    border-radius: 99px;
+
+                    border: 2px solid white;
+
+                    margin: 20px 0 0 0;
+
+                    color: white;
+
+                }
+
+
+
+                .post-list-container-content-date {
+
+                    font-size: 14px;
+
+                }
+
+
+
+                .post-list-container-content-title {
+
+                    text-align: justify;
+
+                    margin: 1em 0;
+
+                }
+
+
+
+                .post-list-container-content-readmore {
+
+                    margin-top: 20px;
+
+                    display: flex;
+
+                    flex-direction: row;
+
+                    flex-wrap: nowrap;
+
+                    justify-content: flex-end;
+
+                    align-items: flex-end;
+
+                    align-content: flex-end;
+
+                }
+
+
+
+                .post-list-container-content-readmore>span {
+
+                    flex: 1;
+
+                    vertical-align: bottom;
+
+                }
+
+
+
+                .post-list-container-content-readmore>a {
+
+                    text-align: right;
+
+                }
+
+
+
+                .post-list-container-content-readmore>a>button {
+
+                    margin-bottom: unset;
+
+                    border-radius: 99px;
+
+                    border: 2px solid black;
+
+                    white-space: nowrap;
+
+                }
+
+
+
+                .post-connection {
+
+                    padding: 50px 0px 50px 50px;
+
+                    background-image: linear-gradient(white 20%, #F5F2ED 0);
+
+                    display: block;
+
+                }
+
+
+
+                #post-list {
+
+                    background-color: #F5F2ED;
+
+                }
+
+
+
+                .post-item-title {
+
+                    text-align: justify;
+
+                    margin: 1em 0;
+
+                }
+
+
+
+                .post-item-container-image {
+
+                    background-color: #212121;
+
+                    padding-right: 0px;
+
+                    flex: 1;
+
+                }
+
+
+
+                .post-item-container-image>img {
+
+                    object-fit: cover;
+
+                    width: 100%;
+
+                    aspect-ratio: 1 / 0.6;
+
+                }
+
+
+
+                .back-to-top {
+
+                    bottom: 70px;
+
+                    right: 25px;
+
+                }
+
+
+
+                .slider-nav-light .flickity-page-dots .dot.is-selected {
+
+                    background-color: var(--primary-color);
+
+                }
+
+                .page-wrapper {
+
+                    padding-bottom: 0px;
+
+                }
+
+                .footer {
+                    padding: 30px 15px 0 15px;
+                }
+
+                .col {
+
+                    padding: unset;
+
+                }
+
+                .carousel {
+
+                    flex: 1;
+
+                    background: rgba(238, 238, 238, 0);
+
+                    padding: 20px;
+
+                }
+
+                .carousel-cell {
+
+                    display: flex;
+
+                    flex-direction: column;
+
+                    background: rgba(222, 222, 222, 0);
+
+                    border-radius: 5px;
+
+                    counter-increment: carousel-cell;
+
+                }
+
+                .carousel-cell.is-selected {
+
+                    background-size: cover;
+
+                }
+
+                .carousel-cell:before {
+
+                    display: block;
+
+                    text-align: center;
+
+                    /*content: counter(carousel-cell);*/
+
+                    font-size: 80px;
+
+                }
+
+                #post-list-item>.carousel>.flickity-button {
+
+                    opacity: 1 !important;
+
+                    color: #D7B797 !important;
+
+                }
+
+                #post-list {
+                    padding: 0;
+                }
+
+                .post-last {
+
+                    margin: 0;
+
+                }
+
+                .post-connection {
+
+                    background: black;
+
+                    padding-left: 4%;
+
+                    padding-right: 4%;
+
+                }
+
+                .post-last-categories>h3:first-child {
+
+                    font-size: 56px;
+
+                    font-weight: 600;
+
+                    color: #D7B797;
+
+                    text-align: center;
+
+                }
+
+                .post-last-categories>h3:last-child {
+
+                    margin-left: 5%;
+
+                    font-size: 28px;
+
+                    color: black;
+
+                    font-weight: 600;
+
+                }
+
+                .post-last-container {
+
+                    width: 95%;
+
+                }
+
+                .post-list {
+
+                    display: flex;
+
+                    padding: 50px !important;
+
+                    background-color: white !important;
+
+                    padding-left: 4% !important;
+
+                    padding-right: 4% !important;
+
+                }
+
+                .post-list-bottom {
+
+                    width: 100%;
+
+                    display: flex;
+
+                    flex-wrap: wrap;
+
+                    justify-content: space-between;
+
+                    background-color: white !important;
+
+                    padding-left: 4% !important;
+
+                    padding-right: 4% !important;
+
+                }
+
+                .post-list-bottom>article {
+
+                    width: 33.33%;
+
+                    flex: unset;
+
+                }
+
+                .post-list-container-image {
+
+                    background-color: #212121;
+
+                    padding-right: 0;
+
+                }
+
+                .post-connection>div>h4 {
+
+                    color: white;
+
+                    padding: 20px;
+
+                    font-size: 28px;
+
+                    font-weight: 600;
+
+                }
+
+                .post-connection>div>h4>.icon-cross-bar {
+
+                    background: white;
+
+                }
+
+                #post-list-item {
+
+                    display: flex;
+
+                }
+
+
+                .category-name-post {
+
+                    position: relative;
+
+                    width: min-content;
+
+                    white-space: nowrap;
+
+                    height: 30px;
+
+                    background-color: #EEE6DD;
+
+                    margin-top: -30px;
+
+                }
+
+                .category-name-post>h3 {
+
+                    padding-left: 10px;
+
+                    padding-right: 10px;
+
+                    font-size: 16px;
+
+                }
+
+                .post-item-title>h3 {
+
+                    color: white;
+
+                    font-size: 20px;
+
+                }
+
+                .post-last-container-content {
+
+                    padding: 20px;
+
+                    display: flex;
+
+                    justify-content: space-between;
+
+                }
+
+                .post-last-container-content-title>h3 {
+
+                    font-size: 32px;
+
+                }
+
+                .post-last-container-content-readmore>a>button {
+
+                    font-size: 18px;
+
+                    font-weight: 600;
+
+                }
+
+                .post-last-container-content-date {
+
+                    padding-top: 20px;
+
+                }
+
+                .all-new-connection>div>h4 {
+
+                    padding-left: 5%;
+
+                    padding-bottom: 20px;
+
+                    font-size: 28px;
+
+                    color: black;
+
+                    font-weight: 600;
+
+                }
+
+                .post-list-container-image>img {
+
+                    aspect-ratio: 1 / 1.4;
+
+                }
+
+                .post-item-container-image>img {
+
+                    aspect-ratio: 1 / 1.4;
+
+                }
+
+                h3 {
+
+                    font-weight: 600;
+
+                }
+
+                .all-new-connection {
+
+                    padding: 50px 0 50px 0;
+
+                }
+
+                .all-new-connection>div.post-list {
+
+                    padding: 0;
+
+                }
+
+                .page-numbers.nav-pagination.links.text-center {
+
+                    display: none;
+
+                    float: right;
+
+                    margin-top: -70px !important;
+
+                    padding-right: 5%;
+
+                }
+
+                .load {
+
+                    display: block;
+
+                    margin: auto;
+
+                    color: #292929;
+
+                    font-size: 16px;
+
+                    font-weight: 500;
+
+                    padding: 5px;
+
+                    width: 15%;
+
+                    border: 1px solid #292929;
+
+                    border-radius: 50px;
+
+                }
+
+                article {
+
+                    flex: 1;
+
+                    padding: 20px;
+
+                }
+
+                /* .next-mobile {
+
+                display: none;
+
+            } */
+
+                ul.links li:first-child>a,
+                ul.links li:nth-child(3)>a {
+                    background-color: #757575;
+                    border: 0;
+                    color: white;
+                    font-size: 20px;
+                }
+
+                .nav-pagination>li>.current {
+                    background-color: unset;
+                    font-size: 20px;
+                    color: black;
+                    border: 0;
+                }
+
+                .nav-pagination>li>span:hover {
+                    background-color: unset;
+                    color: unset;
+                }
+
+                ul.links li:last-child {
+                    font-size: 20px;
+                }
+
+                a.next.page-numbers {
+                    background-color: #757575;
+                    border: 0;
+                    color: white;
+                    font-size: 20px;
+                }
+
+                .nav-pagination>li i {
+                    top: 0;
+                    font-size: unset;
+                    scale: 1.5;
+                }
+
+                @media screen and (max-width: 950px) {
+
+                    .post-last-categories {
+
+                        display: block;
+
+                    }
+
+                    .load {
+                        width: 50%;
+                    }
+
+                    .all-new-connection {
+                        padding: 50px 20px 50px 20px;
+                    }
+
+                    .post-list-container-content {
+                        margin-bottom: 50px;
+                    }
+
+                    .post-last-categories>h3:first-child {
+                        font-size: 32px;
+                    }
+
+                    .post-last-categories>h3:last-child {
+                        display: none;
+                    }
+
+                    .post-last-container-content-title>h3 {
+
+                        font-size: 20px;
+
+                        font-weight: 600;
+
+                    }
+
+                    .post-last-container-content-readmore>a>button {
+
+                        font-size: 16px;
+                    }
+
+                    .post-connection>div>h4 {
+
+                        padding-left: 20px;
+
+                        font-size: 20px;
+
+                    }
+
+                    .post-connection>div>h4>.icon-cross-bar {
+
+                        width: 12em;
+
+                    }
+
+                    .post-last-container-content-date {
+
+                        padding: 0;
+
+                    }
+
+                    .post-last-container {
+
+                        width: 100%;
+
+                        height: unset;
+
+                        display: flex;
+                    }
+
+                    .all-new-connection>div>h4 {
+
+                        padding: 0;
+
+                    }
+
+                    .page-numbers.nav-pagination.links.text-center {
+
+                        display: none;
+
+                    }
+
+                    .all-new-connection>div>h4 {
+
+                        font-size: 20px;
+
+                    }
+
+                    .post-last-categories>h4>i {
+
+                        width: 14em;
+
+                    }
+
+                    .post {
+
+                        margin: 0;
+
+                    }
+
+                    article {
+
+                        flex: inherit;
+
+                        padding: 0;
+
+                        width: 75%;
+
+                        padding: 10px;
+
+                    }
+
+                    .post-connection {
+
+                        padding: 0;
+
+                    }
+
+                    .post-list-mobile {
+
+                        column-count: 1;
+
+                        padding: 0;
+
+                    }
+
+                    .post-list-bottom>article {
+
+                        width: 100%;
+
+                        padding: 0;
+
+                    }
+
+                    .post-list {
+
+                        display: flex;
+
+                        position: relative;
+
+                        display: -webkit-box;
+
+                        padding: 0;
+
+                        width: 100%;
+
+                        overflow: auto;
+
+                        padding-left: 2% !important;
+
+                        padding-right: 2% !important;
+
+                    }
+
+                    .post-list-bottom {
+
+                        column-count: 1;
+
+                        display: unset;
+
+                    }
+
+                    #post-list-item {
+
+                        display: unset;
+
+                        column-count: 1;
+
+                        padding: 0;
+
+                    }
+
+
+                }
+
+                @media screen and (max-width: 400px) {
+
+                    .post-last-categories>h4>i {
+
+                        width: 10em;
+                    }
+
+                    .post-connection>div>h4>.icon-cross-bar {
+
+                        width: 8em;
+
+                    }
+
+                }
+            </style>
+
+
+            <div class="post-last">
+                <div class="post-last-categories">
+                    <h3>
+                        <?php
+
+                        if (isset($title->post_name) != '') {
+                            echo $title->post_title;
+                        } elseif (isset($title->cat_name) != '') {
+                            echo $title->cat_name;
+                        } else {
+                            echo $title->name;
+                        }
+                        ?>
+                    </h3>
+                    <h3>
+                        <?php echo $latest_update ?> <i class="icon-cross-bar"></i>
+                    </h3>
+                </div>
+                <div class="post-last-container">
+                    <div class="post-last-container-image">
+                        <?php
+                        echo get_the_post_thumbnail();
+                        ?>
+                    </div>
+                    <div class="post-last-container-content">
+                        <div class="post-last-container-content-date">
+                            <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                            <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                            <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                            <div class="post-last-container-content-title">
+                                <h3>
+                                    <?php echo get_the_title() ?>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="post-last-container-content-readmore">
+                            <span> Tags:
+                                <?php echo wp_strip_all_tags(get_the_tag_list('', ',', '')); ?>
+                            </span>
+                            <a href="<?php echo the_permalink() ?>"><button id="btn-read-more"><?php echo $read_more; ?></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+    <?php endwhile; ?>
+
+    <div id="post-list" class="post-list">
+        <?php while (have_posts() && $count <= 3) : the_post(); ?>
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                    <div class="post-list-container">
+                        <a href="<?php echo the_permalink() ?>">
+                            <div class="post-list-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="post-list-container-content">
+                                <div class="post-list-container-content-title">
+                                    <h3>
+                                        <a href="<?php echo the_permalink() ?>">
+                                            <?php echo get_the_title() ?>
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="post-last-container-content-date">
+                                    <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                                    <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                                    <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            <?php $count++; ?>
+        <?php endwhile; ?>
+    </div>
+
+
+
+    <div class="post-connection">
+        <div class="post-last-categories">
+            <h4><?php echo $post_connection ?> <i class="icon-cross-bar"></i></h4>
+        </div>
+        <div id="post-list-item">
+            <div class="carousel carousel-nav">
+                <?php while ($fashion_new_query->have_posts()) : $fashion_new_query->the_post() ?>
+                    <div class="carousel-cell">
+                        <a href="<?php echo the_permalink() ?>">
+                            <div class="post-item-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="category-name-post">
+                                <h3>
+                                    <?php foreach ((get_the_category()) as $cat) {
+                                        echo $cat->cat_name;
+                                    }  ?>
+                                </h3>
+                            </div>
+                            <div class="post-item-title">
+                                <h3>
+                                    <?php echo the_title(); ?>
+                                </h3>
+                            </div>
+                            <div class="post-last-container-content-date">
+                                <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                                <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                                <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                            </div>
+                        </a>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+            <div class="carousel carousel-nav">
+                <?php while ($fashion_event_query->have_posts()) : $fashion_event_query->the_post() ?>
+                    <div class="carousel-cell">
+                        <a href="<?php echo the_permalink() ?>">
+                            <div class="post-item-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="category-name-post">
+                                <h3>
+                                    <?php foreach ((get_the_category()) as $cat) {
+                                        echo $cat->cat_name;
+                                    }  ?>
+                                </h3>
+                            </div>
+                            <div class="post-item-title">
+                                <h3>
+                                    <?php echo the_title(); ?>
+                                </h3>
+                            </div>
+                            <div class="post-last-container-content-date">
+                                <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                                <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                                <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                            </div>
+                        </a>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+            <div class="carousel carousel-nav">
+                <?php while ($promotion_query->have_posts()) : $promotion_query->the_post() ?>
+                    <div class="carousel-cell">
+                        <a href="<?php echo the_permalink() ?>">
+                            <div class="post-item-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="category-name-post">
+                                <h3>
+                                    <?php foreach ((get_the_category()) as $cat) {
+                                        echo $cat->cat_name;
+                                    }  ?>
+                                </h3>
+                            </div>
+                            <div class="post-item-title">
+                                <h3>
+                                    <?php echo the_title(); ?>
+                                </h3>
+                            </div>
+                            <div class="post-last-container-content-date">
+                                <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                                <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                                <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                            </div>
+                        </a>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+            <div class="carousel carousel-nav">
+                <?php while ($dafc_new_query->have_posts()) : $dafc_new_query->the_post() ?>
+                    <div class="carousel-cell">
+                        <a href="<?php echo the_permalink() ?>">
+                            <div class="post-item-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="category-name-post">
+                                <h3>
+                                    <?php foreach ((get_the_category()) as $cat) {
+                                        echo $cat->cat_name;
+                                    }  ?>
+                                </h3>
+                            </div>
+                            <div class="post-item-title">
+                                <h3>
+                                    <?php echo the_title(); ?>
+                                </h3>
+                            </div>
+                            <div class="post-last-container-content-date">
+                                <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                                <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                                <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                            </div>
+                        </a>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="all-new-connection">
+        <div class="post-last-categories">
+            <h4><?php echo $all_news ?> <i class="icon-cross-bar"></i></h4>
+        </div>
+        <?php flatsome_posts_new_pagination(); ?>
+        <div id="post-list" class="post-list-bottom">
+            <?php while (have_posts()) : the_post(); ?>
+                <?php if ($post_last_id  && get_the_ID() != $post_last_id) { ?>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                        <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                            <div class="post-list-container">
+                                <a href="<?php echo the_permalink() ?>">
+                                    <div class="post-list-container-image">
+                                        <?php
+                                        echo get_the_post_thumbnail();
+                                        ?>
+                                    </div>
+                                    <div class="post-list-container-content">
+                                        <div class="post-list-container-content-title">
+                                            <h3>
+                                                <a href="<?php echo the_permalink() ?>">
+                                                    <?php echo get_the_title() ?>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="post-last-container-content-date">
+                                            <span><?php echo $day_text . ' ' . date('d', get_post_timestamp()); ?></span>
+                                            <span><?php echo $month_text . ' ' . date('m', get_post_timestamp()); ?></span>
+                                            <span><?php echo $year_text  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                <?php }; ?>
+            <?php endwhile; ?>
+        </div>
+        <div>
+            <button id="load" class="load">VIEW MORE</button>
+        </div>
+    </div>
+
+    <?php
+    $category = get_query_var('cat');
+    ?>
+
+    <script>
+        jQuery(function($) {
+            var offset = 8;
+            var id_cat = '<?php echo $category ?>';
+            $('#load').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: "load_more_blog_detail",
+                        offset: offset,
+                        id_cat,
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('.post-list-bottom').append(data);
+                        offset = offset + 3;
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('The following error occured: ' + textStatus, errorThrown);
+                    }
+                });
+            });
+        })
+    </script>
+
+
+
+<?php else : ?>
+
+    <?php get_template_part('template-parts/posts/content', 'none'); ?>
+
+<?php endif; ?>
+
+
+<!-- <script>
+    function myFunction() {
+        const link = document.getElementsByClassName("next page-numbers");
+        if (link[0]) {
+            window.location.href = link[0].href;
+        }
+    }
+
+    jQuery(function($) {
+        const link = document.getElementsByClassName("next page-numbers");
+        if (!link[0]) {
+            $("button.next").css("display", "none");
+        }
+    })
+</script> -->

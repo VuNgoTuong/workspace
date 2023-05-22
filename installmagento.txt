@@ -1,0 +1,26 @@
+Cai bien moi truong env: compuser->path
+cai composer, composer install, composer update
+chinh sua file php.ini va bo cac dau ; va $cfg['Servers'][$i]['auth_type'] = 'config'; va $cfg['Servers'][$i]['password'] = '1';
+source magento
+elasticsearch: lam hien len localhost:9200
+
+php bin/magento setup:install --base-url="http://localhost:8099/" --db-host="localhost" --db-name="magento" --db-user="root" --db-password="1" --admin-firstname="admin" --admin-lastname="admin" --admin-email="admin@gmail.com" --admin-user="admin" --admin-password="Admin!@#9999" --language="en_US" --currency="USD" --timezone="America/Chicago" --use-rewrites="1" --backend-frontname="admin" --search-engine=elasticsearch7 --elasticsearch-host="localhost" --elasticsearch-port=9200
+
+tim file Gd2.php => tim: if ($url && isset($url['scheme']) && !in_array($url['scheme'], $allowed_schemes)) {
+
+		    sua lai:  if ($url && isset($url['scheme']) && !in_array($url['scheme'], $allowed_schemes) && !file_exists($filename)) {
+
+xong roi chay tiep lenh: 
+	php bin/magento indexer:reindex
+	php bin/magento setup:upgrade
+	php bin/magento setup:static-content:deploy -f
+	php bin/magento cache:flush
+Neu co 2FA: php bin/magento module:disable Magento_TwoFactorAuth
+Vao C:\xampp\htdocs\lib\internal\Magento\Framework\View\Element\Template\File Tim thu muc Validator.php
+	Tim dong $realPath = $this->fileDriver->getRealPath($path); va dong no 
+		sau do viet duoi dong do: $realPath = str_replace('\\', '/', $this->fileDriver->getRealPath($path)); va save 
+Cach them san pham => vao system admin => index management => update by schedule => submit 
+
+mat header footer cach hien thi lai: sysstem -> cache management -> flush catalog images cache-> flush magento cache
+
+ css nam trong /pub/static/frontend/Magento/luma/en_US/css/styles-l.css.

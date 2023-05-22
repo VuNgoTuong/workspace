@@ -1,0 +1,8 @@
+Dùng mixin chỉ cần thêm selector vào trong nội dung style của element khác
+.center {
+	background-color: white;
+}
+div {
+	.center;
+	font-size: 16px;
+}

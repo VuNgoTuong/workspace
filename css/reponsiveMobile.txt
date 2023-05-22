@@ -1,0 +1,1 @@
+Dùng @media screen and (min-width: 850px) nếu nhỏ hơn 850px thì sẽ responsive về màn hình rồi set css theo điện thoại

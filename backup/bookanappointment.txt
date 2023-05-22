@@ -1,0 +1,100 @@
+<?php
+
+?>
+<style>
+    .entry-title {
+        display: none;
+    }
+
+    .entry-content {
+        display: flex;
+    }
+
+    select {
+        border-radius: 20px !important;
+    }
+</style>
+
+
+
+<?php
+function book_appointment()
+{
+    global $wpdb;
+    $private_sale = $wpdb->get_results("
+            SELECT * 
+            FROM dafc_location_stores          
+            WHERE type = 1
+        ");
+?>
+    <div>
+        <p>Select store</p>
+        <select name="" id="store" onchange="Function()">
+            <option value=""><?php echo 'store' ?></option>
+            <?php
+            foreach ($private_sale as $a) : ?>
+                <option value="<?php echo $a->id ?>"><?php echo $a->name ?></option>
+            <?php endforeach; ?>
+        </select>
+        <?php
+
+        $month = date('m');
+        $year = date('Y');
+
+        $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        $firstDay = mktime(0, 0, 0, $month, 1, $year);
+
+        $dayOfWeek = date('D', $firstDay);
+        $daysOfWeek = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+
+        $numBlank = array_search($dayOfWeek, $daysOfWeek);
+
+        echo "<table><tr><th colspan='7'>" . date('F Y', $firstDay) . "</th></tr>";
+        echo "<tr>";
+        foreach ($daysOfWeek as $day) {
+            echo "<th>$day</th>";
+        }
+        echo "</tr>";
+
+        echo "<tr>";
+        for ($i = 0; $i < $numBlank; $i++) {
+            echo "<td>&nbsp;</td>";
+        }
+        for ($day = 1; $day <= $numDays; $day++) {
+            $dayStr = str_pad($day, 2, '0', STR_PAD_LEFT);
+            $dateStr = "$year-$month-$dayStr";
+            $class = '';
+            if ($dateStr == date('Y-m-d')) {
+                $class = 'today';
+            }
+            echo "<td class='$class'>$day</td>";
+            if (($day + $numBlank) % 7 == 0) {
+                echo "</tr><tr>";
+            }
+        }
+        for ($i = ($numDays + $numBlank) % 7; $i < 7; $i++) {
+            echo "<td>&nbsp;</td>";
+        }
+        echo "</tr>";
+        echo "</table>";
+
+        ?>
+    </div>
+<?php
+    exit();
+}
+?>
+
+
+
+<script>
+    function Function() {
+        var store = jQuery('#store option:selected').text();
+        console.log(store);
+    }
+</script>
+
+<?php
+
+add_shortcode('book_appointment', 'book_appointment');

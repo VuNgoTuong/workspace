@@ -1,0 +1,1381 @@
+<?php
+
+
+
+function get_email_recruitment_message_html($url)
+{
+
+
+
+    $email = $_POST['email'];
+
+    $name = $_POST['name'];
+
+    $phone = $_POST['phone'];
+
+    $title = $_POST['title_form'];
+
+    $area = $_POST['area'];
+
+    ob_start();
+
+    echo 'Dear Admin,<br>';
+
+    echo 'Thông tin ứng viên ứng tuyển vào vị trí: ' . $title . '<br>';
+
+    echo 'Họ tên: ' . $name . '. <br>';
+
+    echo 'Số điện thoại: ' . $phone . '. <br>';
+
+    echo 'Email: ' . $email . '. <br>';
+
+    echo 'Link CV: <a href="' . $url . '" style="color: red">Tải xuống tại đây</a><br>';
+
+    echo 'Portfolio: ' . $area . '. <br>';
+
+?>
+
+    <?php
+
+    $message = ob_get_clean();
+
+
+
+    return $message;
+}
+
+
+
+function send_email_recruitment()
+{
+
+    try {
+
+
+
+        if (!(isset($_POST["action"]) && $_POST["action"] === "send_email_recruitment")) {
+
+            echo json_encode(array('status' => 'error', 'msg' => "error"));
+
+            exit;
+        }
+
+
+
+        global  $wpdb;
+
+
+
+        $email = $_POST['email'];
+
+        $name = $_POST['name'];
+
+        $phone = $_POST['phone'];
+
+        $utm = $_POST['utm'];
+
+        $title = $_POST['title_form'];
+
+        $area = $_POST['area'];
+
+
+
+        $arr_img_ext = array('application/pdf');
+
+        if (in_array($_FILES['file']['type'], $arr_img_ext)) {
+
+            $upload = wp_upload_bits($_FILES["file"]["name"], null, file_get_contents($_FILES["file"]["tmp_name"]));
+        }
+
+
+
+        //Type = 1 customer
+
+        //Type = 2 recruitment
+
+
+
+        $wpdb->insert('dafc_info_customer', array(
+
+            'type'          => 2,
+
+            'name'          => $name,
+
+            'phone'         => $phone,
+
+            'email'         => $email,
+
+            'version'       => $upload['url'],
+
+            'area'          => $area,
+
+            'capacity'      => $title,
+
+            'color'         => '',
+
+            'utm'           => $utm,
+
+            'user_agent'    => '',
+
+        ));
+
+
+
+
+
+        //Begin send mail to admin
+
+        $emailTest = ['vu.ngo@dafc.com.vn'];
+
+        $emailAdmin = ['recruitment@dafc.com.vn', 'huu.tran@dafc.com.vn'];
+
+        $subject = "Thông tin đăng ký ứng tuyển - " . $title;
+
+
+
+        foreach ($emailTest as $value) {
+
+            $result = wp_mail(
+
+                $value,
+
+                $subject,
+
+                get_email_recruitment_message_html($upload['url']),
+
+                array('Content-type: text/html; charset=UTF-8'),
+
+                $upload['file'],
+
+            );
+        }
+
+        //End send mail to admin
+
+
+
+        echo json_encode(array(
+
+            'status' => 'ok',
+
+            "msg" => "success",
+
+        ));
+
+        exit;
+    } catch (Exception $e) {
+
+        echo json_encode(array('status' => 'error', 'error' => $e->getMessage()));
+
+        exit;
+    }
+}
+
+// This bit is a special action hook that works with the WordPress AJAX functionality.
+
+add_action('wp_ajax_send_email_recruitment', 'send_email_recruitment');
+
+add_action('wp_ajax_nopriv_send_email_recruitment', 'send_email_recruitment');
+
+
+function load_more_career_detail()
+{
+    $offset = isset($_POST['offset']) ? (int)$_POST['offset'] : 0;
+    $getposts = new WP_query(
+        array(
+            'post_type' => 'recruitment',
+            'offset' => $offset,
+            'showposts' => 5,
+            'post__not_in' => array(get_the_ID()),
+            'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'term_id',
+                    'terms' => $_POST['id_categori'],
+                    'operator' => 'AND',
+                ),
+            )
+        )
+    );
+    if ($getposts->have_posts()) : ?>
+        <?php while ($getposts->have_posts()) : $getposts->the_post(); ?>
+            <?php $dayExp = get_post_meta(get_the_ID(), 'post_expired', true);
+
+            $toDay = date("d/m/Y");
+
+            if (isset($dayExp)) {
+
+                if (date('d/m/Y', strtotime($dayExp)) && (date('d/m/Y', strtotime($dayExp)) >= $toDay)) {
+            ?>
+                    <article>
+                        <div>
+                            <?php
+                            $terms = get_the_terms($getposts->ID, 'city');
+                            $listCity = [];
+                            if (is_array($terms) || is_object($terms)) {
+                                foreach ($terms as $term) {
+                                    $listCity[] = $term->name;
+                                }
+                            } ?>
+                            <p style="font-weight:400; font-size:14px; color:black; margin-bottom:0">
+                                <?php echo ($listCity ? implode(';', $listCity) : 'no_info') . ' ' . '-' . ' ';
+                                $listCat = get_the_category(get_the_ID());
+                                $listDept = [];
+                                foreach ($listCat as $catItem) {
+                                    if ($catItem->parent) {
+                                        $listDept[] = $catItem->name;
+                                    }
+                                }
+                                echo ($listDept ? implode(';', $listDept) : 'no_info');
+                                ?> </p>
+                        </div>
+                        <div>
+                            <a href="<?php the_permalink(); ?>" style="font-size:14px; font-weight:600; color:black"><?php the_title(); ?></a>
+                        </div>
+                        <div class="career-list-container-content-end ">
+                            <p style="font-weight:400; font-size:14px; color:#757575; margin-bottom:0"><?php echo   'Due date: ' . date("M d, Y", strtotime(get_post_meta(get_the_ID(), 'post_expired', true) ? get_post_meta(get_the_ID(), 'post_expired', true) : 'no_info')); ?></p>
+                        </div>
+                        <div class="career-list-container-content-apply">
+                            <a href="<?php echo the_permalink() ?>" style="font-size:16px; color:black">View More</a>
+                        </div>
+                    </article>
+            <?php }
+            } ?>
+        <?php endwhile; ?>
+    <?php endif;
+    exit(); ?>
+<?php
+}
+
+add_action('wp_ajax_load_more_career_detail', 'load_more_career_detail');
+
+add_action('wp_ajax_nopriv_load_more_career_detail', 'load_more_career_detail');
+
+
+function Upload_File_Recruitment_Form($arr)
+{
+
+?>
+
+    <style>
+        .group_title {
+
+            text-transform: uppercase;
+
+            padding-bottom: 1%;
+
+        }
+
+        .group_title>h3 {
+            color: black;
+            padding-left: 5%;
+            font-weight: 600;
+            font-size: 38px;
+        }
+
+        .group_top_sms {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .group_input {
+
+            width: 100%;
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        .group_footer_sms {
+
+            text-align: center;
+
+        }
+
+
+
+        .group_footer_sms>input {
+
+            float: left;
+
+            padding: 0 30px;
+
+            border-radius: 99px;
+
+            font-weight: 600;
+
+            font-size: 16px;
+
+        }
+
+
+
+        .warp_container_choose_product>p {
+
+            text-align: center;
+
+        }
+
+        .group_phone {
+
+            flex: 2;
+
+            margin-right: 20px;
+
+        }
+
+
+
+        .group_email {
+
+            flex: 3;
+
+        }
+
+
+
+        .group_input>label {
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            padding-left: 10px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+        .group_input>input {
+
+            border-radius: 99px;
+
+        }
+
+
+
+        .group_modal_input {
+
+            padding: 0 8.7% 0 0;
+
+        }
+
+
+
+        .group_modal_input>span {
+
+            color: red;
+
+            font-weight: 600
+        }
+
+
+
+        .group_btn__purple {
+
+            border-radius: 99px;
+
+            padding: 0 30px;
+
+            background-color: #BF2D35 !important;
+
+            margin-right: 0;
+
+        }
+
+
+
+        .group_input>select {
+
+            border-radius: 99px;
+
+            padding-left: 20px;
+
+        }
+
+
+
+        .group_top_choose {
+
+            display: flex;
+
+        }
+
+
+
+        .group_top_choose>.group_input {
+
+            margin: 0 10px;
+
+        }
+
+        .group_capacity {
+
+            width: 30%;
+
+        }
+
+        .group_color {
+
+            width: 50%;
+
+        }
+
+
+
+        .modal_result {
+
+            backdrop-filter: blur(5px);
+
+            z-index: 2;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            height: 100vh;
+
+            width: 100vw;
+
+            margin: auto;
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background-color: #00000080;
+
+        }
+
+
+
+        .frame_result {
+
+            position: relative;
+
+            background-color: #FFF;
+
+            padding: 32px;
+
+            width: 50%;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+        }
+
+        .close_result {
+
+            color: #FFF;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #000;
+
+            height: 30px;
+
+            width: 30px;
+
+            border-radius: 20px;
+
+            position: absolute;
+
+            top: -6px;
+
+            right: -6px;
+
+        }
+
+        .close_result:hover {
+
+            background-color: #0e1112;
+
+            opacity: 0.8;
+
+            cursor: pointer
+        }
+
+
+
+        .modal {
+
+            float: right;
+
+            width: 100% !important;
+
+            max-width: unset !important;
+
+        }
+
+
+
+        .blocker {
+
+            backdrop-filter: blur(5px);
+
+        }
+
+
+
+
+
+        .vodiapicker {
+
+            display: none;
+
+        }
+
+
+
+        #a {
+
+            padding-left: 0px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        #a img,
+        .btn-select img {
+
+            width: 12px;
+
+
+
+        }
+
+
+
+        #a li {
+
+            list-style: none;
+
+            padding-top: 5px;
+
+            margin-left: 15px;
+
+            margin-bottom: 0;
+
+        }
+
+
+
+        #a li:hover {
+
+            background-color: #F4F3F3;
+
+        }
+
+
+
+        #a li img {
+
+            margin: 5px;
+
+        }
+
+
+
+        #a li span,
+        .btn-select li span {
+
+            margin-left: 20px;
+
+        }
+
+
+
+        /* item list */
+
+
+
+        .b {
+
+            z-index: 1;
+
+            background-color: white;
+
+            position: absolute;
+
+            display: none;
+
+            width: 100%;
+
+            max-width: 300px;
+
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+
+            border: 1px solid rgba(0, 0, 0, .15);
+
+            border-radius: 5px;
+
+
+
+        }
+
+
+
+        /*.open{*/
+
+        /*    display: show !important;*/
+
+        /*}*/
+
+
+
+        .btn-select {
+
+            width: 100%;
+
+            max-width: 350px;
+
+            height: 34px;
+
+            border-radius: 99px;
+
+            background-color: #fff;
+
+            border: 1px solid #ccc;
+
+            margin-bottom: unset;
+
+
+
+        }
+
+        .btn-select li {
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            list-style: none;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: left;
+
+            padding-bottom: 0px;
+
+            margin-bottom: 0px;
+
+        }
+
+
+
+        .btn-select:hover li {
+
+            margin-left: 0px;
+
+        }
+
+
+
+        .btn-select:hover {
+
+            background-color: #F4F3F3;
+
+            border: 1px solid transparent;
+
+            box-shadow: inset 0 0px 0px 1px #ccc;
+
+        }
+
+        .label-file {
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            padding-left: 10px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .btn-select:focus {
+
+            outline: none;
+
+        }
+
+
+
+        .lang-select {
+
+            margin-left: 0px;
+
+        }
+
+
+
+        .warp_container_list_product {
+
+            height: 200px;
+
+            overflow-y: scroll;
+
+            margin-bottom: 30px;
+
+        }
+
+
+
+        .group_bottom_file {
+
+            width: 100%;
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: inline-block;
+
+        }
+
+
+
+        .btn_upload {
+
+            height: 15vh;
+
+            width: 100%;
+
+            border: 1px dotted;
+
+            border-radius: 30px;
+
+        }
+
+
+
+        .group_bottom_file input[type=file] {
+
+            width: 100%;
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            opacity: 0;
+
+        }
+
+
+
+        .fa-arrow-up {
+
+            color: black;
+
+            margin-left: 5px;
+
+        }
+
+        .send-career {
+
+            display: flex;
+
+        }
+
+        .img-resume {
+
+            width: 65%;
+
+        }
+
+        @media only screen and (max-width: 800px) {
+
+            .img-inner.dark {
+
+                margin: 0 20px 0 20px !important;
+
+            }
+
+            .img-resume {
+
+                width: 100%;
+
+            }
+
+            .send-career {
+
+                display: flex;
+
+                flex-direction: column;
+
+            }
+
+            .group_title>h3 {
+
+                display: none;
+
+            }
+
+            .frame_result {
+
+                width: 95%;
+
+                margin: 20px;
+
+            }
+
+            .group_top_sms {
+
+                flex-direction: column;
+
+            }
+
+            .label-file {
+
+                white-space: unset !important;
+
+            }
+
+            .group_top_choose {
+
+                display: flex;
+
+                flex-direction: column;
+
+            }
+
+            .group_footer_sms>input {
+                width: 50%;
+            }
+
+
+            .group_input {
+
+                width: 100%;
+
+                margin-bottom: unset !important;
+
+            }
+
+
+
+            .btn-select {
+
+                max-width: unset;
+
+            }
+
+
+
+            .warp_container_choose_product>p:nth-child(1) {
+
+                text-align: justify;
+
+            }
+
+
+
+            .group_footer_sms>input {
+
+                text-align: center;
+
+                margin-right: 0;
+
+            }
+
+
+
+            .group_footer_sms>label {
+
+                text-align: justify;
+
+            }
+
+
+
+            .modal {
+
+                padding: 15px 15px !important;
+
+                width: 100% !important;
+
+            }
+
+            .group_modal_input {
+                padding: unset !important;
+            }
+
+        }
+    </style>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+
+    <!--  Modal enter info-->
+
+    <div class="group_title">
+        <h3>APPLY FOR THIS JOB</h3>
+    </div>
+    <div class="send-career">
+        <div class="img-resume">
+            <?php echo do_shortcode('[block id="img_career_page"]'); ?>
+        </div>
+        <div id="modal_info" class="modal">
+
+            <div class="group_modal_input">
+
+                <span id="error_text"></span>
+
+                <div class="group_top_sms">
+
+                    <div class="group_input group_name">
+
+                        <label for="name">Họ và tên</label>
+
+                        <input class="group_input_input" name="name user" id="name" type="text" value="">
+
+                    </div>
+
+                </div>
+
+                <div class="group_top_sms">
+
+                    <div class="group_input group_phone">
+
+                        <label for="phone">Số điện thoại</label>
+
+                        <input name="phone" type="text" value="" id="phone">
+
+                    </div>
+
+                    <div class="group_input group_email">
+
+                        <label for="email">Email</label>
+
+                        <input name="email" id="email" type="text" value="">
+
+                    </div>
+
+                </div>
+
+                <label class="label-file" for="email">Hồ sơ ứng tuyển (Tệp đính kèm file pdf không quá 5 MB)</label>
+
+                <div class="group_bottom_file">
+
+                    <button class="btn_upload">Tải file lên tại đây<i class="fa-solid fa-arrow-up"></i></button>
+
+                    <input type="file" name="file_recruitment" id="file_recruitment" />
+
+                </div>
+
+                <div class="group_input group_portfolio">
+
+                    <label for="">Link portfolio</label>
+
+                    <input type="text" name="area" id="area" value="">
+
+                </div>
+
+                <div class="group_footer_sms ">
+
+                    <input id="sendEmail" class="send_email" type="submit" value="GỬI NGAY">
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--    Modal success send mail-->
+
+    <div id="modal_result" class="modal_result">
+
+        <div class="frame_result">
+
+            <div id="close_result" class="close_result"><span class="dashicons dashicons-no"></span></div>
+
+            <h3 style="color: #0e1112">XÁC NHẬN ỨNG TUYỂN THÀNH CÔNG</h3>
+
+            <p>Cảm ơn bạn đã ứng tuyển vào vị trí “<?php echo $arr['title_form'] ?>”. Bộ phận Tuyển dụng - Nhân sự DAFC sẽ liên lạc với bạn trong thời gian sớm nhất có thể! </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!--    Noticatoin error-->
+
+    <div id="noti" style="position: fixed; top: 100px; right:100px;z-index:100;background: #0b97c6; width: 300px;height:0px;border-radius:8px;text-align: center;display:flex;justify-content: center;align-items: center;">
+
+        <span style="color: white; font-weight: bold;font-size:14px"></span>
+
+    </div>
+
+    <script>
+        jQuery(function($) {
+
+
+
+            $('input[type=file]').change(function() {
+
+
+
+                Object.values(this.files).forEach(function(file) {
+
+                    $byteToMb = 1024 * 1024
+
+                    let filesize = file.size / $byteToMb;
+
+                    $("#error_text").text("");
+
+                    if (parseInt(file.size) > 5 * $byteToMb) {
+
+                        $('#file_recruitment').val('');
+
+                        $('.group_bottom_file > button').html('Tải file lên tại đây<i class="fa-solid fa-arrow-up"></i>');
+
+                        return $("#error_text").text("File của bạn " + filesize.toLocaleString('vi-VN') + "MB lớn hơn 5MB xin chọn lại file khác!");
+
+                    } else if (file.type == 'application/pdf') {
+
+                        $('.group_bottom_file > button').html('File: <span style="color: black">' + file.name + '</span> - Size: <span style="color: black">' + (file.size / 1048576).toLocaleString('vi-VN') + ' MB</span>');
+
+                    } else {
+
+                        $('#file_recruitment').val('');
+
+                        $('.group_bottom_file > button').html('Tải file lên tại đây<i class="fa-solid fa-arrow-up"></i>');
+
+                        return $("#error_text").text("File của bạn không phải pdf!");
+
+                    }
+
+                })
+
+            });
+
+
+
+            $('#close_result').click(function() {
+
+                $('#modal_result').hide()
+
+            })
+
+
+
+            const validateEmail = (email) => {
+
+                if (!email || !email.length) return true
+
+                const re = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+                return re.test(email)
+
+            };
+
+            const validatePhone = (v) => {
+
+                if (!v || !v.length) return false
+
+                const phone1 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+
+                const phone2 = /^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+
+                return v.match(phone1) || v.match(phone2)
+
+            };
+
+
+
+            const listParamFunc = <?php echo  json_encode($arr) ?>;
+
+
+
+            $("#sendEmail").on('click', () => {
+
+                const obj = {};
+
+                obj.utm = window.location.href
+
+                obj.name = $('#name').val()
+
+                obj.email = $('#email').val()
+
+                obj.phone = $('#phone').val()
+
+                obj.area = $('#area').val()
+
+                const file_recruitment = document.getElementById('file_recruitment').files[0];
+
+
+
+                if (!obj.name.length) return $("#error_text").text("Tên khách hàng không được rỗng");
+
+                if (!validatePhone(obj.phone)) return $("#error_text").text("Số điện thoại không đúng định dạng");
+
+                if (!obj.email.length) return $("#error_text").text("Email không được rỗng");
+
+                if (typeof(file_recruitment) == 'undefined') return $("#error_text").text("Bạn chưa đính kèm tệp tin.");
+
+                if (!validateEmail(obj.email)) return $("#error_text").text("Email không đúng định dạng");
+
+                if (!obj.area.length) return $("#error_text").text("Link không được rỗng");
+
+
+
+                // $('#modal_info').show();
+
+
+
+                let formUploadFile = new FormData();
+
+                formUploadFile.append('file', file_recruitment);
+
+                formUploadFile.append('action', 'send_email_recruitment');
+
+                formUploadFile.append('name', obj.name);
+
+                formUploadFile.append('email', obj.email);
+
+                formUploadFile.append('phone', obj.phone);
+
+                formUploadFile.append('area', obj.area);
+
+                formUploadFile.append('utm', obj.utm);
+
+                formUploadFile.append('title_form', listParamFunc['title_form']);
+
+
+
+                $.ajax({
+
+                    type: 'POST',
+
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+
+                    data: formUploadFile,
+
+                    processData: false,
+
+                    contentType: false,
+
+                    beforeSend: function() {
+
+                        $('html, body').css({
+
+                            overflow: 'hidden',
+
+                            height: '100%'
+
+                        });
+
+                        $.blockUI(
+
+                            {
+
+                                fadeIn: 500,
+
+                                message: '<div class="loader"></div>',
+
+                                css: {
+
+                                    left: '50%',
+
+                                    width: 'unset',
+
+                                    justifyItems: 'center',
+
+                                    backgroundColor: '#fff0',
+
+                                    border: 'none',
+
+                                    transform: 'translate(-50%, -50%)',
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    success: function(res) {
+
+                        try {
+
+
+
+                            let {
+                                status,
+                                msg
+                            } = JSON.parse(res)
+
+                            if (status === "ok" && msg === "success") {
+
+                                $('#modal_result').css({
+                                    "display": 'flex'
+                                })
+
+                                $("#result_name").text($('#name').val())
+
+                            } else {
+
+
+
+                                msg = msgs[lang][msg] || null;
+
+                                if (msg) {
+
+                                    $('html, body').css({
+
+                                        overflow: 'visible',
+
+                                        height: 'unset',
+
+                                    });
+
+                                    $("#noti").animate({
+
+                                        background: "red",
+
+                                        height: '50px',
+                                        opacity: 1
+
+                                    }, 600);
+
+                                    $("#noti").children('span').text(msg)
+
+                                    setTimeout(() => {
+
+                                        $("#noti").animate({
+
+                                            height: '0px',
+                                            opacity: 0
+
+                                        }, 600);
+
+                                    }, 5000)
+
+                                }
+
+                            }
+
+
+
+                        } catch (e) {
+
+                            console.log(e)
+
+                        }
+
+                    },
+
+                    complete: function() {
+
+                        $('html, body').css({
+
+                            overflow: 'auto',
+
+                            height: 'unset'
+
+                        });
+
+                        $.unblockUI();
+
+
+                        $('#modal_result').css({
+                            "display": 'flex'
+                        })
+
+                    },
+
+                    error: function(errorThrown) {
+
+                        console.log("ERROR", errorThrown)
+
+                    }
+
+                });
+
+
+
+
+
+
+
+                //delete file
+
+                $('#file_recruitment').val('');
+
+                $('.group_bottom_file > button').html('Tải file lên tại đây<i class="fa-solid fa-arrow-up"></i>');
+
+
+
+                $('.jquery-modal').hide();
+
+                // })
+
+
+
+            })
+
+        });
+    </script>
+
+
+
+<?php
+
+}
+
+
+
+add_shortcode('Upload_File_Recruitment_Form', 'Upload_File_Recruitment_Form');
+
+
+
+function Upload_File_Recruitment_Form_Vi()
+{
+
+?>
+
+    <style>
+
+    </style>
+
+    <div><button>Ứng Tuyển Ngay</button>
+        <div>
+
+        <?php
+
+    }
+
+
+
+    add_shortcode('Upload_File_Recruitment_Form_Vi', 'Upload_File_Recruitment_Form_Vi');

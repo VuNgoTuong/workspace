@@ -1,0 +1,298 @@
+<style>
+    .container {
+        max-width: 100%;
+        height: 700px;
+        padding-left: 350px;
+        padding-right: 350px;
+    }
+
+    .breakscrum {
+        width: 100%;
+        height: 50px;
+        padding-top: 20px;
+    }
+
+    .break_left {
+        /* display: none; */
+        max-width: 30%;
+        float: left;
+        word-spacing: 5px;
+    }
+
+    .content {
+        width: 100%;
+        height: 500px;
+    }
+
+    .content_tab {
+        width: 25%;
+        float: left;
+        padding-top: 85px;
+    }
+
+    .content_text {
+        width: 70%;
+        float: right;
+    }
+
+    .content_tab>button {
+        width: 100%;
+        padding: 15px;
+        text-align: left;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid #757575;
+        border-radius: 0;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .tab.active {
+        background-color: #EEE0D3;
+        font-weight: 600;
+    }
+
+    .tab_content {
+        display: none;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .accordion {
+        font-size: 16px;
+        margin: 50px auto 20px -50px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    .accordion .link {
+        cursor: pointer;
+        display: block;
+        font-weight: 700;
+        border-bottom: 1px solid #CCC;
+        /* position: relative; */
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+    .accordion1 {
+        font-size: 16px;
+        margin: 50px auto 20px -50px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    .accordion1 .link {
+        cursor: pointer;
+        display: block;
+        font-weight: 700;
+        border-bottom: 1px solid #CCC;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+    .content_text>div:nth-child(2) {
+        float: left;
+        width: 100%;
+        font-size: 16px;
+        padding-top: 25px;
+    }
+
+    .accordion>li>div {
+        padding: 1 !important;
+    }
+</style>
+<!-- style  -->
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<div style="margin-top:-26px">
+    <img src="<?php echo $this->getViewFileUrl('images/z3869549678675_26149bd4bbf5485d502b9a9c46ae2234.jpg') ?>" alt="">
+</div>
+<div class="container">
+    <div class="breakscrum">
+        <div class="break_left">
+            <p>Home &#8226; <b>Shipping policy</b></p>
+        </div>
+        <!-- <div class="break_left" id="Exchange">
+            <p>Home &#8226; <b>Exchange & Return policy</b></p>
+        </div> -->
+    </div>
+    <div class="content">
+        <div class="content_tab">
+            <button class="tab .active" onclick="openTab(event, 'Shipping')">Shipping policy</button>
+            <button class="tab" onclick="openTab(event, 'Exchange')">Exchange & Return policy</button>
+            <button>Payment policy</button>
+            <button>Privacy policy</button>
+            <button>Order</button>
+            <button>Shipping policy</button>
+            <button>Shipping policy</button>
+
+        </div>
+        <div class="content_text">
+            <div>
+                <div id="Shipping" class="tab_content" style="display: block;">
+                    <div style="text-align:center">
+                        <p style="font-size:34px; font-weight:500">SHIPPING POLICY</p>
+                    </div>
+                    <ul id="accordion" class="accordion">
+                        <li>
+                            <div class="link">
+                                <p>Thời gian giao hàng <i style="float:right" class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul>
+                                <li>Thời gian phục vụ giao hàng: phục vụ giao hàng trong giờ hành chính thứ 2 đến thứ 7 thông qua các đơn vị vận chuyển được ủy quyền.</li>
+                                <li>Thời gian giao hàng: từ 03 - 07 ngày làm việc kể khi đặt hàng thành công. Nếu quý khách đặt hàng sau giờ hành chính (từ 18h - 9h sáng hôm sau), thời gian giao hàng sẽ được cộng dồn thêm 01 ngày.</li>
+                                <li>Trong các trường hợp có phát sinh dịch bệnh: (Covid, SARS,..) hoặc trong các trường hợp bất khả kháng tại thời điểm phát sinh theo quy định của cơ quan quản lý nhà nước, Jacqueline được quyền từ chối giao hàng.</li>
+                                <li>Đơn hàng sẽ được giao đến địa chỉ của Quý khách, ngoại trừ các trường hợp như: khu vực văn phòng hạn chế ra vào, khu vực chung cư/ cao tầng (chỉ phục vụ giao tại chân tòa nhà) hoặc bên trong các khu vực hạn chế đi lại (khu vực quân sự, biên giới,...).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <p>Quy trình kiểm tra hàng hóa khi giao nhận <i style="float:right" class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul style="display:none">
+                                <li>Thời gian phục vụ giao hàng: phục vụ giao hàng trong giờ hành chính thứ 2 đến thứ 7 thông qua các đơn vị vận chuyển được ủy quyền.</li>
+                                <li>Thời gian giao hàng: từ 03 - 07 ngày làm việc kể khi đặt hàng thành công. Nếu quý khách đặt hàng sau giờ hành chính (từ 18h - 9h sáng hôm sau), thời gian giao hàng sẽ được cộng dồn thêm 01 ngày.</li>
+                                <li>Trong các trường hợp có phát sinh dịch bệnh: (Covid, SARS,..) hoặc trong các trường hợp bất khả kháng tại thời điểm phát sinh theo quy định của cơ quan quản lý nhà nước, Jacqueline được quyền từ chối giao hàng.</li>
+                                <li>Đơn hàng sẽ được giao đến địa chỉ của Quý khách, ngoại trừ các trường hợp như: khu vực văn phòng hạn chế ra vào, khu vực chung cư/ cao tầng (chỉ phục vụ giao tại chân tòa nhà) hoặc bên trong các khu vực hạn chế đi lại (khu vực quân sự, biên giới,...).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <p>Quy định phí giao hàng <i style="float:right" class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul style="display:none">
+                                <li>Thời gian phục vụ giao hàng: phục vụ giao hàng trong giờ hành chính thứ 2 đến thứ 7 thông qua các đơn vị vận chuyển được ủy quyền.</li>
+                                <li>Thời gian giao hàng: từ 03 - 07 ngày làm việc kể khi đặt hàng thành công. Nếu quý khách đặt hàng sau giờ hành chính (từ 18h - 9h sáng hôm sau), thời gian giao hàng sẽ được cộng dồn thêm 01 ngày.</li>
+                                <li>Trong các trường hợp có phát sinh dịch bệnh: (Covid, SARS,..) hoặc trong các trường hợp bất khả kháng tại thời điểm phát sinh theo quy định của cơ quan quản lý nhà nước, Jacqueline được quyền từ chối giao hàng.</li>
+                                <li>Đơn hàng sẽ được giao đến địa chỉ của Quý khách, ngoại trừ các trường hợp như: khu vực văn phòng hạn chế ra vào, khu vực chung cư/ cao tầng (chỉ phục vụ giao tại chân tòa nhà) hoặc bên trong các khu vực hạn chế đi lại (khu vực quân sự, biên giới,...).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div id="Exchange" class="tab_content">
+                <div style="text-align:center">
+                        <p style="font-size:34px; font-weight:500">EXCHANGE & RETURN POLICY</p>
+                    </div>
+                    <ul id="accordion1" class="accordion1">
+                        <li>
+                            <div class="link">
+                                <p>Thời gian giao hàng <i style="float:right" class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul>
+                                <li>Thời gian phục vụ giao hàng: phục vụ giao hàng trong giờ hành chính thứ 2 đến thứ 7 thông qua các đơn vị vận chuyển được ủy quyền.</li>
+                                <li>Thời gian giao hàng: từ 03 - 07 ngày làm việc kể khi đặt hàng thành công. Nếu quý khách đặt hàng sau giờ hành chính (từ 18h - 9h sáng hôm sau), thời gian giao hàng sẽ được cộng dồn thêm 01 ngày.</li>
+                                <li>Trong các trường hợp có phát sinh dịch bệnh: (Covid, SARS,..) hoặc trong các trường hợp bất khả kháng tại thời điểm phát sinh theo quy định của cơ quan quản lý nhà nước, Jacqueline được quyền từ chối giao hàng.</li>
+                                <li>Đơn hàng sẽ được giao đến địa chỉ của Quý khách, ngoại trừ các trường hợp như: khu vực văn phòng hạn chế ra vào, khu vực chung cư/ cao tầng (chỉ phục vụ giao tại chân tòa nhà) hoặc bên trong các khu vực hạn chế đi lại (khu vực quân sự, biên giới,...).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <p>Quy trình kiểm tra hàng hóa khi giao nhận <i style="float:right" class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul style="display:none">
+                                <li>Thời gian phục vụ giao hàng: phục vụ giao hàng trong giờ hành chính thứ 2 đến thứ 7 thông qua các đơn vị vận chuyển được ủy quyền.</li>
+                                <li>Thời gian giao hàng: từ 03 - 07 ngày làm việc kể khi đặt hàng thành công. Nếu quý khách đặt hàng sau giờ hành chính (từ 18h - 9h sáng hôm sau), thời gian giao hàng sẽ được cộng dồn thêm 01 ngày.</li>
+                                <li>Trong các trường hợp có phát sinh dịch bệnh: (Covid, SARS,..) hoặc trong các trường hợp bất khả kháng tại thời điểm phát sinh theo quy định của cơ quan quản lý nhà nước, Jacqueline được quyền từ chối giao hàng.</li>
+                                <li>Đơn hàng sẽ được giao đến địa chỉ của Quý khách, ngoại trừ các trường hợp như: khu vực văn phòng hạn chế ra vào, khu vực chung cư/ cao tầng (chỉ phục vụ giao tại chân tòa nhà) hoặc bên trong các khu vực hạn chế đi lại (khu vực quân sự, biên giới,...).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <p>Quy định phí giao hàng <i style="float:right" class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul style="display:none">
+                                <li>Thời gian phục vụ giao hàng: phục vụ giao hàng trong giờ hành chính thứ 2 đến thứ 7 thông qua các đơn vị vận chuyển được ủy quyền.</li>
+                                <li>Thời gian giao hàng: từ 03 - 07 ngày làm việc kể khi đặt hàng thành công. Nếu quý khách đặt hàng sau giờ hành chính (từ 18h - 9h sáng hôm sau), thời gian giao hàng sẽ được cộng dồn thêm 01 ngày.</li>
+                                <li>Trong các trường hợp có phát sinh dịch bệnh: (Covid, SARS,..) hoặc trong các trường hợp bất khả kháng tại thời điểm phát sinh theo quy định của cơ quan quản lý nhà nước, Jacqueline được quyền từ chối giao hàng.</li>
+                                <li>Đơn hàng sẽ được giao đến địa chỉ của Quý khách, ngoại trừ các trường hợp như: khu vực văn phòng hạn chế ra vào, khu vực chung cư/ cao tầng (chỉ phục vụ giao tại chân tòa nhà) hoặc bên trong các khu vực hạn chế đi lại (khu vực quân sự, biên giới,...).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, cityName) {
+        var i, tabcontent, tab;
+        tabcontent = document.getElementsByClassName("tab_content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tab = document.getElementsByClassName("tab");
+        for (i = 0; i < tab.length; i++) {
+            tab[i].className = tab[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+
+
+
+    $(function() {
+        var Accordion = function(el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+            var links = this.el.find('.link');
+            links.on('click', {
+                el: this.el,
+                multiple: this.multiple
+            }, this.dropdown)
+        }
+
+        Accordion.prototype.dropdown = function(e) {
+            var $el = e.data.el;
+            $this = $(this),
+                $next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
+
+        var accordion = new Accordion($('#accordion'), false);
+    });
+
+
+
+    $(function() {
+        var Accordion = function(el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+            var links = this.el.find('.link');
+            links.on('click', {
+                el: this.el,
+                multiple: this.multiple
+            }, this.dropdown)
+        }
+
+        Accordion.prototype.dropdown = function(e) {
+            var $el = e.data.el;
+            $this = $(this),
+                $next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
+
+        var accordion = new Accordion($('#accordion1'), false);
+    });
+</script>

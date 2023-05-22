@@ -1,0 +1,3 @@
+export file excel = csv hoac xls
+xlsx là tệp nhị phân không convert được văn bản như csv và xls
+làm sao để covert văn bản thành nhị phân excel??

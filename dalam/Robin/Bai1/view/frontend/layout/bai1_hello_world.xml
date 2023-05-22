@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+
+</head>
+
+
+<referenceBlock name="header">
+<block class="Robin\Bai1\Block\header" name="robin_header" template="header.phtml"></block>
+</referenceBlock>
+
+<referenceBlock name="content">
+<block class="Robin\Bai1\Block\Homepage" name="robin_bai1" template="homepage.phtml"></block>
+</referenceBlock>
+
+
+<referenceBlock name="footer">
+<block class="Robin\Bai1\Block\footer" name="robin_footer" template="footer.phtml"></block>
+</referenceBlock>
+
+</page>

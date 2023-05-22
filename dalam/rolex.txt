@@ -1,0 +1,73 @@
+<?php
+
+function iFrame_Rolex($lang) {
+
+    if ($lang['lang'] == 1) {
+        $url = 'https://rolex.dafc.com.vn/vi/';
+    } else {
+        $url = 'https://rolex.dafc.com.vn/en/';
+    }
+
+    ?>
+        <iframe id="rolex_iframe" class="rolex_iframe" src="<?php echo $url?>" name="iframe_all" allow="fullscreen" scrolling="yes"
+                frameborder="0" height="100vh" width="100%" style="height: 100vh"></iframe>
+    <script>
+        jQuery(function ( $ ){ 
+            const frame = document.querySelector("iframe#rolex_iframe");
+            const header = frame.contentDocument.querySelector("header#top");  
+            header.remove();
+            const footer = frame.contentDocument.querySelector("footer");
+            footer.remove();
+        })
+    </script>
+<?php
+}
+
+add_shortcode('iFrameRolex','iFrame_Rolex');
+
+
+
+
+
+<?php
+
+$url = 'https://rolex.dafc.com.vn/en/';
+
+$domain = file_get_contents($url);
+
+echo $domain;
+
+
+
+
+
+
+
+
+<?php
+
+function iFrame_Rolex($lang) {
+
+    ?>
+    <iframe name="rolex_iframe" id="rolex_iframe" src="/wp-content/themes/flatsome-child/page/iframe_rolex.php" style="width: 100%; height: 100vh"></iframe>
+    <script>
+        jQuery(function ( $ ){
+            setInterval(()=>{
+                let frame = document.getElementById('rolex_iframe');
+                let header = frame.contentDocument.querySelector("header");
+                header.remove();
+                let header_space = frame.contentDocument.getElementById("header-space");
+                header_space.remove();
+                let footer = frame.contentDocument.querySelector("div#footer-outer");
+                footer.remove();
+            },500)
+        })
+    </script>
+
+<?php
+}
+
+add_shortcode('iFrameRolex','iFrame_Rolex');
+
+
+policy referrer loading page iframe src

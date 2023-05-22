@@ -1,0 +1,8 @@
+ jQuery(document).ready(function($) {
+        $(".accordion > li > ul").hide();
+        $(".accordion > li").click(function() {
+            $(this).siblings().children("ul").hide("fast")
+            $(this).children("ul").stop(true, true).slideToggle("fast"),
+                $(this).toggleClass("open");
+        });
+    });

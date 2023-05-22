@@ -1,0 +1,32 @@
+Căn chỉnh văn bản:
+
+text-align: (left, center, right, justify)
+text-align-last: (right, center, justify)
+direction: rtl;
+unicode-bidi: bidi-override;
+vertical-align: (baseline, text-top, text-bottom, sub, super)
+
+Trang trí văn bản:
+
+text-decoration-line: (overline, line-through, underline, overline underline)
+text-decoration-color: blue;
+text-decoration-style: (solid, double, dotted, dashed, wavy)
+text-decoration-thickness: (auto, 5px, 25%)
+text-decoration: (none, underline, underline red, underline red double, underline red double 5px)
+
+chuyển đổi văn bản:
+text-transform: (uppercase, lowercase, capitalize);
+
+khoảng cách văn bản:
+
+text-indent:50px;
+letter-spacing: 5px;
+line-height: 0.8;
+word-spacing: 10px;
+white-space: nowrap;
+
+bóng văn bản: 
+text-shadow: 2px 2px;
+
+khoảng cách giữa các chữ:
+letter-spacing

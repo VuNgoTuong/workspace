@@ -1,0 +1,38 @@
+<?php
+
+function iFrame_Video($argc){
+    ?>
+    <style>
+        .fa-solid {
+            color: black;
+            opacity:1;
+        }
+        .active {
+            opacity: 0.5;
+        }
+    </style>
+
+    <!-- Autoplay is allowed. -->
+    <div>
+        <video id="<?php echo 'video_iframe'.$argc['type']  ?>" class="video_iframe" src="<?php echo 'http://localhost:8099'.$argc['url']; ?>" loop="on" autoplay="on" playinline="" style="height: 50%; width:80%"></video>
+        <div style="position: absolute; right:0; bottom:0;">
+            <button class="fa-solid fa-pause" type="button" onclick="pause<?php echo $argc['type'] ?>()"></button>
+            <button class="fa-solid fa-play active" type="button" onclick="play<?php echo $argc['type'] ?>()"></button>
+        </div>
+    </div>
+    <script>
+        function play<?php echo $argc['type'] ?>()  {  document.getElementById('video_iframe'+<?php echo $argc['type'] ?>).play(); }
+        function pause<?php echo $argc['type'] ?>() {  document.getElementById('video_iframe'+<?php echo $argc['type'] ?>).pause(); }
+
+        // $(document).ready(function($)  {
+        //     $("button").click(function() {
+        //         $("button.fa-solid.active").addClass("active");
+        //         $(this).removeClass("active");
+        //     });
+        // });
+    </script>
+    <?php
+}
+
+add_shortcode('iFrameVideo','iFrame_Video');
+?>

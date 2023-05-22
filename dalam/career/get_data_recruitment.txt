@@ -1,0 +1,101 @@
+<?php
+
+
+
+function ajax_function()
+{
+
+    $offset = isset($_POST['offset']) ? (int)$_POST['offset'] : 0;
+
+
+    write_log( $_POST['offset']);
+
+    $getposts = new WP_query(
+        array(
+            'post_type' => 'recruitment',
+            'lang' => pll_current_language(),
+            's' => esc_attr($_POST['keyword']),
+            'offset' => $offset,
+            'post_status' => 'publish',
+            'showposts' => 2,
+            'orderby' => 'date',
+            'order' => $_POST['id_getdate'],
+            'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'term_id',
+                    'terms' => $_POST['id_category'],
+                    'operator' => 'AND',
+                ),
+                array(
+                    'taxonomy' => 'workingtime',
+                    'field' => 'term_id',
+                    'terms' => $_POST['id_time'],
+                    'operator' => 'AND',
+                ),
+                array(
+                    'taxonomy' => 'city',
+                    'field' => 'term_id',
+                    'terms' => $_POST['id_city'],
+                    'operator' => 'AND',
+                )
+            )
+        )
+    );
+
+?>
+
+
+    <?php
+    while ($getposts->have_posts()) : $getposts->the_post(); ?>
+
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> class="post-article">
+            <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                <div class="career-list-container">
+                    <div class="career-list-container-image">
+                        <?php
+                        echo get_the_post_thumbnail();
+                        ?>
+                    </div>
+                    <div class="career-list-container-content">
+                        <div class="category-recruitment">
+                            <?php
+                            $listCat = get_the_category(get_the_ID());
+                            $listDept = [];
+                            foreach ($listCat as $catItem) {
+                                if ($catItem->parent) {
+                                    $listDept[] = $catItem->name;
+                                }
+                            }
+                            echo ($listDept ? implode(';', $listDept) : 'no_info');
+                            ?>
+                        </div>
+                        <div class="career-list-container-content-title">
+                            <h3>
+                                <a class="career-list-container-content-title-link" href="<?php echo the_permalink() ?>">
+                                    <?php echo get_the_title() ?>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="career-list-container-content-wrap">
+                            <div class="career-list-container-content-short-description">
+                                <div class="career-list-container-content-end ">
+                                    <?php echo   'Due date: ' . date("M d, Y", strtotime(get_post_meta(get_the_ID(), 'post_expired', true) ? get_post_meta(get_the_ID(), 'post_expired', true) : 'no_info')); ?>
+                                </div>
+                            </div>
+                            <div class="career-list-container-content-apply">
+                                <a href="<?php echo the_permalink() ?>">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    <?php endwhile; ?>
+<?php
+    exit();
+}
+
+add_action('wp_ajax_ajax_function', 'ajax_function');
+add_action('wp_ajax_nopriv_ajax_function', 'ajax_function');

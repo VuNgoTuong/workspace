@@ -1,0 +1,40 @@
+<script>
+        function play<?php echo $idd ?>()  {  document.getElementById('video_iframe' + <?php echo $idd ?>).play(); }
+        function pause<?php echo $idd ?>() {  document.getElementById('video_iframe' + <?php echo $idd ?>).pause(); }
+
+        jQuery(function($)  {
+            $("button.fa-solid.<?php echo $idd ?>").click(function() {
+                $("button.fa-solid.<?php echo $idd ?>").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
+
+
+
+
+REQUIRE
+<script type="text/javascript">
+	function toggleEl(el, elId){
+		require([
+			'jquery',
+		], function(jQuery){
+			(function($) {
+				$('#'+elId).addClass('active');
+				$('#'+elId).parent().closest('.dropdown-menu.active').addClass('move-right')
+				$('.nav-main-menu').addClass('move-right');
+			})(jQuery);
+		});
+	}
+
+	require([
+			'jquery',
+		], function(jQuery){
+			(function($) {
+				$('.nav-main-menu').on('click', '.mobile-child-menu .icon-next', function(){
+					$(this).closest('.dropdown-menu.active').removeClass('active');
+					$('.move-right').removeClass('move-right');
+				});
+			})(jQuery);
+		});
+</script>

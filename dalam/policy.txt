@@ -1,0 +1,154 @@
+<ul id="accordion" class="accordion" >
+                        <li> <div class="link">
+                                                           <p >Application Area <i class="fa">&#xf106;</i></p></div>
+                            
+                            <ul class="content" >
+                                <li> Applicable to all shipping addresses within Vietnam</li>
+                                <li> In cases where an epidemic arises or in force majeure cases at the time of arising, the delivery area may change in accordance with the regulations of the state management agency, DAFC is entitled to refuse delivery.</li>
+                            </ul>
+                        </li>
+                        <li>
+                           <div class="link">
+                                <p >Standard Delivery <i class="fa">&#xf107;</i></p>              </div>
+                           
+                            <ul class="content">
+                                <li><b>Delivery service time:</b></li>
+                                <ul class="content_ul" ><li> Standard delivery: www.dafcelite.com serves delivery during office hours from Monday to Saturday, except for holidays and Tet according to state regulations.</li></ul>
+                                <li><b>Delivery time: </b></li>
+                                <ul class="content_ul" ><li> Standard delivery: Specific delivery time for each province/ city/ district/ district will be committed separately between the authorized carrier and the customer.</li>
+                                <table border="1">
+                                    <tr>
+                                        <th rowspan="2">Route</th>
+                                        <th rowspan="2">Delivery Time</th>
+                                        <th colspan="2">Standard delivery</th>
+                                    </tr>
+                                    <tr>
+                                        <th>0-3 kg</th>
+                                        <th>Add +0.5 kg</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Intracity</td>
+                                        <td>2-3 days</td>
+                                        <td>19.000 -> 24.000</td>
+                                        <td>2.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Same region</td>
+                                        <td>3 days</td>
+                                        <td>26.000 -> 30.000</td>
+                                        <td>2.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Near region</td>
+                                        <td>4-5 days</td>
+                                        <td>32.000 -> 34.000</td>
+                                        <td>6.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ha Noi <> HCM</td>
+                                        <td>4-5 days</td>
+                                        <td>36.000 -> 40.000</td>
+                                        <td>7.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interregional</td>
+                                        <td>4-6 days</td>
+                                        <td>40.000 -> 44.000</td>
+                                        <td>8.000</td>
+                                    </tr>
+                                </table>
+                                <li> Standard delivery: If you order after office hours (from 18h - 9am the next morning), the delivery time will be accumulated by 01 day.</li></ul>
+                                <li><b>Regulations to check the goods when delivering and receiving goods:</b></li>
+                                <ul class="content_ul" ><li> In order to meet your needs and protect your interests when using the service, we encourage you to check the status of boxes/products when receiving goods according to the following instructions:</li>
+                                <li> Check the condition of the box/package: the package is carefully packed, wrapped in raw materials with adhesive tape with the DAFC logo; there are no signs of denting, distortion or tearing.</li>
+                                <li>Check the product: the label is intact, make sure to match the quantity, color, condition, type, size with your order. Bonded inspection, excluding trial use of the product</li>
+                                <li> After checking, if you are not satisfied with the condition of the delivered product, you can refuse to receive the goods.</li>
+                                <li> For force majeure cases that cannot be checked when receiving goods: Please record video clips when opening the package, the storage of images / videos will contribute to better solving problems arising later.</li></ul>
+                                <li> If there are any complaints related to the order, please send feedback to us with full order information with photos and videos of the current status of the box/package and product images for timely resolution. Hotline: 19002688 and Email response: support@dafc.com.vn</li>
+                                <li> The order will be delivered to your home, except for cases such as: office area with limited access, apartment / high-rise area (only delivered at the door of the building)</li>
+                                <li> The above delivery time is for reference only, the reality may fluctuate sooner or later depending on the product inventory status, delivery address and some objective conditions that cannot be controlled (For example, natural disasters, floods, vehicle failures ...)</li>
+                                <li> Note: The product will be sealed by a carton box and will not come with paper bags.</li>
+                            </ul>
+                        </li>
+                        <li>
+                           <div class="link">
+                                <p>Same-day Fast Delivery <i class="fa">&#xf107;</i></p>
+                            </div>
+                            <ul class="content">
+                                <li><b>Delivery service time:</b>
+                                </li><ul class="content_ul">
+                                    <li> Fast same-day delivery: www.dafcelite.com serves delivery from 8:00 to 21:00, Monday to Sun, except for holidays and Tet according to state regulations.</li></ul>
+                                <li><b>Delivery Time: </b></li>
+                                <ul class="content_ul" ><li> Fast same-day delivery: Only applicable in the inner city of HCM and HN. Apply orders with a minimum value of VND 20,000,000.</li>
+                                <li> Details can be found here to look up the list of applicable districts.</li>
+                                <li> Note: Same-day express delivery orders do not have a co-check policy. However, if the order shows signs of tearing, incubation. You can refuse to receive the goods and notify the Customer Service department via hotline: 19002688 or Email feedback: support@dafc.com.vn</li>
+                                <li> The time to receive complaints for same-day express orders is 48 hours from the time of completion of delivery or refusal to receive the goods if it is found that the product delivery staff is not eligible (damaged, swapped, or the packaging is not intact,....)</li></ul>
+                            </ul>
+                        </li>
+                        <li>
+                          <div class="link">
+                                <p>Delivery Fee Regulations <i class="fa">&#xf107;</i></p> </div>
+                           
+                            <ul class="content">
+                                <li> The delivery fee on the order is calculated based on the distance between the supply store and the delivery address along with the weight of the product.</li>
+                                <li> At the time of order processing, we will announce the available delivery methods, fees, and delivery times.</li>
+                            </ul>
+                        </li>
+                    </ul>
+<style>.accordion {
+        color: black; list-style: none !important;
+        font-size: 16px; padding-inline-start: 30px;
+         -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;    
+    }
+.accordion > li:first-child > ul {display:block;}
+    .accordion .link {
+        cursor: pointer;
+        display: block;
+        font-weight: bold;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+i {float:right;}
+    .accordion li.open i.fa {
+        -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+.content {display:none; list-style:revert; padding-inline-start: 30px}
+.content_ul {list-style:revert; padding-inline-start: 30px }
+ .accordion .link> p  {padding:16px;}
+table {width:100%; text-align:center;}
+th {text-align:center;}
+.accordion > li:last-child {
+        border-bottom: 0;
+    }
+.accordion > li {
+        border-bottom: 1px solid #CCC;
+    }
+</style>
+<script>
+  require(['jquery'], function($) {
+        var Accordion = function(el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+            var links = this.el.find('.link');
+            links.bind('click', {
+                el: this.el,
+                multiple: this.multiple
+            }, this.dropdown)
+        }
+        Accordion.prototype.dropdown = function(e) {
+            var $el = e.data.el;
+            $this = $(this),
+                $next = $this.next();
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
+        var accordion = new Accordion($('#accordion'), false);
+    });</script>

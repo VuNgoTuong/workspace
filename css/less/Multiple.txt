@@ -1,0 +1,56 @@
+Multiple &
+& có thể xuất hiện nhiều lần trong một bộ chọn. Điều này giúp có thể liên tục tham chiếu đến bộ chọn gốc
+ mà không lặp lại tên của nó.
+
+vd:
+.link {
+  & + & {
+    color: red;
+  }
+
+  & & {
+    color: green;
+  }
+
+  && {
+    color: blue;
+  }
+
+  &, &ish {
+    color: cyan;
+  }
+}
+
+=> .link + .link {
+  color: red;
+}
+.link .link {
+  color: green;
+}
+.link.link {
+  color: blue;
+}
+.link, .linkish {
+  color: cyan;
+}
+
+Thay đổi thứ tự bộ chọn
+
+vd: .header {
+  .menu {
+    border-radius: 5px;
+    .no-borderradius & {
+      background-image: url('images/button-background.png');
+    }
+  }
+}
+
+=> .header .menu {
+  border-radius: 5px;
+}
+.no-borderradius .header .menu {
+  background-image: url('images/button-background.png');
+}
+
+
+

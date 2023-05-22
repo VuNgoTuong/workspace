@@ -1,0 +1,88 @@
+cách tạo calendar:
+
+function generateCalendar() {
+            const calendar = document.getElementById('calendar');                   => tạo calendar id
+            if (calendar) {                                                           
+                calendar.remove();
+            }
+            const table = document.createElement("table");
+            table.id = "calendar";
+
+            const trHeader = document.createElement('tr');                          
+            trHeader.className = 'weekends';
+            weekdays.map(week => {
+                const th = document.createElement('th');
+                const w = document.createTextNode(week.substring(0, 2));
+                th.appendChild(w);
+                trHeader.appendChild(th);
+            });
+
+            table.appendChild(trHeader);
+
+            const weekDay = new Date(                                               => lấy ngày đầu tiên trong tháng
+                date.getFullYear(),
+                date.getMonth(), 1
+            ).getDay();
+
+
+            const lastDay = new Date(                                               => lấy ngày cuối cùng của tháng
+                date.getFullYear(),
+                date.getMonth() + 1,
+                0
+            ).getDate();
+
+            let tr = document.createElement("tr");                                  => thêm cột
+            let td = '';                                                            => nếu không có ngày thì td hiện trống   
+            let empty = '';
+            let btn = document.createElement('button');
+            let week = 0;
+
+            while (week < weekDay-1) {                                              => vòng lặp chạy từ số ngày trong tuần (0->6), ban đầu 
+                td = document.createElement("td");                                      week=0 nếu weekDay = (0->6) thì chạy điều kiện đến khi 
+                empty = document.createTextNode(' ');                                   không thỏa điều kiện, td trống cho đến khi hiện ngày
+                td.appendChild(empty);                                                  đầu tiên trong tháng
+                tr.appendChild(td);
+                week++;
+            }
+           
+                    for (let i = 1; i <= lastDay;) {                                => cho i=1 chạy đến cuối tháng
+                        while (week < 7) {                                          => cho ngày trong tuần (0->6) lặp tạo các td có node ngày
+                            td = document.createElement('td');                         đến hết thỏa điều kiện thì nhảy xuống dòng tạo tiếp
+                            let text = document.createTextNode(i);
+                            btn = document.createElement('button');
+                            btn.className = "btn-day";
+                            if ((week != 5 && week != 6) && (date_now.getDate() <= i)) {
+                                btn.addEventListener('click', function() {
+                                    changeDate(this)
+                                });
+                            }
+
+                            if (i < date_now.getDate()) {
+                                btn.className = "btn-day color-disable";
+                            }
+                            week++;
+
+                            if (i <= lastDay) {
+                                i++;
+                                btn.appendChild(text);
+                                td.appendChild(btn);
+                            } else {
+                                text = document.createTextNode(' ');
+                                td.appendChild(text);                                   => append ngày   
+                            }
+                            tr.appendChild(td);                                         => append dòng  
+                        }
+                        table.appendChild(tr);                                          => append cột
+                        tr = document.createElement("tr");
+                        week = 0;                                                       
+                    }
+
+            const content = document.getElementById('table');
+            content.appendChild(table);
+            changeActive();
+            changeHeader(date);
+            document.getElementById('date').textContent = (date.getDate()) + " " + months[date.getMonth()] + " " + date.getFullYear();
+            getCurrentDate(document.getElementById("currentDate"), true);
+            getCurrentDate(document.getElementById("date"), false);
+
+        }

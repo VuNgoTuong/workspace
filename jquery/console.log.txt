@@ -1,0 +1,3 @@
+get value tu id:   $("#stores").change(function(){
+                console.log($("#stores").val());
+            })

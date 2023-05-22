@@ -1,0 +1,254 @@
+<?php
+function Coming_Soon($argc)
+{
+?>
+    <style>
+        .title1_come {
+            position: absolute;
+            color: white;
+            z-index: 2;
+            left: 46.5%;
+            top: 30%;
+            font-size: 10px;
+            font-family: Copperplate, Papyrus, fantasy;
+        }
+
+        .title2_come {
+            position: absolute;
+            color: white;
+            z-index: 2;
+            left: 47%;
+            top: 58%;
+            font-size: 10px;
+            font-family: Copperplate, Papyrus, fantasy;
+        }
+
+        .title_come {
+            position: absolute;
+            z-index: 2;
+            left: 39.5%;
+            top: 37.5%;
+        }
+
+        .title_come>h1 {
+            color: white;
+            font-size: 70px;
+            font-family: arial;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .clock_come {
+            position: absolute;
+            z-index: 1;
+            left: 32%;
+            top: 15%;
+        }
+
+        .test_toast {
+            position: absolute;
+            z-index: 1;
+            top: 20%;
+            right: 1%;
+        }
+
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: grey;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            position: absolute;
+            z-index: 1;
+            right: 30px;
+            top: 70px;
+            font-size: 17px;
+            border-radius: 5px;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        .close {
+            z-index: 1;
+            cursor: pointer;
+            font-size: 2rem;
+            line-height: 1;
+            margin-left: 2em;
+        }
+
+        /* animation  */
+        @-webkit-keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+
+            to {
+                top: 70px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+
+            to {
+                top: 70px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                top: 70px;
+                opacity: 1;
+            }
+
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                top: 70px;
+                opacity: 1;
+            }
+
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+    <div>
+        <div class="title1_come">
+            <p>OUR NEW SITE IS</p>
+        </div>
+        <div class="title_come">
+            <h1 style=""><?php echo $argc['title_1_text_box'] ?></h1>
+        </div>
+        <div class="title2_come">
+            <p>STAY TUNED!</p>
+        </div>
+        <div class="clock_come">
+            <canvas id="canvas" width="600" height="600"> </canvas>
+        </div>
+        <div class="test_toast">
+            <button onclick="myFunction()" style="background-color:white; border-radius:5px">Nhấp vào!</button>
+        </div>
+        <div id="snackbar">
+            <span style="font-weight:600; text-align:left">Thành Công!</span>
+            <span>..................</span>
+            <span class="close" aria-role="button" tabindex="0">&times;</span>
+        </div>
+        <video src="<?php echo $argc['url'] ?>" loop="on" playinline="" autoplay="on" muted="true" style="width:100%; height:50%"></video>
+    </div>
+    </div>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var radius = canvas.height / 1.8; // bk đồng hồ
+        ctx.translate(radius, radius);
+        radius = radius * 0.90
+        setInterval(drawClock, 1000);
+
+        function drawClock() {
+            drawFace(ctx, radius);
+            drawNumbers(ctx, radius);
+            drawTime(ctx, radius);
+        }
+
+        function drawFace(ctx, radius) {
+            var grad;
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+            // ctx.fillStyle = 'rgba(255,0,0,0)';
+            // ctx.fill(); // lam mat cái nen dong ho
+            grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+            grad.addColorStop(0, 'white');
+            ctx.strokeStyle = grad;      // mau kim
+            ctx.lineWidth = radius * 0.1;    // mau kim
+            ctx.beginPath();
+            ctx.fillStyle = 'white';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(-600, 0, canvas.width, canvas.height); // xoa khong cho de` mau` giua cac kim
+            ctx.clearRect(0, -600, canvas.width, canvas.height);
+            ctx.clearRect(-600, -600, canvas.width, canvas.height);
+            ctx.fill();
+        }
+
+        function drawNumbers(ctx, radius) {
+            var ang;
+            var num;
+            ctx.font = radius * 0.15 + "px arial";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "center";
+            for (num = 1; num < 13; num++) {
+                ang = num * Math.PI / 6; // đối diện mỗi giờ vd 0h 6h
+                ctx.rotate(ang);
+                ctx.translate(0, -radius * 0.85);
+                ctx.fillText('|', 0, 0); // số giờ - swap kim i.toString()
+                ctx.rotate(ang);
+                ctx.rotate(-ang);
+                ctx.translate(0, radius * 0.85);
+                ctx.rotate(-ang);
+            }
+        }
+
+        function drawTime(ctx, radius) {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            hour = hour % 12;
+            hour = (hour * Math.PI / 6) +
+                (minute * Math.PI / (6 * 60)) +
+                (second * Math.PI / (360 * 60));
+            drawHand(ctx, hour, radius * 0.5, radius * 0.007); // do dai va do day` cua kim
+            minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+            drawHand(ctx, minute, radius * 0.7, radius * 0.007);
+            second = (second * Math.PI / 30);
+            drawHand(ctx, second, radius * 0.9, radius * 0.002);
+        }
+
+        function drawHand(ctx, pos, length, width) {
+            ctx.beginPath();
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.moveTo(0, 0);
+            ctx.rotate(pos);
+            ctx.lineTo(0, -length);
+            ctx.stroke();
+            ctx.rotate(-pos);
+        }
+
+        jQuery(function($) {
+            $('button').click(function() {
+                var hide = document.getElementById("snackbar");
+                hide.className = "show";
+                setTimeout(function() {
+                    hide.className = hide.className.replace("show", "");
+                }, 3000);
+            });
+
+            $('.close').click(function() {
+                $("snackbar").removeClass('snackbar');
+            });
+        });
+    </script>
+<?php
+}
+
+add_shortcode('ComingSoon', 'Coming_Soon');
+?>

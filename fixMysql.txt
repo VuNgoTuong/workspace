@@ -1,0 +1,4 @@
+Vào thư mục Mysql => rename data thành data1 => copy backup rename thành data => copy file (folder csdl dang dung,ib_logfile1,
+ibdata1 ) ở file data1 vào folder data (đè lên) => vào config.inc.php đổi AllowNoPassword thành true => start server 
+và mysql => vào localhost/phpmyadmin đăng nhập (password rỗng) => nhập lệnh sql set lại password (1) (vì file backup
+không có password nên dùng sql set lại SET PASSWORD FOR 'root'@'localhost' = PASSWORD('your_root_password') )=> đăng nhập => vao language => update

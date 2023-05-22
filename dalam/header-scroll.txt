@@ -1,0 +1,35 @@
+  .scroll {
+        background-color: rgba(34,34,34,0.8);
+        color:black;
+    }
+
+   .header {
+        position: fixed;
+        width: 100%;
+        background: transparent;
+        top: 0;
+        z-index: 10;
+        transition: all ease-out .5s; 
+    }
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script>
+
+var myNav = document.getElementById("nav");
+
+window.onscroll = function() {
+  "use strict";
+  if (document.body.scrollTop >= 100 || document.documentElement.scrollTop >= 100) {
+    myNav.classList.add("scroll");
+  } else {
+    myNav.classList.remove("scroll");
+  }
+};
+
+</script>

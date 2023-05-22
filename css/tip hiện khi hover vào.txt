@@ -1,0 +1,1 @@
+điều chỉnh opacity:1;

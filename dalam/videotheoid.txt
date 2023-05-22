@@ -1,0 +1,50 @@
+<?php
+
+function iFrame_Video($argc){
+     $idd = rand();
+    ?>
+    <style>
+        .fa-solid {
+            color: black;
+            opacity: 1;
+        }
+        .active {
+            opacity: 0.5;
+            cursor: none;
+        }
+    </style>
+    <!-- Autoplay is allowed. -->
+    <div>
+
+        <?php if ($argc['title']==1) { ?>
+        <div style="position: absolute; color: white; left:150px; top:150px" >
+            <p> BUILT FOR THE JOURNEY </p>
+            <h3 style="color:white; font-size:40px; font-weight:500">19 Degree <br/>
+            Aluminum</h3>
+            <button style="border:1px solid white; width:250px; border-radius:5px">SHOP NOW</button>
+        </div>
+        <?php } else echo ''; ?>
+        
+        <video id="<?php echo 'video_iframe'.$idd  ?>" class="video_iframe" src="<?php echo $argc['url']; ?>" loop="on" autoplay="on" muted="true" playinline="" style="width:100%; height:50%"></video>
+        
+        <div style="position: absolute; right:0; bottom:0;">
+            <button class="fa-solid fa-pause <?php echo $idd ?>" style="color:white" type="button" onclick="pause<?php echo $idd ?>()"></button>
+            <button class="fa-solid fa-play <?php echo $idd ?> active" style="color:white" type="button" onclick="play<?php echo $idd ?>()"></button>
+        </div>
+    </div>
+    <script>
+        function play<?php echo $idd ?>()  {  document.getElementById('video_iframe' + <?php echo $idd ?>).play(); }
+        function pause<?php echo $idd ?>() {  document.getElementById('video_iframe' + <?php echo $idd ?>).pause(); }
+
+        jQuery(function($)  {
+            $("button.fa-solid.<?php echo $idd ?>").click(function() {
+                $("button.fa-solid.<?php echo $idd ?>").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
+    <?php
+}
+
+add_shortcode('iFrameVideo','iFrame_Video');
+?>

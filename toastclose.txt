@@ -1,0 +1,177 @@
+//toast1
+.test_toast {
+            position: absolute;
+            z-index: 1;
+            top: 20%;
+            right: 1%;
+        }
+
+        .toast {
+            color: #000;
+            z-index: 1;
+            margin-bottom: 1em;
+            padding: 1em;
+            position: absolute;
+            right: -23%;
+            top: 10%;
+            transition: 0.15s ease-in-out;
+            width: 325px;
+        }
+
+        .toast.on {
+            transform: translateX(-365px);
+        }
+
+        .close {
+            z-index: 1;
+            cursor: pointer;
+            font-size: 2rem;
+            line-height: 1;
+            margin-left: 2em;
+        }
+
+        .jam {
+            background-color: green;
+            color: #fff;
+        }
+
+
+
+
+ <div class="test_toast">
+            <button class="button-toast" style="background-color: white;border-radius: 10px;" onclick="showToast()">Nhấp vào</button>
+        </div>
+        <div class="toast jam">
+            <p style="margin-bottom: 2px;">Nhấp để đóng thông báo</p>
+            <span class="close" aria-role="button" tabindex="0">&times;</span>
+        </div>
+
+
+
+
+
+  jQuery(function($) {
+            $('button').click(function() {
+                $('.toast').addClass('on');
+            });
+
+            $('.close').click(function() {
+                $('.toast').removeClass('on');
+            });
+        });
+
+//toast2
+
+ .test_toast {
+            position: absolute;
+            z-index: 1;
+            top: 20%;
+            right: 1%;
+        }
+
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: grey;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            position: absolute;
+            z-index: 1;
+            right: 30px;
+            top: 70px;
+            font-size: 17px;
+            border-radius: 5px;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        .close {
+            z-index: 1;
+            cursor: pointer;
+            font-size: 2rem;
+            line-height: 1;
+            margin-left: 2em;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+
+            to {
+                top: 70px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+
+            to {
+                top: 70px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                top: 70px;
+                opacity: 1;
+            }
+
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                top: 70px;
+                opacity: 1;
+            }
+
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+
+
+
+
+   <div class="test_toast">
+            <button onclick="myFunction()" style="background-color:white; border-radius:5px">Nhấp vào!</button>
+        </div>
+        <div id="snackbar">
+            <span style="font-weight:600; text-align:left">Thành Công!</span>
+            <span>..................</span>
+            <span class="close" aria-role="button" tabindex="0">&times;</span>
+        </div>
+
+
+
+
+  jQuery(function($) {
+            $('button').click(function() {
+                var hide = document.getElementById("snackbar");
+                hide.className = "show";
+                setTimeout(function() {
+                    hide.className = hide.className.replace("show", "");
+                }, 3000);
+            });
+
+            $('.close').click(function() {
+                $("snackbar").removeClass('snackbar');
+            });
+        });

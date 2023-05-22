@@ -1,0 +1,6 @@
+Khi muốn tìm chỗ trỏ đến vị trí cần css trên 1 ul hay li thì dùng nth-child() 
+	vd: ul:nth-child(2) > li:nth-child(2) {}
+vị trí cuối: last-child
+	vd: li: last-child {}
+vị trí đầu: first-child
+	vd: li: first-child {}

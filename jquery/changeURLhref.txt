@@ -1,0 +1,8 @@
+ jQuery(function($) {
+            $("#btnExport_info").click(function() {
+                link = 'admin.php?page=export_info_customers&export_info_customers=table&header=1';
+                type = jQuery("#exp_info option:selected").val();
+                let new_href = $('#type_info_cus').attr('href') + '&type=' + type;
+                $('#type_info_cus').attr('href', new_href);
+            })
+        })

@@ -1,0 +1,4 @@
+white-space: nowrap;
+
+width: min-content; (width bat theo noi dung ben trong)
+width: max-content; (width tối đa nội dung)

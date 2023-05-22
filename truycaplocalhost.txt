@@ -1,0 +1,1 @@
+máy bật wifi, (máy đang là host), người ta vào wifi mình, truy cập địa chỉ localhost mình là vào dc

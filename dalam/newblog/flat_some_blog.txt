@@ -1,0 +1,107 @@
+<?php 
+if (!function_exists('flatsome_posts_new_pagination')) {
+
+    function  flatsome_posts_new_pagination()
+    {
+        global $wp_query;
+        $total = $wp_query->max_num_pages;
+        $big = 999999999;
+        if ($total > 1) {
+
+            if (!$current_page = get_query_var('paged'))
+                $current_page = 1;
+            if (get_option('permalink_structure')) {
+                $format = 'page/%#%/';
+            } else {
+                $format = '&paged=%#%';
+            }
+            $pages = paginate_links(array(
+                'base'          => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                'format'        => $format,
+                'current'       => max(1, get_query_var('paged')),
+                'total'         => $total,
+                'mid_size'      => 0,
+                'type'          => 'array',
+
+            ));
+            if (is_array($pages)) {
+                $paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
+                echo '<ul class="page-numbers nav-pagination links text-center">';
+
+                $pageCurrent = '';
+
+                foreach ($pages as $item) {
+                    if (str_contains($item, 'current')) {
+                        $pageCurrent = $item;
+                    }
+                }
+
+                if (count($pages) > 5) {
+                    $prev = $pages[0];
+                    $next = end($pages);
+                    echo "<li>$prev</li><li>$pageCurrent</li><li>$next</li>";
+                } else if (isset($pages[3])) {
+                    $current1 = $pages[0];
+                    $next1 = $pages[3];
+                    echo "<li>$current1</li><li>$next1</li>";
+                } else {
+                    $current2 = $pages[0];
+                    $next2 = $pages[3];
+                    echo "<li>$current2</li><li>$next2</li>";
+                }
+
+                echo '</ul>';
+            }
+        }
+    }
+}
+
+function load_more_blog_detail()
+{
+    $offset = isset($_POST['offset']) ? (int)$_POST['offset'] : 0;
+    $argc =  array(
+        'offset' => $offset,
+        'showposts' => 3,
+        'cat' => $_POST['id_cat'],
+    );
+    $getposts = new WP_query(
+       $argc,
+    ); 
+    if ($getposts->have_posts()) : ?>
+        <?php while ($getposts->have_posts()) : $getposts->the_post(); ?>
+
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                    <div class="post-list-container">
+                        <a href="<?php echo the_permalink() ?>">
+                            <div class="post-list-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="post-list-container-content">
+                                <div class="post-list-container-content-title">
+                                    <h3>
+                                        <a href="<?php echo the_permalink() ?>">
+                                            <?php echo get_the_title() ?>
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="post-last-container-content-date">
+                                    <span><?php echo 'day' . ' ' . date('d', get_post_timestamp()); ?></span>
+                                    <span><?php echo 'month' . ' ' . date('m', get_post_timestamp()); ?></span>
+                                    <span><?php echo 'year'  . ' ' .  date('Y', get_post_timestamp()); ?></span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        <?php endwhile; ?>
+<?php endif;
+    exit();
+}
+
+add_action('wp_ajax_load_more_blog_detail', 'load_more_blog_detail');
+
+add_action('wp_ajax_nopriv_load_more_blog_detail', 'load_more_blog_detail');

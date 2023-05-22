@@ -1,0 +1,59 @@
+  jQuery(function($){
+                    $('button').click(function() {
+                   $('.toast').addClass('on');
+                     });
+
+                 $('.close').click(function() {
+                   $('.toast').removeClass('on');
+                 });
+            });
+
+
+
+  <div class="test_toast">
+            <button class="button-toast" style="background-color: white"  onclick="showToast()">Nhấp vào</button>
+        </div>
+        <div class="toast jam">
+            <p>Nhấp để đóng thông báo</p>
+            <span class="close" aria-role="button" tabindex="0">&times;</span>
+            </div>
+
+
+
+
+  .test_toast {
+            position: absolute;
+            z-index: 1;
+            top: 20%;
+            right:1%
+        }  
+         .toast {
+                color: #000;
+                z-index: 1;
+                line-height: 1.5;
+                margin-bottom: 1em;
+                padding: 1.25em;
+                position: absolute;
+                right:-23%;
+                top: 10%;
+                transition: 0.15s ease-in-out;
+                width: 325px;
+                }
+
+                .toast.on {
+                transform: translateX(-365px);
+                }
+
+                .close {z-index: 1;
+                cursor: pointer;
+                float: right;
+                font-size: 1.25rem;
+                line-height: 1;
+                margin-left: 1em;
+                opacity: .8;
+                }
+
+                .jam {
+                background-color: green;
+                color: #fff;
+                }

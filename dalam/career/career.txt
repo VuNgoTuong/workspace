@@ -1,0 +1,1077 @@
+<?php
+
+global $wp_query;
+
+$wp_query = new WP_Query(array(
+    'post_type' => 'recruitment',
+    'showposts' => 10,
+));
+if (have_posts()) : ?>
+    <?php
+    //Get url
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $lang = strpos($request_uri, '/en/') !== false ? 'en' : 'vi';
+    if ($lang == 'en') {
+        $apply = 'View more';
+        $day_text = 'Day';
+        $month_text = 'Month';
+        $year_text = 'Year';
+        $title_recruit = 'DUY ANH FASHION AND COSMETICS - DAFC RECRUITMENT';
+        $latest_update  = 'JOB LISTING';
+        $department_title_filter = 'All Department';
+        $workplace_title_filter = 'All Work Place';
+        $working_time_title_filter = 'All Time';
+        $post_expired = "Due date";
+        $vnd = 'VND';
+        $no_info = 'Currently there is no information.';
+    } else {
+        $apply = 'Xem thêm';
+        $day_text = 'Ngày';
+        $month_text = 'Tháng';
+        $year_text = 'Năm';
+        $title_recruit = 'TUYỂN DỤNG CÔNG TY CỔ PHẦN THỜI TRANG VÀ MỸ PHẨM DUY ANH - DAFC';
+        $latest_update  = 'CÁC VỊ TRÍ TUYỂN DỤNG';
+        $department_title_filter = 'BỘ PHẬN';
+        $workplace_title_filter = 'Vị Trí';
+        $post_address = 'Địa chỉ';
+        $working_time_title_filter = 'Thời gian';
+        $post_salary = 'Mức lương';
+        $post_expired = "Hết hạn";
+        $vnd = 'VNĐ';
+        $no_info = 'Hiện chưa có thông tin.';
+    }
+
+    ?>
+    <style>
+        .page-wrapper {
+            padding-bottom: 0px;
+        }
+
+        .section {
+            padding-left: unset !important;
+            padding-right: unset !important;
+        }
+
+        .col {
+            padding: unset;
+        }
+
+        .carousel {
+            background: rgba(238, 238, 238, 0);
+        }
+
+        .carousel-cell {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 28%;
+            padding: 15px !important;
+            background: rgba(222, 222, 222, 0);
+            border-radius: 5px;
+            counter-increment: carousel-cell;
+        }
+
+        .carousel-cell>a {
+            height: inherit;
+        }
+
+        .carousel-cell.is-selected {
+            background-size: cover;
+        }
+
+        .carousel-cell:before {
+            display: block;
+            text-align: center;
+            font-size: 80px;
+        }
+
+        #post-list-item>.carousel>.flickity-button {
+            opacity: 1 !important;
+            color: #D7B797 !important;
+        }
+
+        .flickity-page-dots {
+            bottom: -50px;
+        }
+
+        .career-list-container-content-short-description {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            font-size: 14px;
+            color: #757575;
+            font-weight: 400;
+        }
+
+        .career-list-container-content-item {
+            flex: 1;
+        }
+
+        .post_list_department {
+            list-style-type: none;
+        }
+
+        .post_list_department>li {
+            text-decoration: none;
+        }
+
+        .post_list_city {
+            list-style-type: none;
+        }
+
+        .post_list_city>li {
+            text-decoration: none;
+        }
+
+        .post_list_time {
+            list-style-type: none;
+        }
+
+        .post_list_time>li {
+            text-decoration: none;
+        }
+
+        .fa-square-check {
+            color: #0d66c2;
+        }
+
+        .post-last-categories-title {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 50px;
+        }
+
+        select {
+            border: 0;
+            color: #757575;
+            box-shadow: unset;
+            background-size: unset;
+            text-align: center;
+        }
+
+        select:hover {
+            box-shadow: unset;
+        }
+
+        div>article {
+            width: 48%;
+            border-bottom: 1px solid #E7E4E4;
+            margin-bottom: 41px;
+        }
+
+        div>article:nth-child(10) {
+            border-bottom: unset;
+        }
+
+        div>article:nth-child(11) {
+            border-bottom: unset;
+        }
+
+        .post-list>div.row>div.selector {
+            border-bottom: 1px solid #ADADAD;
+        }
+
+        .form-search>input.input_search {
+            border-radius: 99px;
+            padding: 20px;
+            width: 40%;
+            position: absolute;
+        }
+
+        .form-search>i.fa {
+            font-size: 16px;
+            position: absolute;
+            margin-left: 38%;
+            margin-top: 13px;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .categories>div {
+            width: 12%;
+        }
+
+        .categories>div:nth-child(4) {
+            width: 9%;
+        }
+
+        .show-post {
+            margin-top: 30px;
+        }
+
+        .sort-by {
+            color: black;
+            width: 70%;
+            display: flex;
+            justify-content: flex-end;
+            float: right;
+        }
+
+        .sort-by-font {
+            margin-top: 7px;
+            margin-left: 15%;
+        }
+
+        .sort-by-select {
+            width: 15%;
+            color: #292929;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .post-recruitment {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            /* flex-direction: column; */
+        }
+
+        .count-items {
+            display: flex;
+            width: 0%;
+            margin-right: -50px;
+        }
+
+        .count {
+            color: #D7B797;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .items {
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #292929;
+        }
+
+        .category-recruitment {
+            font-size: 14px;
+            color: #757575;
+        }
+
+        .career-list-container-content-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .career-list-container-content-title-link {
+            color: #191919;
+        }
+
+        .btn-load-more {
+            margin: auto;
+            width: 15%;
+            margin-top: 20px;
+        }
+
+        .load-more {
+            border: 1px solid #191919;
+            border-radius: 99px;
+            width: 100%;
+            color: #191919;
+            padding: 3px;
+        }
+
+        .filter-mobile {
+            display: none;
+        }
+
+        .career-list-container-content-apply {
+            display: flex;
+            margin-right: unset;
+            text-align: right;
+        }
+
+        .close-mobile {
+            display: none;
+        }
+
+        select:focus {
+            -webkit-box-shadow: 0 0 5px #fff;
+        }
+
+        @media screen and (max-width:1440px) {
+            .categories>div {
+                width: 17%;
+            }
+
+            .categories>div:nth-child(4) {
+                width: 12%;
+            }
+        }
+
+        @media screen and (min-width:851px) and (max-width:1050px) {
+            #post-list {
+                padding: 50px;
+            }
+
+            .categories>div {
+                width: 20%;
+            }
+
+            .categories>div:nth-child(4) {
+                width: 15%;
+            }
+
+            .sort-by-select {
+                width: 30%;
+            }
+        }
+
+        @media screen and (min-width:650px) {
+            .sort-by-font {
+                margin-left: 36%;
+            }
+        }
+
+        @media screen and (max-width: 850px) {
+            .career-list-container-image {
+                flex: 3;
+            }
+
+            .form-search>i.fa {
+                font-size: 16px;
+                position: absolute;
+                margin-left: 94%;
+                margin-top: 13px;
+            }
+
+            .categories {
+                display: none;
+                margin-bottom: 0;
+                margin-top: 50px;
+                position: fixed;
+                z-index: 1000;
+                background: #fff;
+                top: 50px;
+                bottom: 0;
+                width: 100%;
+                left: 0;
+                right: auto;
+            }
+
+            .post-last-categories-title {
+                font-size: 24px;
+                font-weight: 600;
+                color: #191919;
+                margin-bottom: 20px;
+            }
+
+            .filter-mobile {
+                width: 20%;
+                display: block;
+                color: #191919;
+                font-weight: 400;
+                font-size: 14px;
+            }
+
+            .show-post {
+                margin-top: 0;
+            }
+
+            div>article {
+                width: 100%;
+                border-bottom: unset;
+                padding: 20px;
+                padding-bottom: 1px;
+                margin-bottom: 0;
+                background: #FFFFFF;
+            }
+
+            .close-mobile {
+                display: block;
+                float: right;
+                padding: 0;
+            }
+
+            .categories>div {
+                width: 100%;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 10px;
+            }
+
+            select {
+                text-align: left;
+                margin-bottom: 0;
+            }
+
+            .categories>div:nth-child(4) {
+                width: 100%;
+            }
+
+            .sort-by-select {
+                width: 30%;
+                text-align: center;
+            }
+
+            .sort-by {
+                width: 100%;
+                margin-top: 70px;
+                display: flex;
+                justify-content: space-between;
+
+            }
+
+            .count-items {
+                display: none;
+            }
+
+            .form-search>input.input_search {
+                width: 95%;
+                margin-left: 5%;
+            }
+
+            .post-list>div.row>div.selector {
+                border-bottom: unset;
+            }
+
+            .btn-load-more {
+                width: 40%;
+            }
+
+            .career-list-container-image {
+                padding-right: 10px;
+            }
+
+            .career-list-container-content-apply {
+                display: none;
+            }
+
+            .career-list-container-image>img {
+                width: 85%;
+            }
+
+            .article-inner {
+                padding: 15px;
+                box-shadow: 0px 4px 20px rgb(0 0 0 / 6%);
+                border-radius: 8px;
+            }
+
+            .career-list-container {
+                margin-bottom: 0;
+            }
+
+            .career-list-container-content-wrap {
+                justify-content: flex-end;
+            }
+
+
+
+        }
+
+        @media screen and (max-width: 550px) {
+
+            .post-last-categories-title {
+                font-size: 24px;
+                font-weight: 600;
+                color: #191919;
+                margin-bottom: 20px;
+            }
+
+            .filter-mobile {
+                display: block;
+                width: 30%;
+                color: #191919;
+                font-weight: 400;
+                font-size: 14px;
+                margin-right: 7%;
+            }
+
+            .show-post {
+                margin-top: 0;
+            }
+
+            div>article {
+                width: 100%;
+                border-bottom: unset;
+                padding: 20px;
+                padding-bottom: 1px;
+                margin-bottom: 0;
+                background: #FFFFFF;
+            }
+
+            .categories {
+                display: none;
+                margin-bottom: 0;
+                margin-top: 50px;
+                position: fixed;
+                z-index: 1000;
+                background: #fff;
+                top: 50px;
+                bottom: 0;
+                width: 100%;
+                left: 0;
+                right: auto;
+            }
+
+            .close-mobile {
+                display: block;
+                float: right;
+                padding: 0;
+            }
+
+            .categories>div {
+                width: 100%;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 10px;
+            }
+
+            select {
+                text-align: left;
+                margin-bottom: 0;
+            }
+
+            .categories>div:nth-child(4) {
+                width: 100%;
+            }
+
+            .sort-by-select {
+                text-align: center;
+                padding: 0;
+                width: 35%;
+            }
+
+            .sort-by {
+                width: 100%;
+                margin-top: 70px;
+                display: flex;
+            }
+
+            .count-items {
+                display: none;
+            }
+
+            .form-search>input.input_search {
+                width: 95%;
+                margin-left: 5%;
+            }
+
+            .post-list>div.row>div.selector {
+                border-bottom: unset;
+            }
+
+            .btn-load-more {
+                width: 40%;
+            }
+
+            .career-list-container-image {
+                padding-right: 10px;
+            }
+
+            .career-list-container-content-apply {
+                display: none;
+            }
+
+            .career-list-container-image>img {
+                width: 85%;
+            }
+
+            .article-inner {
+                padding: 15px;
+                box-shadow: 0px 4px 20px rgb(0 0 0 / 6%);
+                border-radius: 8px;
+            }
+
+            .career-list-container {
+                margin-bottom: 0;
+            }
+
+            .career-list-container-content-wrap {
+                justify-content: flex-end;
+            }
+
+        }
+
+        @media screen and (max-width: 450px) {
+
+            .sort-by-select {
+                width: 45%;
+            }
+
+            .sort-by-font {
+                margin-left: 7%;
+                width: 15%;
+            }
+        }
+
+        @media screen and (max-width:370px) {
+            .sort-by-font {
+                margin-left: unset;
+            }
+        }
+    </style>
+    <!-- ux block -->
+
+
+    <div class="post-last">
+        <div class="post-last-categories">
+            <?php echo category_description($cat); ?>
+        </div>
+    </div>
+    <!-- end ux block  -->
+    <style>
+        .input__checkbox_wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input__checkbox__item {
+            margin-left: 50px;
+            margin-top: 30px;
+        }
+    </style>
+
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+    </head>
+
+    <div id="post-list" class="post-list">
+        <div class="row">
+            <div>
+                <div class="post-last-categories-title">
+                    <?php echo $latest_update ?>
+                </div>
+            </div>
+            <div class="selector">
+                <div class="form-search">
+                    <input name="s" id="keyword" class="input_search" type="text" placeholder="Search all jobs" onkeyup="fetch()"><i class="fa">&#xf002;</i>
+                </div>
+
+                <div id="cat" class="categories">
+                    <button class="close-mobile"><i class="fa-solid fa-xmark" style="font-size: 20px"></i></button>
+                    <div>
+                        <select class="post-last-categories" id="call-ajax-category">
+                            <option selected="selected"><?php echo $department_title_filter ?></option>
+                            <?php
+                            $listCat = get_categories();
+                            foreach ($listCat as $catItem) :  ?>
+                                <?php if ($catItem->parent == 238 || $catItem->parent == 240) {  ?>
+                                    <option value="<?php echo $catItem->term_id  ?>"><?php echo $catItem->name;
+                                                                                    }  ?>
+                                    </option>
+                                <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="post_list_city" id="call-ajax-city">
+                            <option selected="selected"><?php echo $workplace_title_filter ?></option>
+                            <?php $city = get_terms(['taxonomy' => 'city']);
+                            foreach ($city as $new_city) : ?>
+                                <option value="<?php echo $new_city->term_id ?>"><?php echo $new_city->name ?>
+                                </option> <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="post_list_time" id="call-ajax-time">
+                            <option selected="selected"><?php echo $working_time_title_filter ?></option>
+                            <?php $working_time = get_terms(['taxonomy' => 'workingtime']);
+                            foreach ($working_time as $new_time) : ?>
+                                <option id="load" value="<?php echo $new_time->term_id ?>"><?php echo $new_time->name ?>
+                                </option> <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="show-post">
+            <div class="sort-by">
+                <button class="filter-mobile">Filter <i class="fa-solid fa-sliders"></i></button>
+                <p class="sort-by-font">Sort by: </p><select class="sort-by-select" id="filter" name="filter">
+                    <option value="DESC" selected="selected">Latest Arrivals</option>
+                    <option value="ASC">Outdated Arrivals</option>
+                </select>
+            </div>
+            <div class="count-items">
+                <?php echo  '<p class="count">' . $wp_query->found_posts . '</p><p class="items">' . ' ' . 'items</p>'; ?>
+            </div>
+        </div>
+        <div class="post-recruitment" id="post-recruitment">
+            <?php /* Start the Loop */ ?>
+
+            <?php while (have_posts()) : the_post(); ?>
+
+                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> class="post-article">
+                    <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                        <div class="career-list-container">
+                            <div class="career-list-container-image">
+                                <?php
+                                echo get_the_post_thumbnail();
+                                ?>
+                            </div>
+                            <div class="career-list-container-content">
+                                <div class="category-recruitment">
+                                    <?php
+                                    $listCat = get_the_category(get_the_ID());
+                                    $listDept = [];
+                                    foreach ($listCat as $catItem) {
+                                        if ($catItem->parent) {
+                                            $listDept[] = $catItem->name;
+                                        }
+                                    }
+                                    echo ($listDept ? implode(';', $listDept) : $no_info);
+                                    ?>
+                                </div>
+                                <div class="career-list-container-content-title">
+                                    <h3>
+                                        <a class="career-list-container-content-title-link" href="<?php echo the_permalink() ?>">
+                                            <?php echo get_the_title() ?>
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="career-list-container-content-wrap">
+                                    <div class="career-list-container-content-short-description">
+                                        <div class="career-list-container-content-end ">
+                                            <?php echo $post_expired . ': ' . date("M d, Y", strtotime(get_post_meta(get_the_ID(), 'post_expired', true) ? get_post_meta(get_the_ID(), 'post_expired', true) : $no_info)); ?>
+                                        </div>
+                                    </div>
+                                    <div class="career-list-container-content-apply">
+                                        <a href="<?php echo the_permalink() ?>"><?php echo $apply; ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            <?php endwhile; ?>
+        </div>
+        <div class="btn-load-more">
+            <button id="load-more" class="load-more"><?php echo $apply ?></button>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script>
+        jQuery(function($) {
+            var offset = 0;
+
+            $('#call-ajax-category').change(function() {
+
+                let city = $("#call-ajax-city").val();
+                let category = $("#call-ajax-category").val();
+                let time = $("#call-ajax-time").val();
+                let getdate = $("#filter").val();
+
+                offset = 0;
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: 'ajax_function',
+                        offset: offset,
+                        id_category: category,
+                        id_time: time,
+                        id_city: city,
+                        id_getdate: getdate,
+                        keyword: jQuery('#keyword').val()
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('#post-recruitment').html(data);
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                        var title_items = document.getElementsByClassName("career-list-container").length;
+                        $(".count-items").html(`<p class="count"> ${title_items} </p><p class="items"> items </p>`);
+                    },
+                    error: function(errorThrown) {
+                        console.log("ERROR", errorThrown)
+                    }
+                })
+            })
+
+
+            // filter work place
+            $('#call-ajax-city').change(function() {
+                let city = $("#call-ajax-city").val();
+                let category = $("#call-ajax-category").val();
+                let time = $("#call-ajax-time").val();
+                let getdate = $("#filter").val();
+
+                offset = 0;
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: 'ajax_function',
+                        id_category: category,
+                        offset: offset,
+                        id_time: time,
+                        id_city: city,
+                        id_getdate: getdate,
+                        keyword: jQuery('#keyword').val()
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('#post-recruitment').html(data);
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                        var title_items = document.getElementsByClassName("career-list-container").length;
+                        $(".count-items").html(`<p class="count"> ${title_items} </p><p class="items"> items </p>`);
+                    },
+                    error: function(errorThrown) {
+                        console.log("ERROR", errorThrown)
+                    }
+                })
+            })
+
+            // filter working time
+            $('#call-ajax-time').change(function() {
+                let city = $("#call-ajax-city").val();
+                let category = $("#call-ajax-category").val();
+                let time = $("#call-ajax-time").val();
+                let getdate = $("#filter").val();
+
+                offset = 0;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: 'ajax_function',
+                        id_category: category,
+                        offset: offset,
+                        id_time: time,
+                        id_city: city,
+                        id_getdate: getdate,
+                        keyword: jQuery('#keyword').val()
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('#post-recruitment').html(data);
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                        var title_items = document.getElementsByClassName("career-list-container").length;
+                        $(".count-items").html(`<p class="count"> ${title_items} </p><p class="items"> items </p>`);
+                    },
+                    error: function(errorThrown) {
+                        console.log("ERROR", errorThrown)
+                    }
+                })
+            })
+
+
+            $('#filter').change(function() {
+                let city = $("#call-ajax-city").val();
+                let category = $("#call-ajax-category").val();
+                let time = $("#call-ajax-time").val();
+                let getdate = $("#filter").val();
+
+                offset = 0;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: "ajax_function",
+                        id_getdate: getdate,
+                        offset: offset,
+                        id_category: category,
+                        id_time: time,
+                        id_city: city,
+                        keyword: jQuery('#keyword').val()
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('#post-recruitment').html(data);
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                        var title_items = document.getElementsByClassName("career-list-container").length;
+                        $(".count-items").html(`<p class="count"> ${title_items} </p><p class="items"> items </p>`);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('The following error occured: ' + textStatus, errorThrown);
+                    }
+                });
+            });
+
+
+            $('#load-more').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    async: false,
+                    data: {
+                        action: "ajax_function",
+                        offset: offset,
+                        id_time: $("#call-ajax-time").val(),
+                        id_getdate: $("#filter").val(),
+                        id_category: $("#call-ajax-category").val(),
+                        id_city: $("#call-ajax-city").val(),
+                        keyword: jQuery('#keyword').val(),
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('#post-recruitment').append(data);
+                        offset += 2;
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                        var title_items = document.getElementsByClassName("career-list-container").length;
+                        $(".count-items").html(`<p class="count"> ${title_items} </p><p class="items"> items </p>`);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('The following error occured: ' + textStatus, errorThrown);
+                    }
+                });
+            });
+
+
+
+
+            var debounce;
+            $('#keyword').on('keyup', function() {
+                let city = $("#call-ajax-city").val();
+                let category = $("#call-ajax-category").val();
+                let time = $("#call-ajax-time").val();
+                let getdate = $("#filter").val();
+
+                offset = 0;
+
+                clearTimeout(debounce);
+                debounce = setTimeout(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                        data: {
+                            action: 'ajax_function',
+                            keyword: jQuery('#keyword').val(),
+                            id_category: jQuery('#call-ajax-category').val(),
+                            offset: offset,
+                            id_city: jQuery("#call-ajax-city").val(),
+                            id_time: jQuery("#call-ajax-time").val(),
+                            id_getdate: jQuery("#filter").val(),
+                        },
+                        beforeSend: function() {
+                            $.blockUI({
+                                fadeIn: 500,
+                                message: '<div class="loader"></div>',
+                                css: {
+                                    left: '50%',
+                                    width: 'unset',
+                                    justifyItems: 'center',
+                                    backgroundColor: '#fff0',
+                                    border: 'none',
+                                    transform: 'translate(-50%, -50%)',
+                                }
+                            });
+                        },
+                        success: function(data) {
+                            $('#post-recruitment').html(data);
+                        },
+                        complete: function(data) {
+                            $.unblockUI();
+                            var title_items = document.getElementsByClassName("career-list-container").length;
+                        $(".count-items").html(`<p class="count"> ${title_items} </p><p class="items"> items </p>`);
+                        },
+                    });
+                }, 1000);
+            });
+
+
+            $("button.filter-mobile").click(function() {
+                $("#cat").toggle();
+            });
+            $("button.close-mobile").click(function() {
+                $("#cat").toggle().hide();
+            });
+
+
+
+            $(window).resize(function() {
+                if ($(window).width() > 850) {
+                    $('#cat').css("display", "flex")
+                } else {
+                    $('#cat').css("display", "none")
+                }
+            });
+
+        });
+    </script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<?php else : ?>
+
+    <?php get_template_part('template-parts/posts/content', 'none'); ?>
+
+<?php endif;  ?>

@@ -1,0 +1,2 @@
+echo $listCity ? implode(';', $listCity) : ' ')
+in ra bien, nếu có tồn tại thì in ra , không thì in rỗng

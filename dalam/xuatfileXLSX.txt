@@ -1,0 +1,39 @@
+<?php
+
+include_once('xlsxwriter.class.php');
+
+global $wpdb;
+
+$table = array('Id booking', 'Mã cửa hàng', 'Họ tên khách hàng', 'Số điện thoại', 'Email', 'Notes', 'Ngày tạo', 'Book ngày', 'Từ', 'Đến', 'Trạng thái');
+
+$data = $wpdb->get_results("SELECT id, store_id, name, phone, email, notes, create_date, booking_date, booking_time_start, booking_time_end, status FROM dafc_booking_order");
+
+if (isset($_GET['export_booking_order'])) {
+
+    $file = 'booking_order_store_' . rand(10000000, 99999999) . '.xlsx';
+
+    $arr = json_decode(json_encode($data), true);
+
+    $writer = new XLSXWriter();
+    // $writer->writeSheet($arr);
+    $writer->writeSheetRow('Sheet1', $table);
+    $writer->writeSheet($arr);
+    $writer->writeToFile($file);
+
+    header('Content-Description: File Transfer');
+    header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    header("Content-Disposition: attachment; filename=" . basename($file));
+    header("Content-Transfer-Encoding: binary");
+    header("Expires: 0");
+    header("Pragma: public");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header('Content-Length: ' . filesize($file));
+
+    ob_clean();
+    flush();
+
+    readfile($file);
+    unlink($file);
+    echo $table;
+    exit;
+}

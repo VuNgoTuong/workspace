@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	function toggleEl(el, elId){
+		require([
+			'jquery',
+		], function(jQuery){
+			(function($) {
+				$('#'+elId).toggleClass('active').slideToggle();
+				$(el).toggleClass('active');
+			})(jQuery);
+		});
+	}
+</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").slideToggle();
+  });
+});
+</script>

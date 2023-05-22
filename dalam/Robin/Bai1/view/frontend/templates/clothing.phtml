@@ -1,0 +1,349 @@
+<style>
+    .banner {
+        margin-top: -26px;
+    }
+
+    .breakscrum {
+        max-width: 100%;
+        height: 50px;
+        padding-top: 30px;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    .break_left {
+        max-width: 30%;
+        float: left;
+        word-spacing: 10px;
+    }
+
+    .break_right {
+        max-width: 20%;
+        float: right;
+    }
+
+    .break_right>p>i {
+        font-size: 20px;
+        padding-left: 20px
+    }
+
+    .items {
+        color: #D7B797;
+        font-weight: bold;
+        max-width: 100%;
+        padding-left: 100px;
+        padding-right: 100px;
+        height: 50px;
+    }
+
+    .brand {
+        max-width: 100%;
+        padding-left: 100px;
+        padding-right: 100px;
+        height: 100px;
+    }
+
+    .brand_container {
+        border-top: 1px solid #D9D9D9;
+        column-count: 6;
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    .brand_container>div {
+        border-right: 1px solid #D9D9D9;
+    }
+
+    .brand_container>div>i {
+        font-size: 20px;
+        padding-left: 10px;
+    }
+
+    .btn_clear {
+        max-width: 100%;
+        padding-left: 100px;
+        padding-right: 100px;
+        height: 100px;
+    }
+
+    .btn_clear .fer-wo {
+        width: 30%;
+        float: left;
+    }
+
+    .btn_clear .clearall {
+        width: 10%;
+        float: right;
+    }
+
+    .clearall_p {
+        float: right;
+        text-decoration: underline;
+    }
+
+    .clearall>p>a {
+        color: black;
+        font-weight: bold;
+    }
+
+    .fer-wo>button {
+        border-radius: 20px;
+        border: 1px solid #D7B797;
+        color: #D7B797;
+        scale: 1.3;
+        background-color: transparent;
+    }
+
+    .fer-wo>button:last-child {
+        margin-left: 50px;
+    }
+
+    .clothing_image {
+        max-width: 100%;
+        column-count: 5;
+        padding-left: 100px;
+        padding-right: 100px;
+        height: 500px;
+    }
+
+    .img_product {
+        position: absolute;
+        font-weight: 600;
+        margin-top: -100px;
+        text-align: center;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .brand_product_name {
+        font-weight: 100;
+        color: #757575;
+    }
+
+    .img_product>p>a {
+        color: black;
+        text-decoration: none;
+    }
+
+    .legal_product {
+        color: #757575;
+        text-align: center;
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: 22px;
+    }
+
+    .legal_img {
+        max-width: 100%;
+        column-count: 3;
+        text-align: center;
+        height: 350px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .legal_img > div {
+        height: 300px;
+    }
+
+    .legal_img > div:nth-child(2) {
+        border-right: 1px solid #757575;
+        border-left: 1px solid #757575;
+    }
+    .legal_img > div:nth-child(1) > img {
+        padding-top:15px;
+    }
+    .legal_img > div:last-child > img {
+        padding-top:5px;
+    }
+    .legal_product_name {
+        color: black;
+        font-weight: 600;
+    }
+    .legal_product > p:nth-child(2) {
+        font-size: 15px;
+    }
+
+    .legal_product > p:last-child > a {
+        color: black;
+        text-decoration: underline;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .mySlides {
+        display: none
+    }
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        width: auto;
+        padding: 16px;
+        top:10%;
+        color: #767272;
+        scale: 3;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+</style>
+
+<!-- end style -->
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<div class="banner">
+    <div class="mySlides" style="margin-top:-35.5px">
+        <img src="<?php echo $this->getViewFileUrl('images/Banner ratio 21_8.png') ?>" alt="">
+    </div>
+    <div class="mySlides">
+        <img src="<?php echo $this->getViewFileUrl('images/Hero banner ratios 16_6.png') ?>" alt="">
+    </div>
+    <a class="prev" onclick="plusSlides(-1)"><i class="fa">&#xf104;</i></a>
+    <a class="next" onclick="plusSlides(1)"><i class="fa">&#xf105;</i></a>
+</div>
+
+<div class="breakscrum">
+    <div class="break_left">
+        <p>Home &#8226; Brand &#8226; <b>Ferragamo</b></p>
+    </div>
+    <div class="break_right">
+        <p>Sort by: <b>Latest arrivals</b><i class="fa">&#xf107;</i></p>
+    </div>
+</div>
+
+<div class="items">
+    <span>
+        999 <b style="color:black; padding-left:10px">ITEMS</b>
+    </span>
+</div>
+
+<div class="brand">
+    <div class="brand_container">
+        <div>BRAND <i class="fa">&#xf107;</i></div>
+        <div>GENDER <i class="fa">&#xf107;</i></div>
+        <div>CATEGORY <i class="fa">&#xf107;</i></div>
+        <div>OCCASION <i class="fa">&#xf107;</i></div>
+        <div>COLOR <i class="fa">&#xf107;</i></div>
+        <div>SIZE <i class="fa">&#xf107;</i></div>
+    </div>
+</div>
+
+<div class="btn_clear">
+    <div class="fer-wo">
+        <button>X Ferragamo</button>
+        <button>X Women</button>
+    </div>
+    <div class="clearall">
+        <p class="clearall_p"><a href="#">Clear all</a></p>
+    </div>
+</div>
+
+<div class="clothing_image">
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Bag.png') ?>" alt="">
+        <div class="img_product">
+            <p class="brand_product_name">Brand name</p>
+            <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+            <p>VND 16,000,000</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Shirt.png') ?>" alt="">
+        <div class="img_product">
+            <p class="brand_product_name">Brand name</p>
+            <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+            <p>VND 16,000,000</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Glasses.png') ?>" alt="">
+        <div class="img_product">
+            <p class="brand_product_name">Brand name</p>
+            <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+            <p>VND 16,000,000</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Boot.png') ?>" alt="">
+        <div class="img_product">
+            <p class="brand_product_name">Brand name</p>
+            <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+            <p>VND 16,000,000</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Dress.png') ?>" alt="">
+        <div class="img_product">
+            <p class="brand_product_name">Brand name</p>
+            <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+            <p>VND 16,000,000</p>
+        </div>
+    </div>
+</div>
+
+<div class="legal_img">
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-22 095101.png') ?>" alt="">
+        <div class="legal_product">
+            <p class="legal_product_name">DON'T KNOW YOUR SIZE</p>
+            <p><a href="#">VIEW SIZE GUIDE</a></p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-22 085039.png') ?>" alt="">
+        <div class="legal_product">
+            <p class="legal_product_name">DELIVERY/RETURN</p>
+            <p>Purchases made online can be returned or exchanged within 30 days, plus shipping is on us.</p>
+            <p><a href="#">LEARN MORE ABOUT DELIVERY & RETURNS</a></p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-22 085049.png') ?>" alt="">
+        <div class="legal_product">
+            <p class="legal_product_name">TALK TO SALES/CUSTOMER CARE</p>
+            <p>Just pick up the phone to chat with a member of our sales team.</p>
+            <p><a href="#">GET IN TOUCH</a></p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+
+</script>

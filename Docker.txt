@@ -1,0 +1,8 @@
+Docker
+php mssql apache => container docker (gom) 
+			  dễ quản lí (dockerfile -> image -> container)
+cách dùng: docker.com -> down
+		docker ps (xem có những container nào đang chạy)
+		ls
+		docker-compose up
+			   

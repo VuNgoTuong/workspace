@@ -1,0 +1,33 @@
+$(document).ready(function() {
+        $('#load-du-lieu').click(function(e) {
+            e.preventDefault();
+            $.post('vidu2.php', {
+                a: "content abc",
+                b: "content bcd"
+            },function(ketqua) {
+                $('#noidung').html(ketqua);
+            });
+            
+        });
+    });
+
+
+
+
+ $(document).ready(function() {
+        $('#load-du-lieu').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'vidu2.php',
+                type: 'POST',
+                dataType: 'html',
+                data: {
+                    a: "content abc",
+                    b: "content bcd"
+                }
+            }).done(function(ketqua) {
+                $('#noidung').html(ketqua);
+            });
+            
+        });
+    });

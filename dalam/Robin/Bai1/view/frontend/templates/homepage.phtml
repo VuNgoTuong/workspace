@@ -1,0 +1,895 @@
+<style>
+    .navbar a {
+        float: left;
+        font-size: 16px;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        /* font-size: 19px; */
+        letter-spacing: 1px;
+        font-weight: 500;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* slider */
+    * {
+        box-sizing: border-box
+    }
+
+    .mySlides {
+        display: none
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .slideshow-container {
+        position: relative;
+        margin: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .slideshow-container>div {
+        column-count: 4;
+    }
+
+    .slideshow-container>.mySlidess {
+        width: 80%;
+        float: right;
+        margin-top: -100px;
+        padding-left: 50px;
+        padding-right: 50px;
+        column-count: 4;
+    }
+
+    .mySlidess {
+        display: none
+    }
+
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: #767272;
+        scale: 3;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    /* header  */
+    .header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 10;
+    }
+
+    .header:hover {
+        background: linear-gradient(to right, #3399FF, #9900CC, #FF0099, #FF3366);
+    }
+
+    .logo-header {
+        width: 20%;
+        scale: 0.5;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+
+    /* the lola  */
+    .the-lola {
+        background-color: black;
+        color: white;
+        height: 300px;
+        text-align: center;
+        margin-top: -5px;
+        padding-top: 20px;
+    }
+
+    .lola-title {
+        font-weight: 500;
+        font-size: 46px;
+    }
+
+    .lola-content {
+        font-size: 18px;
+    }
+
+    .the-lola>a {
+        font-size: 18px;
+        color: #F5F2EC;
+        text-decoration: revert;
+    }
+
+    /* new-arrivals  */
+
+    .new-arrivals {
+        background-color: #F5F2EC;
+        height: 350px;
+        padding-left: 100px;
+    }
+
+    .new-arrivals_text {
+        width: 20%;
+        float: left;
+        margin-top: 40px;
+    }
+
+    .new-arrivals_title {
+        font-weight: 500;
+        font-size: 43px;
+    }
+
+    .new-arrivals_content {
+        font-size: 18px;
+    }
+
+    .new-arrivals_text>a {
+        font-size: 18px;
+        color: grey;
+        text-decoration: revert;
+    }
+
+    .brand-text {
+        text-align: center;
+        height: 110px;
+        background-color: white;
+    }
+
+    .brand-name {
+        font-weight: 600;
+    }
+
+    /* clothing-footwear-accessories  */
+    .clothing-footwear-accessories {
+        column-count: 3;
+        background-color: #F5F2EC;
+        color: white;
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .clothing-footwear-accessories_text {
+        margin-top: -70px;
+        margin-left: 15px;
+    }
+
+    .clothing-footwear-accessories_title {
+        font-size: 28px;
+    }
+
+    .clothing-footwear-accessories_link {
+        margin-top: -10px;
+    }
+
+    .clothing-footwear-accessories_link>a {
+        color: white;
+        text-decoration: revert;
+    }
+
+    /* just-in  */
+    .just-in {
+        background: linear-gradient(#F5F2EC 80%, white 0);
+    }
+
+    .just-text {
+        text-align: center;
+        padding-bottom: 30px;
+        padding-top: 30px;
+    }
+
+    .just-title {
+        font-weight: 500;
+        font-size: 46px;
+    }
+
+    .just-text>a {
+        color: grey;
+        text-decoration: revert;
+    }
+
+    .slide-list-text {
+        margin-top: -70px;
+        margin-left: 15px;
+        color: white;
+    }
+
+    .slide-list-title {
+        font-size: 22px;
+    }
+
+    .slide-list-link {
+        margin-top: -10px;
+    }
+
+    .slide-list-link>a {
+        color: white;
+        text-decoration: revert;
+    }
+
+    /* logo */
+    .logo {
+        max-width: 100%;
+        padding: 15px 250px 15px 250px;
+    }
+
+    .logo>div {
+        width: 100%;
+        column-count: 5;
+    }
+
+    /* collection */
+
+    .collection {
+        width: 100%;
+        column-count: 4;
+        font-size: 15px;
+        padding-left: 50px;
+        padding-right: 50px;
+        margin-bottom: 30px;
+    }
+
+    .collection>div {
+        text-align: center;
+        width: 100%;
+    }
+
+    .collection-text {
+        margin-top: 15px;
+    }
+
+    .collection-text-title {
+        font-weight: bold;
+    }
+
+    /* eliteworld */
+
+    .elite-world-text {
+        text-align: center;
+    }
+
+    .elite-world-title {
+        font-weight: 500;
+        font-size: 45px
+    }
+
+    .elite-world-a {
+        color: grey !important;
+        text-decoration: revert;
+    }
+
+    .elite-world-list {
+        column-count: 4;
+        height: 500px;
+        padding-top: 50px;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    /* special_offer */
+
+    .special_offer {
+        width: 100%;
+        height: 350px;
+        padding-top: 50px;
+        color: white;
+        text-align: center;
+        background: linear-gradient(to right, #3399FF, #9900CC, #FF0099, #FF3366);
+    }
+
+    .off70 {
+        font-size: 100px !important;
+        font-weight: 500 !important;
+        letter-spacing: 4px;
+    }
+
+    .special_offer>p {
+        font-size: 25px;
+    }
+</style>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<!-- header -->
+<!-- <div class="header">
+    <div style="width:40%; position:absolute; padding-left:182px" class="navbar">
+        <a style="color:white;letter-spacing: 1px;" href="#">ABOUT US</a>
+        <div class="dropdown">
+            <button class="dropbtn">JUST IN <i style="font-size:20px" class="fa">&#xf107;</i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">JUST IN 1</a>
+                <a href="#">JUST IN 2</a>
+                <a href="#">JUST IN 3</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">MEN <i style="font-size:20px" class="fa">&#xf107;</i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">MEN 1</a>
+                <a href="#">MEN 2</a>
+                <a href="#">MEN 3</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">WOMEN <i style="font-size:20px" class="fa">&#xf107;</i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">WOMEN 1</a>
+                <a href="#">WOMEN 2</a>
+                <a href="#">WOMEN 3</a>
+            </div>
+        </div>
+    </div>
+    <div class="logo-header">
+        <img style="margin-top:-55px" src="<?php echo $this->getViewFileUrl('images/LogoDAFC_White.png') ?>" alt="">
+    </div>
+    <div style="width:40%; float:right; margin-top:-65px;margin-right:20px; position:relative" class="navbar">
+        <div class="dropdown">
+            <button class="dropbtn">BRAND <i style="font-size:20px" class="fa">&#xf107;</i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Rolex</a>
+                <a href="#">Tiffany & Co</a>
+                <a href="#">Jacqueline</a>
+                <a href="#">Balenciaga</a>
+                <a href="#">Tumi</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">SHOP BY <i style="font-size:20px" class="fa">&#xf107;</i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Ha Noi</a>
+                <a href="#">TP HCM</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">SALE <i style="font-size:20px" class="fa">&#xf107;</i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">SALE 500.000</a>
+                <a href="#">SALE 1.000.000</a>
+                <a href="#">SALE 2.000.000</a>
+            </div>
+        </div>
+        <div>
+            <i style="font-size:20px; color: white; padding-top:12px; padding-left:20px" class="fa">&#xf08a;</i>
+            <i style="font-size:20px; color: white; padding-top:12px; padding-left:30px" class="fa">&#xf290;</i>
+            <i style="font-size:20px;color: white; padding-top:12px; padding-left:30px" class="fa">&#xf002;</i>
+            <i style="font-size:20px;color: white; padding-top:12px; padding-left:30px" class="fa">&#xf2c0;</i>
+            <i style="font-size:20px; color:white; padding-top:12px; padding-left:10px" class="fa">&#xf107;</i>
+        </div>
+    </div>
+
+</div> -->
+<!-- end header  -->
+
+<div class="banner">
+    <img style="margin-top:-25px" src="<?php echo $this->getViewFileUrl('images/banner1.jpg') ?>" alt="">
+</div>
+<div class="the-lola">
+    <p class="lola-title">THE LOLA COLLECTION</p>
+    <p class="lola-content">Confident and playful yet considered and poised, each is made for self-expression</p>
+    <a href="#">Shop the collection</a>
+</div>
+
+<div class="new-arrivals">
+    <div class="new-arrivals_text">
+        <p class="new-arrivals_title">NEW ARRIVALS</p>
+        <p class="new-arrivals_content">Don't miss out on our new product</p>
+        <a href="#">Shop new arrivals</a>
+    </div>
+    <div class="slideshow-container">
+        <div style="display:block" class="mySlidess">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141627.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141649.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141704.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141716.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+        </div>
+        <div class="mySlidess">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141649.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141704.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141716.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141627.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+        </div>
+        <div class="mySlidess">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141704.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141716.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141627.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141649.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+        </div>
+        <div class="mySlidess">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141716.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141627.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141649.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-18 141704.png') ?>" alt="">
+                <div class="brand-text">
+                    <p class="brand-name">BRAND NAME </p>
+                    <p>Product name place here </p>
+                    <p>VND 99,999,999</p>
+                </div>
+            </div>
+        </div>
+        <a style="text-decoration:none; color:#767272; padding-top:50px" class="prev" onclick="plusSlidess(-1)"><i class="fa">&#xf104;</i></a>
+        <a style="text-decoration:none; color:#767272; padding-top:49px; margin-right:25px" class="next" onclick="plusSlidess(1)"><i class="fa">&#xf105;</i></a>
+    </div>
+</div>
+
+<div class="clothing-footwear-accessories">
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/z3869547047595_641d4b5a3c6a20ab5bae76299a286a07.jpg') ?>" alt="">
+        <div class="clothing-footwear-accessories_text">
+            <p class="clothing-footwear-accessories_title">CLOTHING</p>
+            <p class="clothing-footwear-accessories_link"><a href="#">Shop clothing</a></p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Image 2 ratio 4_5.png') ?>" alt="">
+        <div class="clothing-footwear-accessories_text">
+            <p class="clothing-footwear-accessories_title">FOOTWEAR</p>
+            <p class="clothing-footwear-accessories_link"><a href="#">Shop footwear</a></p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Image 3 ratio 4_5.png') ?>" alt="">
+        <div class="clothing-footwear-accessories_text">
+            <p class="clothing-footwear-accessories_title">ACCESSORIES</p>
+            <p class="clothing-footwear-accessories_link"><a href="#">Shop accessories</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="just-in">
+    <div class="just-text">
+        <p class="just-title">JUST IN</p>
+        <p>New arrivals, now dropping five days a weeks - discover the latest launches onsite from Monday to Friday</p>
+        <a href="#">Explore more</a>
+    </div>
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/z3869547024703_e979674c9f118dea5ba700c080f5fb96.jpg') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">VERSAGE</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 3 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">BALLY</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 2 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">DOLCE & GABBANA</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 1 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">CHRISTIAN LOUBOUTIN</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="mySlides fade">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 3 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">BALLY</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 2 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">DOLCE & GABBANA</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 1 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">CHRISTIAN LOUBOUTIN</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/z3869547024703_e979674c9f118dea5ba700c080f5fb96.jpg') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">VERSAGE</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="mySlides fade">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 2 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">DOLCE & GABBANA</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 1 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">CHRISTIAN LOUBOUTIN</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/z3869547024703_e979674c9f118dea5ba700c080f5fb96.jpg') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">VERSAGE</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 3 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">BALLY</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="mySlides fade">
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 1 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">CHRISTIAN LOUBOUTIN</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/z3869547024703_e979674c9f118dea5ba700c080f5fb96.jpg') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">VERSAGE</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 3 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">BALLY</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+            <div>
+                <img src="<?php echo $this->getViewFileUrl('images/Image 2 ratio 2_3.png') ?>" alt="">
+                <div class="slide-list-text">
+                    <p class="slide-list-title">DOLCE & GABBANA</p>
+                    <p class="slide-list-link"><a href="#">Explore more</a></p>
+                </div>
+            </div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)"><i class="fa">&#xf104;</i></a>
+        <a class="next" onclick="plusSlides(1)"><i class="fa">&#xf105;</i></a>
+    </div>
+</div>
+
+<div class="logo">
+    <div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-28.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-11.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-09.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-22.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-17.jpg') ?>" alt="">
+        </div>
+    </div>
+    <div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-12.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-50.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-24.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-04.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-14.jpg') ?>" alt="">
+        </div>
+    </div>
+    <div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-27.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-18.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Logo 500x500-06.jpg') ?>" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="collection">
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-17 081401.png') ?>" alt="">
+        <div class="collection-text">
+            <p class="collection-text-title">NEW COLLECTION</p>
+            <p>New collection / The Lola Bag</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-17 081415.png') ?>" alt="">
+        <div class="collection-text">
+            <p class="collection-text-title">NEW COLLECTION</p>
+            <p>New collection / The Lola Bag</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-17 081429.png') ?>" alt="">
+        <div class="collection-text">
+            <p class="collection-text-title">NEW COLLECTION</p>
+            <p>New collection / The Lola Bag</p>
+        </div>
+    </div>
+    <div>
+        <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-17 081442.png') ?>" alt="">
+        <div class="collection-text">
+            <p class="collection-text-title">NEW COLLECTION</p>
+            <p>New collection / The Lola Bag</p>
+        </div>
+    </div>
+</div>
+
+<div class="elite-world">
+    <div class="elite-world-text">
+        <p class="elite-world-title">THE ELITE WORLD</p>
+        <p>Follow us on Instagram @dafcvietnam | <a href="#" class="elite-world-a">View all</a></p>
+    </div>
+    <div class="elite-world-list">
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/z3869546984933_4d521727bdc75a66d9182787f8a089b5.jpg') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_1.png') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 12_1.png') ?>" alt="">
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 11_1.png') ?>" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="special_offer">
+    <p>SPECIAL OFFER</p>
+    <P class="off70">7O% ++ OFF</P>
+    <p>FOR SELECTED ITEMS</p>
+</div>
+
+
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+
+    var slidesIndex = 1;
+    showSliderss(slidesIndex);
+
+    function plusSlidess(m) {
+        showSlidess(slidesIndex += m);
+    }
+
+    function showSlidess(m) {
+        var i;
+        var slidess = document.getElementsByClassName("mySlidess");
+        if (m > slidess.length) {
+            slidesIndex = 1
+        }
+        if (m < 1) {
+            slidesIndex = slidess.length
+        }
+        for (i = 0; i < slidess.length; i++) {
+            slidess[i].style.display = "none";
+        }
+        slidess[slidesIndex - 1].style.display = "block";
+    }
+</script>

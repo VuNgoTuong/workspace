@@ -1,0 +1,39 @@
+global $wpdb;
+
+$table = array('Id booking', 'Mã cửa hàng', 'Họ tên khách hàng	', 'Số điện thoại', 'Email', 'Notes', 'Ngày tạo', 'Book ngày', 'Từ', 'Đến', 'Trạng thái');
+
+$data['BOOKINGS'] = $wpdb->get_results("SELECT id, store_id, name, phone, email, notes, create_date, booking_date, booking_time_start, booking_time_end, status FROM dafc_booking_order");
+ 
+if (isset($_GET['export_booking_order'])) {
+    $csv = implode(',', $table);  
+    $csv .= "\n";   
+    foreach ($data['BOOKINGS'] as $row) {
+        $checkCol = 0;
+        foreach ($row as $column) {
+                $csv .=  $column . ',';
+            $checkCol++;
+        }
+        $csv .= "\n";
+    }
+
+    $file = 'booking_order_store_' . rand(10000000, 99999999) . '.csv';
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="' . $file . '"'); // file name
+    header('Pragma: no-cache');
+
+    echo "\xEF\xBB\xBF"; 
+    echo $csv;
+    exit;
+}
+
+
+
+
+
+
+
+
+
+
+
+<a href="admin.php?page=export_booking_order&export_booking_order=table&noheader=1">Export File</a>

@@ -1,0 +1,5 @@
+@import file can css vao trong file default
+
+chỉnh css default đặt tên default, header, footer
+chỉnh css trong file login, sign up thì những font nào nhìn vào là biết ở trong file đó thì chỉnh css luôn trong file đó
+chỉnh font trong file thường đặt tên title, content,...

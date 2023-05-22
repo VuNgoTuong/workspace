@@ -1,0 +1,10 @@
+AJAX là viết tắt của Asynchronous JavaScript and XML, và nó cho phép bạn tìm nạp nội dung từ máy chủ back-end 
+một cách không đồng bộ mà không cần làm mới trang
+
+Ví dụ cần lấy dữ liệu ở server mà k cần load trang thì dùng ajax, còn get element render dữ liệu thì dùng js
+
+
+ajax wp:
+	viet ajax gui cac request ve server gom type, url, data chua action funcion
+      => phia server la function va add_action xu li cac request do va tra ve response
+      => phia giao dien cap nhat lai cac reponse duoc tra ve 

@@ -1,0 +1,4 @@
+ban dau dat flag = false;
+
+nếu vào trong điều kiện mà nó vào được (trường hợp đúng) thì đặt ở ngay đầu là flag = true;
+ra khỏi điều kiện, đặt điều kiện phủ định (sau endif;) là if(!$flag) { rồi để điều kiện thỏa trong đó }

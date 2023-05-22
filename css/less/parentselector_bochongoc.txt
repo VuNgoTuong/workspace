@@ -1,0 +1,39 @@
+vd: a {                               
+  color: blue;
+  &:hover {
+    color: green;
+  }
+}
+
+=> a {
+  color: blue;
+}
+a:hover {
+  color: green;
+}
+
+nếu không có &, ví dụ trên sẽ dẫn đến a :hover.
+
+vd2:
+.button {
+  &-ok {
+    background-image: url("ok.png");
+  }
+  &-cancel {
+    background-image: url("cancel.png");
+  }
+
+  &-custom {
+    background-image: url("custom.png");
+  }
+}
+
+=>  .button-ok {
+  background-image: url("ok.png");
+}
+.button-cancel {
+  background-image: url("cancel.png");
+}
+.button-custom {
+  background-image: url("custom.png");
+}

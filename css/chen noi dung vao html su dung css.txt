@@ -1,0 +1,14 @@
+sử dụng Content
+
+vd: ABC 
+           p:after {
+                   content: ": kiến thức nhỏ cho web hiện đại.";  }
+=> ABC: kiến thức nhỏ cho web hiện đại
+
+sử dụng inset
+
+vd: inset: 1em; 
+    inset: 5% 0;
+    inset: 2em 50px 20px;
+    inset: 10px 30% 20px 0;
+    inset: 0;

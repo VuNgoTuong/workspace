@@ -1,0 +1,10 @@
+  let j = 0;
+            $('#load').on('click', function() {
+                dau = '<div class="<?php echo implode(' ', $classes_col); ?>"> <div class="box has-hover gallery-box box-overlay dark"><div class="box-image">';
+                cuoi = '</div></div></a></div></div>';
+                let a = <?php echo json_encode($append) ?>;
+                for (let i = 0; i < 2; i++) {
+                    $('#add').append(dau + a[j] + cuoi);
+                    j++;
+                }
+            })

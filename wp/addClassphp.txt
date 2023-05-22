@@ -1,0 +1,1 @@
+add vao cung folder moi file php, goi no ra require_once ('...');

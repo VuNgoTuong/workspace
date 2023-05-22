@@ -1,0 +1,472 @@
+<style>
+    .breakscrum {
+        max-width: 100%;
+        height: 50px;
+        padding-top: 50px;
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+
+    .break_left {
+        max-width: 30%;
+        float: left;
+        word-spacing: 10px;
+    }
+
+    .product_img_detail {
+        max-width: 100%;
+        height: 850px;
+        padding-left: 100px;
+        padding-right: 120px;
+    }
+
+    .product_img {
+        width: 40%;
+        float: left;
+    }
+
+    .product_img_small {
+        width: 18%;
+        float: right;
+        margin-right: 25px;
+        line-height: 40px;
+    }
+
+    .product_details {
+        width: 45%;
+        float: left;
+        margin-left: 20px;
+    }
+
+    .product_price {
+        font-size: 24px;
+        border-bottom: 1px solid #757575;
+    }
+
+    .product_price>p:first-child {
+        font-weight: 600;
+    }
+
+    .product_price>p:nth-child(2) {
+        font-weight: 600;
+        color: #D7B797;
+    }
+
+    .product_price>p:nth-child(3) {
+        font-weight: 600;
+    }
+
+    .product_price>p:nth-child(4) {
+        font-size: 16px;
+        text-decoration: line-through;
+    }
+
+    .product_price>p:last-child {
+        font-size: 16px;
+        color: #757575;
+    }
+
+    .product_size-color {
+        height: 220px;
+        margin-top: 2rem;
+    }
+
+    .color {
+        height: 50px;
+    }
+
+    .size {
+        height: 50px;
+    }
+
+    .size>div>p>a {
+        text-decoration: underline;
+        color: #292929;
+    }
+
+    .quantity {
+        height: 50px;
+    }
+
+    .buynow-addcart>button {
+        background-color: black;
+        color: white;
+        border-radius: 30px;
+        height: 50px;
+    }
+
+    .buynow-addcart>button:last-child {
+        background-color: #757575;
+    }
+
+    .product_content {
+        /* column-count: 3; */
+        width: 100%;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .product_content>button {
+        width: 30%;
+        background-color: transparent;
+        border:0;
+        border-radius: 0px;
+        border-bottom: 1px solid black;
+    }
+
+    .product_content > button:first-child {
+        float:left;
+    }
+    .product_content > button:last-child {
+        float: right;
+    }
+
+    .tab {
+        border-bottom: 3px solid black;
+    }
+
+    .tab.active {
+        border-bottom: 3px solid black;
+        font-weight: 700;
+    }
+
+    .tab_content {
+        padding-top: 10px;
+        display: none;
+    }
+
+    .the-look {
+        height: 300px;
+        max-width: 100%;
+        background-color: #F5F2ED;
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+
+    .img_product {
+        position: absolute;
+        font-weight: 600;
+        margin-top: -100px;
+        text-align: center;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .brand_product_name {
+        font-weight: 100;
+        color: #757575;
+    }
+
+    .img_product>p>a {
+        color: black;
+        text-decoration: none;
+    }
+
+    .banner {
+        height: 1800px;
+        padding-top: 100px;
+        max-width: 100%;
+        background-color: #292929;
+    }
+
+    .clothing_image {
+        max-width: 100%;
+        column-count: 5;
+        padding-left: 100px;
+        padding-right: 100px;
+        height: 500px;
+    }
+
+    .img_product {
+        position: absolute;
+        font-weight: 600;
+        margin-top: -100px;
+        text-align: center;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .brand_product_name {
+        font-weight: 100;
+        color: #757575;
+    }
+
+    .img_product>p>a {
+        color: black;
+        text-decoration: none;
+    }
+
+    .legal_product {
+        color: #757575;
+        text-align: center;
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: 22px;
+    }
+
+    .legal_img {
+        max-width: 100%;
+        column-count: 3;
+        text-align: center;
+        height: 350px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .legal_img>div {
+        height: 300px;
+    }
+
+    .legal_img>div:nth-child(2) {
+        border-right: 1px solid #757575;
+        border-left: 1px solid #757575;
+    }
+
+    .legal_img>div:nth-child(1)>img {
+        padding-top: 15px;
+    }
+
+    .legal_img>div:last-child>img {
+        padding-top: 5px;
+    }
+
+    .legal_product_name {
+        color: black;
+        font-weight: 600;
+    }
+
+    .legal_product>p:nth-child(2) {
+        font-size: 15px;
+    }
+
+    .legal_product>p:last-child>a {
+        color: black;
+        text-decoration: underline;
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>
+<!-- end style  -->
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<div class="breakscrum">
+    <div class="break_left">
+        <p>Home &#8226; Brand &#8226; <b>Ferragamo</b></p>
+    </div>
+</div>
+
+<div class="product_img_detail">
+    <div class="product_img">
+        <div style="width:75%; float:left">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 4_22221.png') ?>" alt="">
+        </div>
+        <div class="product_img_small">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_122.png') ?>" alt="">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_2231.png') ?>" alt="">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio32 11211.png') ?>" alt="">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_2231.png') ?>" alt="">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio32 11211.png') ?>" alt="">
+        </div>
+    </div>
+    <div class="product_details">
+        <div class="product_price">
+            <p>FERRAGAMO</p>
+            <p>PRODUCT NAME PLACE HERE <i style="color: black; float:right; padding-top:5px" class="fa">&#xf08a;</i></p>
+            <p>VND 100,000,000</p>
+            <p>VND 120,000,000 </p>
+            <p>Product SKU: 0000000000</p>
+        </div>
+        <div class="product_size-color">
+            <div class="color">
+                <div style="float:left; width:75%">
+                    <p style="font-weight:600">COLOR:</p>
+                </div>
+                <div style="float:right; width:24%; letter-spacing:5px">
+                    <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_1122.png') ?>" alt="">
+                    <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_122222.png') ?>" alt="">
+                    <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_122222.png') ?>" alt="">
+                </div>
+            </div>
+            <div class="size">
+                <div style="float:left; width:80%">
+                    <p style="font-weight:600">SIZE: <a href="#" style="padding-left:30px; font-weight:100">Size guide</a></p>
+                </div>
+                <div style="float:right;font-size:16px">
+                    <p>36 <i style="font-size:16px" class="fa">&#xf107;</i></p>
+                </div>
+            </div>
+            <div class="quantity">
+                <div style="float:left; width:80%">
+                    <p style="font-weight:600">QUANTITY:</p>
+                </div>
+                <div style="float:right;font-size:16px">
+                    <p>01 +</p>     
+                </div>
+            </div>
+            <div class="buynow-addcart">
+                <button style="width: 49%;float:left" type="submit"><a style="color:white; text-decoration:none" href="#">BUY NOW</a></button>
+                <button style="width: 49%;float:right" type="submit"><i class="fa">&#xf290;</i> ADD TO CART</button>
+            </div>
+        </div>
+        <div class="product_content">
+            <button class="tab" onclick="openTab(event, 'Description')">Description</button>
+            <button class="tab" onclick="openTab(event, 'Product')">Product care</button>
+            <button class="tab" onclick="openTab(event, 'Return')">Return & Exchange</button>
+        </div>
+        <div id="Description" class="tab_content">
+            <p>Chất liệu: 10% Cashmere, 90% Laine</p>
+            <p>Xuất xứ thương hiệu: Pháp</p>
+            <p>Áo khoác dáng dài tay dài có xẻ vạt</p>
+            <p>Hai hàng nút vàng gold nổi bật phía trước</p>
+        </div>
+        <div id="Product" class="tab_content">
+           <p>See information on product tag</p>
+        </div>
+        <div id="Return" class="tab_content">
+            <p>Return & Exchange</p>
+        </div>
+    </div>
+</div>
+
+<div class="the-look">
+    <div style="width:25%; float:left; margin-top:50px">
+        <p style="font-size:48px">COMPLETE</p>
+        <p style="font-size:48px; margin-top:-20px">THE LOOK</p>
+    </div>
+    <div style="width:75%; float: right; column-count:3; margin-top:-150px">
+        <div style="width:75%">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio23 4_5.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">BRAND NAME</p>
+                <p><a href="#">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+        <div style="width:75%">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio22 4_5.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">BRAND NAME</p>
+                <p><a href="#">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+        <div style="width:75%">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 124_5.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">BRAND NAME</p>
+                <p><a href="#">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="banner">
+    <div style="width:40%; float:left">
+        <p style="font-weight:500; color:white; font-size:48px; padding-top:50px;padding-bottom:50px; padding-left:100px">MIX&MATCH</p>
+        <img src="<?php echo $this->getViewFileUrl('images/Image ratio 3_411.png') ?>" alt="">
+        <div style="padding-top:200px; text-align:center">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 1_12321.png') ?>" alt="">
+        </div>
+    </div>
+    <div style="width:53%;float:right">
+        <img src="<?php echo $this->getViewFileUrl('images/Image ratio 4_321.png') ?>" alt="">
+        <div style="float:left; padding-top:200px">
+            <img src="<?php echo $this->getViewFileUrl('images/Image ratio 42_3.png') ?>" alt="">
+        </div>
+    </div>
+</div>
+
+<div>
+    <p style="text-align: center; font-size:48px; padding-top:50px">YOU MAY ALSO LIKE</p>
+    <div class="clothing_image">
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Bag.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">Brand name</p>
+                <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Shirt.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">Brand name</p>
+                <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Glasses.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">Brand name</p>
+                <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Boot.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">Brand name</p>
+                <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Dress.png') ?>" alt="">
+            <div class="img_product">
+                <p class="brand_product_name">Brand name</p>
+                <p><a href="http://localhost:8099/bai1/hello/product">PRODUCT NAME PLACE HERE</a></p>
+                <p>VND 16,000,000</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="legal_img">
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-22 095101.png') ?>" alt="">
+            <div class="legal_product">
+                <p class="legal_product_name">DON'T KNOW YOUR SIZE</p>
+                <p><a href="#">VIEW SIZE GUIDE</a></p>
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-22 085039.png') ?>" alt="">
+            <div class="legal_product">
+                <p class="legal_product_name">DELIVERY/RETURN</p>
+                <p>Purchases made online can be returned or exchanged within 30 days, plus shipping is on us.</p>
+                <p><a href="#">LEARN MORE ABOUT DELIVERY & RETURNS</a></p>
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo $this->getViewFileUrl('images/Screenshot 2022-11-22 085049.png') ?>" alt="">
+            <div class="legal_product">
+                <p class="legal_product_name">TALK TO SALES/CUSTOMER CARE</p>
+                <p>Just pick up the phone to chat with a member of our sales team.</p>
+                <p><a href="#">GET IN TOUCH</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+ 
+ function openTab(evt, cityName) {
+  var i, tabcontent, tab;
+  tabcontent = document.getElementsByClassName("tab_content");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tab = document.getElementsByClassName("tab");
+  for (i = 0; i < tab.length; i++) {
+    tab[i].className = tab[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+</script>

@@ -1,0 +1,299 @@
+<?php if (have_posts()) : ?>
+    <?php /* Start the Loop */ ?>
+
+    <?php while (have_posts()) : the_post();
+
+        $request_uri = $_SERVER['REQUEST_URI'];
+        $lang = strpos($request_uri, '/en/') !== false ? 'en' : 'vi';
+        if ($lang == 'en') {
+            $dept = 'Department';
+            $level = 'Level';
+            $address = 'Workplace';
+            $duedate = 'DUE DATE';
+            $no_info = 'Currently there is no information.';
+        } else {
+            $dept = 'Phòng ban';
+            $level = 'Cấp độ';
+            $address = 'Nơi làm việc';
+            $no_info = 'Hiện không có thông tin.';
+        }
+
+        $flag = false;
+        $listCateIdByPostId = wp_get_post_categories(get_the_ID());
+        foreach ($listCateIdByPostId as $cateId) {
+            if ($cateId === 238 || $cateId === 240) {
+                $flag = true;
+                break;
+            }
+        }
+
+        if ($flag) {
+    ?>
+            <style>
+                .featured-title {
+                    display: none;
+                }
+
+                .post_last_content {
+                    display: flex;
+                }
+
+                .post_last_content_ex {
+                    flex: 5;
+                    text-align: justify;
+                }
+
+                .post_last_content_info {
+                    flex: 3;
+                }
+
+                .career-item-container-image {
+                    margin: 5em 0;
+                    height: 30em;
+                }
+
+                .icon-cross-bar {
+                    margin-left: 1em !important;
+                }
+
+                .title-post {
+                    height: 50vh;
+                    text-align: center;
+                    display: flex;
+                    background-color: #191919;
+                    justify-content: space-evenly;
+                    align-content: center;
+                    flex-wrap: wrap;
+                    margin-bottom: 50px;
+                }
+
+                .title-post>h2 {
+                    font-size: 48px;
+                    font-weight: 600;
+                    color: #D7B797;
+                }
+
+                .title-post>p {
+                    font-weight: 600;
+                    font-size: 20px;
+                    color: white;
+                }
+
+                .post-last {
+                    margin: 0;
+                }
+
+                article {
+                    margin-bottom: 20px;
+                }
+
+                .posts {
+                    width: 70%;
+                    padding: 50px;
+                    display: block;
+                    margin: auto;
+                    background-color: #F5F2ED;
+                }
+
+                .load {
+                    border: 1px solid #D7B797;
+                    border-radius: 99px;
+                    color: white;
+                    background: #D7B797;
+                    width: 100%;
+                    font-size: 16px;
+                    font-weight: 600;
+                    padding: 5px;
+                }
+
+                .col {
+                    padding: 0;
+                }
+
+                @media screen and (max-width: 950px) {
+                    .post-last-categories {
+                        display: block;
+                    }
+
+                    .post_last_content {
+                        flex-direction: column;
+                    }
+                }
+            </style>
+
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                    <div class="post-last">
+                        <div class="post-last-categories">
+                            <div class="title-post">
+                                <h2><?php the_title() ?></h2>
+                                <p><?php echo   $duedate . ': ' . date("M d, Y", strtotime(get_post_meta(get_the_ID(), 'post_expired', true) ? get_post_meta(get_the_ID(), 'post_expired', true) : 'no_info')); ?></p>
+                            </div>
+                            <div class="post_last_content">
+                                <div class="post_last_content_ex">
+                                    <?php echo get_the_excerpt() ?>
+                                </div>
+                                <div class="post_last_space"></div>
+                                <div class="post_last_content_info">
+                                    <!-- hien thi cac bai viet lien quan  -->
+                                    <?php $categories = get_the_category();
+                                    $category = $categories[0]->term_id;
+                                    $related_posts = new WP_query(
+                                        array(
+                                            'cat' => $category,
+                                            'post_type' => 'recruitment',
+                                            'showposts' => 2,
+                                            'post__not_in' => array(get_the_ID()), // loai tru bai dang hien tai
+                                        )
+                                    );
+                                    ?> <div class="posts"> <?php
+                                                            if ($related_posts->have_posts()) : ?>
+                                            <div id="related-posts" class="related-posts">
+
+                                                <h3 style="font-size: 38px; font-weight:600; color:black; margin-bottom:0">SIMILAR JOBS</h3>
+                                                <?php while ($related_posts->have_posts()) : $related_posts->the_post(); ?>
+                                                    <?php $post_Expired = date('d/m/Y', strtotime(get_post_meta($post->ID, 'post_expired', true)));
+                                                                    $toDay = date("d/m/Y");
+                                                                    if ($post_Expired && ($post_Expired >= $toDay)) {
+                                                    ?>
+                                                        <article>
+                                                            <div class="category-recruitment">
+                                                                <?php
+                                                                        // get city 
+                                                                        $terms = get_the_terms($post->ID, 'city');
+                                                                        $listCity = [];
+                                                                        if (is_array($terms) || is_object($terms)) {
+                                                                            foreach ($terms as $term) {
+                                                                                $listCity[] = $term->name;
+                                                                            }
+                                                                        } ?>
+                                                                <p style="font-weight:400; font-size:14px; color:black; margin-bottom:0">
+                                                                    <?php echo ($listCity ? implode(';', $listCity) : 'no_info') . ' ' . '-' . ' ';
+                                                                        // get category     
+                                                                    ?>
+                                                                    <?php $listCat = get_the_category(get_the_ID());
+                                                                        $listDept = [];
+                                                                        foreach ($listCat as $catItem) {
+                                                                            if ($catItem->parent == 238 || $catItem->parent == 240) {
+                                                                                $listDept[] = $catItem->name;
+                                                                            }
+                                                                        } ?>
+                                                                    <?php echo ($listDept ? implode(';', $listDept) : 'no_info'); ?>
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <a href="<?php the_permalink(); ?>" style="font-size:14px; font-weight:600; color:black"><?php the_title(); ?></a>
+                                                            </div>
+                                                            <div class="career-list-container-content-end ">
+                                                                <p style="font-weight:400; font-size:14px; color:#757575; margin-bottom:0"><?php echo   'Due date: ' . date("M d, Y", strtotime(get_post_meta(get_the_ID(), 'post_expired', true) ? get_post_meta(get_the_ID(), 'post_expired', true) : 'no_info')); ?></p>
+                                                            </div>
+                                                            <div class="career-list-container-content-apply">
+                                                                <a href="<?php echo the_permalink() ?>" style="font-size:16px; color:black">View More</a>
+                                                            </div>
+                                                        </article>
+
+                                                    <?php } ?>
+
+                                                <?php endwhile; ?>
+                                                <?php wp_reset_postdata(); ?>
+                                            </div>
+                                        <?php
+                                                            endif; ?>
+                                        <button id="load" class="load">See All Jobs</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- <?php
+                                if (flatsome_option('blog_post_style') == 'default' || flatsome_option('blog_post_style') == 'inline') {
+                                    get_template_part('template-parts/posts/partials/entry-header', flatsome_option('blog_posts_header_style'));
+                                }
+                                ?>
+                        <?php get_template_part('template-parts/posts/content', 'single'); ?> -->
+                    </div>
+                </div>
+            </article>
+            <?php
+            $dayExpired = get_post_meta(get_the_ID(), 'post_expired', true);
+            $toDay = date("d/m/Y");
+            if (date('d/m/Y', strtotime($dayExpired)) && (date('d/m/Y', strtotime($dayExpired)) >= $toDay)) {
+                do_shortcode('[Upload_File_Recruitment_Form title_form="' . get_the_title(get_the_ID()) . '"]');
+            }
+        } else {
+            ?>
+            <!-- hien thi post ben blog  -->
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <div class="article-inner <?php flatsome_blog_article_classes(); ?>">
+                    <?php
+                    if (flatsome_option('blog_post_style') == 'default' || flatsome_option('blog_post_style') == 'inline') {
+                        get_template_part('template-parts/posts/partials/entry-header', flatsome_option('blog_posts_header_style'));
+                    }
+                    ?>
+                    <?php get_template_part('template-parts/posts/content', 'single'); ?>
+                </div>
+            </article>
+        <?php } ?>
+
+        <?php $listCatt = get_the_category(get_the_ID());
+        $listDeptz = 0;
+        foreach ($listCatt as $catItems) {
+            if ($catItems->parent == 238 || $catItems->parent == 240) {
+                $listDeptz = $catItems->term_id;
+            }
+        } ?>
+        <li style="display:none" id="<?php echo $listDeptz ?>"></li>
+
+    <?php endwhile; ?>
+    <!-- get id category  -->
+
+    <script>
+        jQuery(function($) {
+            var offset = 0;
+            $('#load').click(function() {
+                var id_categori = <?php echo $listDeptz ?>;
+                console.log(id_categori);
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: "load_more_career_detail",
+                        offset: offset,
+                        id_categori: id_categori,
+                    },
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="loader"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(data) {
+                        $('#related-posts').append(data);
+                        offset = offset + 2;
+                        console.log(offset);
+                    },
+                    complete: function(data) {
+                        $.unblockUI();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('The following error occured: ' + textStatus, errorThrown);
+                    }
+                });
+            });
+        })
+    </script>
+
+<?php else : ?>
+
+    <?php get_template_part('no-results', 'index'); ?>
+
+<?php endif; ?>

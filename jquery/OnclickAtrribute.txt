@@ -1,0 +1,7 @@
+ function myFunction() {
+        const link = document.getElementsByClassName("next page-number");
+        if (link[0]) {
+            window.location.href = link[0].href;
+        }
+
+    }

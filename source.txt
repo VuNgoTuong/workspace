@@ -1,0 +1,14 @@
+Model: Chứa logic tổng thể làm việc với database thông qua resource model
+Resource model: Làm việc trực tiếp với database (CRUD)
+Collection: Có thể get một tập hợp model. được sử dụng khi bạn muốn lấy nhiều dòng dữ liệu. Model chỉ có thể 
+            load 1 record thôi nhé.
+Factory: Magento sẽ tự động tạo một class trong generated, các bạn cứ hiểu là Magento sẽ tạo một bản nháp 
+         và làm việc với nó. Ví dụ: PostFactory, CollectionFactory…
+Object Manager: là một lớp PHP chịu trách nhiệm tạo và truy xuất các đối tượng 
+
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+    /* Tạo một đối tượng sản phẩm mới */ 
+    $product = $objectManager-> create (\Magento\Catalog\Model\Product::class); 
+    /* Nhận một đối tượng yêu cầu đơn lẻ 
+    $request = $objectManager-> get (\Magento\Framework\App\RequestInterface::class);

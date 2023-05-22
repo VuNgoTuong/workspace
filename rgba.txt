@@ -1,0 +1,19 @@
+.hide-for-small {
+
+    background: linear-gradient(white 20%,#F5F2EC 0);
+    
+}
+
+#fashion new
+ <span class="cat-label catalogy-inner-img"  >
+                            <?php
+                            foreach((get_the_category()) as $cat) {
+                                echo $cat->cat_name . ' ';
+                            }
+                            ?>
+                        </span>
+
+hover 
+ 	.prev:hover, .next:hover {
+         background-color: rgba(0,0,0,0.8);
+      }

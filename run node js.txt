@@ -1,0 +1,6 @@
+clone project
+npm i
+npm start
+
+postman
+nhap du lieu: body->raw-> json

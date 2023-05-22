@@ -1,0 +1,20 @@
+vẫn giữ tỷ lệ khung hình: height, width, max-height, max-width
+
+Thay đổi chiều rộng + chiều cao: Scale
+
+height: 100vh, 100vw
+width: 100vh, 100vw
+
+Dùng Calc() là một hàm trong CSS cho phép thực hiện các phép tính đơn giản như +, -, *, /. 
+ sử dụng hàm này với tất cả các thuộc tính CSS về kích thước như width, height, margin, padding, top, left, background-position
+.container {
+    width: calc(100% - 30px);
+    width: -moz-calc(100% - 30px);
+    width: -webkit-calc(100% - 30px);
+}
+vd: thay vì set .column-1-6 {
+                            width: 16.6667%;}
+    Thì dùng .column-1-6{
+                     width: calc(100% / 6);
+                     width: -moz-calc(100% / 6);
+                     width: -webkit-calc(100% / 6); }

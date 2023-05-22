@@ -1,0 +1,30 @@
+Node.js là một môi trường
+
+mvc node js: điều khiển (controller), xử lý dữ liệu (model), hiển thị dữ liệu (view).
+
+dependency (package phụ thuộc). Khi hoàn thành, chạy câu lệnh để cài đặt dependency (npm install)
+
+passport-jwt là Middleware, trung gian giữa các request và response và các xử lý logic bên trong web server.
+
+const User = require('../../model/user') :  sử dụng module Users
+
+module.exports = user : hàm, biến được định nghĩa và truy cập bởi bên trong của Module
+
+ 
+express: Node.js framework để tạo máy chủ và chấp nhận yêu cầu
+ejs: Để hiển thị các trang HTML để đăng nhập và hồ sơ
+express-session: Để lưu thông tin từ google trong phiên và sử dụng nó trên trang thành công
+hộ chiếu: Gói xác thực xã hội cho Node.js
+passport-google-oauth: Mô-đun xác thực Google bằng Passport.js
+
+
+
+
+Login with Google -> request cho server (request chứa id user) -> server nhận id và forward cho google -> google tiếp nhận và direct cho server kèm theo code -> server nhận code của google và tiếp tục gửi request cho google để lấy info user -> dựa vào code server send google trả về info user cho server thông qua passportjs
+
+
+url refresh token method get: truyền link token ref để lấy link token 1p
+
+khi user login thì tạo ra access token (1p) và refresh token (15 day).
+tạo refresh token
+tạo url refresh token để lấy access token

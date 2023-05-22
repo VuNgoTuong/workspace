@@ -1,0 +1,13 @@
+<script>
+    require(['jquery'], function($) {
+        $(".accordion > li:first-child() > ul").show();
+        $(".accordion > li").click(function() {
+            $(this).siblings().children("ul").hide("fast")
+            $(this).children("ul").stop(true, true).slideToggle("fast"),
+                $(this).toggleClass("open");
+        });
+$(".accordion > li > ul ").click(function(e) {
+            e.stopPropagation();
+        });
+    });
+</script>

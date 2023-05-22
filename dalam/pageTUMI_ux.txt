@@ -1,0 +1,421 @@
+[section label="Video Banner" padding="0px" height__sm="600px" height__md="700px"]
+
+[row]
+
+[col span__sm="12"]
+
+<p>[iFrameVideo]</p>
+
+[/col]
+
+[/row]
+
+[/section]
+[section]
+
+[row]
+
+[col span="1" span__sm="12"]
+
+
+[/col]
+[col span="10" span__sm="12" align="center"]
+
+[ux_text font_size="2.25"]
+
+<p>Prepare for each travel adventure.</p>
+<p></p>
+[/ux_text]
+[ux_text font_size="0.95" text_align="center"]
+
+<p>Performance and design are at the forefront of the 19 Degree Aluminum collection, delivering a distinctive utilitarian experience to<br> provide ravellers with the ability to create their own unique journey. Son Heung-min, international footballer and TUMI ambassador, <br>travels with these hardside cases day in and day out, ensuring just-what-he-needs plus prized possessions arrive securely intact<br>. His dedication to repetition builds character, preparing him for the long haul.</p>
+[/ux_text]
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+
+[/row]
+[row]
+
+[col span="1" span__sm="12"]
+
+
+[/col]
+[col span="10" span__sm="12"]
+
+[ux_banner height="600px" bg="5543"]
+
+[text_box position_x="50" position_y="50"]
+
+[video_button video="https://www.youtube.com/watch?v=MIokYwX6Qhc?rel=0"]
+
+
+[/text_box]
+
+[/ux_banner]
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+
+[/row]
+
+[/section]
+[section]
+
+[row]
+
+[col span="1" span__sm="12"]
+
+
+[/col]
+[col span="5" span__sm="12"]
+
+[ux_image id="5618"]
+
+<p><a href="">SHOP THE COLLECTION &gt;</a></p>
+
+[/col]
+[col span="5" span__sm="12" align="center"]
+
+[row_inner]
+
+[col_inner span__sm="12" padding="0px 0px 0px 40px" align="left" bg_color="rgb(57, 50, 50)"]
+
+[gap height="106px"]
+
+[ux_text font_size="1.3" line_height="1.5" text_align="left" text_color="rgb(255,255,255)"]
+
+<p style="font-weight:300">Avid travelers need to be<br> 
+prepared for each adventure.<br>
+The collection is characterized <br> 
+by efficient packing features; a <br>
+combination lock for security; <br> 
+and wheels that are easier to<br> maneuver when traveling near<br> 
+and far.</p>
+
+[/ux_text]
+[gap height="107px"]
+
+
+[/col_inner]
+[col_inner span__sm="12"]
+
+[ux_image id="5619" height="100%"]
+
+[ux_text text_align="left"]
+
+<p><a href="">SHOP THE COLLECTION &gt;</a></p>
+[/ux_text]
+
+[/col_inner]
+
+[/row_inner]
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+
+[/row]
+[row]
+
+[col span="1" span__sm="12"]
+
+
+[/col]
+[col span="5" span__sm="12"]
+
+[ux_image id="5620"]
+
+
+[/col]
+[col span="5" span__sm="12" padding="0px 50px 0px 50px"]
+
+[gap height="150px"]
+
+[ux_text font_size="2.25" line_height="1" text_align="center"]
+
+<p style="font-weight:400">Superior Material and <br>Exceptional Design</p>
+[/ux_text]
+[ux_text font_size="1.25" line_height="1.25" text_align="center"]
+
+<p>Strategically sculpted angles are set <br> against meticulously crafted, superior<br>
+aircraft-grade aluminum, creating<br>  hardside cases built for your journeys<br> today and the future</p>
+[/ux_text]
+[row_inner]
+
+[col_inner span__sm="12" align="center"]
+
+[button text="SHOP THE COLLECTION"]
+
+
+[/col_inner]
+
+[/row_inner]
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+
+[/row]
+[row]
+
+[col span="1" span__sm="12"]
+
+
+[/col]
+[col span="5" span__sm="12" padding="0px 50px 0px 50px"]
+
+[gap height="150px"]
+
+[ux_text font_size="2.25" text_align="center"]
+
+<p>Expandable Feature</p>
+[/ux_text]
+[ux_text font_size="1.25" line_height="1.25" text_align="center"]
+
+<p>Reengineered from the inside out, our<br>
+Lever Lock System allows you to pack<br>
+more while still enjoying the rigid<br>
+structure and durability of our signature<br>
+19 Degree Aluminum Collection.</p>
+[/ux_text]
+[row_inner]
+
+[col_inner span__sm="12" align="center"]
+
+[button text="SHOP THE COLLECTION"]
+
+
+[/col_inner]
+
+[/row_inner]
+
+[/col]
+[col span="5" span__sm="12"]
+
+<p>[iFrameVideo2]</p>
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+
+[/row]
+
+[/section]
+[section bg_color="rgb(242, 240, 240)"]
+
+[row]
+
+[col span__sm="12"]
+
+[ux_text font_size="2.25" text_align="center"]
+
+<p>19 DEGREE ALUMINUM</p>
+[/ux_text]
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+[col span="10" span__sm="12"]
+
+[ux_slider nav_color="dark" timer="3000"]
+
+[row_inner]
+
+[col_inner span="4" span__sm="12" align="center"]
+
+[ux_image id="5690"]
+
+[row_inner_1]
+
+[col_inner_1 span="8" span__sm="12"]
+
+[ux_text text_color="rgb(146, 131, 131)"]
+
+<p>19-DEGREE ALUMINUM</p>
+
+[/ux_text]
+<p style="border-bottom: 1px solid rgb(88, 55, 55)">International Carry-On<br>
+VND XXX,000,000</p>
+
+[row_inner_2]
+
+[col_inner_2 span="3" span__sm="12" align="center"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="center"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="center"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="center"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+
+[/row_inner_2]
+
+[/col_inner_1]
+
+[/row_inner_1]
+
+[/col_inner]
+[col_inner span="4" span__sm="12" align="center"]
+
+[ux_image id="5690"]
+
+[row_inner_1]
+
+[col_inner_1 span="8" span__sm="12"]
+
+[ux_text text_color="rgb(146, 131, 131)"]
+
+<p>19-DEGREE ALUMINUM</p>
+[/ux_text]
+<p style="border-bottom: 1px solid rgb(88, 55, 55)">Short Trip Packing Case<br>
+VND XXX,000,000</p>
+
+[row_inner_2]
+
+[col_inner_2 span="3" span__sm="12"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="center"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="center"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+
+[/row_inner_2]
+
+[/col_inner_1]
+
+[/row_inner_1]
+
+[/col_inner]
+[col_inner span="4" span__sm="12" align="center"]
+
+[ux_image id="5690"]
+
+[row_inner_1]
+
+[col_inner_1 span="9" span__sm="12"]
+
+[ux_text text_color="rgb(146, 131, 131)"]
+
+<p>19-DEGREE ALUMINUM</p>
+[/ux_text]
+<p style="border-bottom: 1px solid rgb(88, 55, 55)">Worldwide Trip Packing Case<br>
+VND XXX,000,000</p>
+
+[row_inner_2]
+
+[col_inner_2 span="4" span__sm="12"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="right"]
+
+[ux_image id="5714" width="40"]
+
+
+[/col_inner_2]
+
+[/row_inner_2]
+
+[/col_inner_1]
+
+[/row_inner_1]
+
+[/col_inner]
+
+[/row_inner]
+[row_inner]
+
+[col_inner span="4" span__sm="12" align="center"]
+
+[ux_image id="5690"]
+
+[row_inner_1]
+
+[col_inner_1 span="8" span__sm="12" align="left"]
+
+[ux_text text_align="center" text_color="rgb(146, 131, 131)"]
+
+<p>19-DEGREE ALUMINUM</p>
+
+[/ux_text]
+[ux_text text_align="center"]
+
+<p style="border-bottom: 1px solid rgb(88, 55, 55)">International Carry-On<br>
+VND XXX,000,000</p>
+
+[/ux_text]
+[row_inner_2]
+
+[col_inner_2 span="4" span__sm="12"]
+
+
+[/col_inner_2]
+[col_inner_2 span="3" span__sm="12" align="right"]
+
+[ux_image id="5714" width="50"]
+
+
+[/col_inner_2]
+
+[/row_inner_2]
+
+[/col_inner_1]
+
+[/row_inner_1]
+
+[/col_inner]
+
+[/row_inner]
+
+[/ux_slider]
+
+[/col]
+[col span="1" span__sm="12"]
+
+
+[/col]
+
+[/row]
+
+[/section]

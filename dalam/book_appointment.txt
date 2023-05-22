@@ -1,0 +1,1276 @@
+<?php
+
+function book_appointment()
+{
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $lang = strpos($request_uri, '/en/') !== false ? 'en' : 'vi';
+    if ($lang == 'en') {
+       $store = 'Select store';
+       $start_from = 'Start from';
+       $finish_by = 'Finish by';
+       $information = 'Information';
+       $name_of_you = 'Full name';
+       $email_of_you = 'Email';
+       $phone_of_you = 'Phone';
+       $note_of_you = 'Note';
+       $selected = 'You select a booking for';
+       $at = 'at';
+       $on = 'on';
+       $order_success = 'BOOKING AN APPOINTMENT SUCCESS';
+    } else {
+        $store = 'Chọn cửa hàng';
+        $start_from = 'Giờ bắt đầu';
+        $finish_by = 'Giờ kết thúc';
+        $information = 'Thông tin của bạn';
+        $name_of_you = 'Họ tên';
+        $email_of_you = 'Email';
+        $phone_of_you = 'Số điện thoại';
+        $note_of_you = 'Ghi chú';
+        $selected = 'Bạn chọn đặt chỗ cho';
+        $at = 'lúc';
+        $on = 'ngày';
+        $order_success = 'ĐẶT LỊCH THÀNH CÔNG';
+    }
+?>
+
+    <style>
+        .page-wrapper {
+            padding: 0;
+        }
+
+        .page-wrapper div.large-12.col {
+            padding: 0;
+        }
+
+        .col-inner {
+            padding: 0 !important;
+        }
+
+        .row .section {
+            padding-left: unset;
+            padding-right: unset;
+        }
+
+        .entry-title {
+            display: none;
+        }
+
+        .entry-content {
+            display: flex;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        select {
+            border-radius: 20px !important;
+        }
+
+        .btn {
+            font-size: 1em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            background: #fff;
+            color: #262626;
+            border-radius: 10px;
+            height: 50px;
+            font-weight: 600;
+            min-width: 100px;
+            padding: 0px 20px;
+            transition: 0.2s ease;
+            cursor: pointer;
+            outline: 0;
+        }
+
+        .btn:hover {
+            color: #FFF;
+            background: #455AF7;
+        }
+
+        .btn-small {
+            min-width: 50px;
+        }
+
+        .btn-day {
+            font-size: 18px;
+            font-weight: 400;
+            color: #0A0A0A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .btn-day.active {
+            color: #FFF;
+            font-weight: 400;
+        }
+
+        .btn-day.active::before {
+            position: absolute;
+            content: '';
+            width: 40px;
+            height: 40px;
+            border-radius: 50% !important;
+            background: #D7B797;
+            z-index: -1;
+        }
+
+        .calendar-assets {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            padding: 10px;
+        }
+
+        #currentDate {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .form-input {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-assets {
+            display: flex;
+            justify-content: space-between;
+            width: 324px;
+        }
+
+        .day-assets .btn:nth-child(2) i {
+            padding: 0 10px 0 0 !important;
+        }
+
+        .calendar {
+            border-radius: 18px;
+            padding: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .month-header {
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+        }
+
+        .month>h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0A0A0A;
+            margin-top: 15px;
+        }
+
+        .icon {
+            font-size: 20px;
+            background: #ffffff;
+            color: #D7B797;
+            border: none;
+            cursor: pointer;
+            outline: 0;
+        }
+
+        td {
+            padding: 5px !important;
+            border-bottom: 0;
+        }
+
+        th {
+            text-align: center;
+            color: #0A0A0A;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        button {
+            margin-bottom: unset;
+            padding: unset;
+        }
+
+        td:nth-child(1)>button {
+            color: #D7B797;
+            cursor: no-drop;
+        }
+
+        td:nth-child(7)>button {
+            color: #D7B797;
+            cursor: no-drop;
+        }
+
+        th:nth-child(1) {
+            color: #D7B797;
+        }
+
+        th:nth-child(7) {
+            color: #D7B797;
+        }
+
+        .months {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .disabled {
+            display: none;
+        }
+
+        .book_appointment_info {
+            background-color: #F5F2ED;
+            padding: 20px 30px;
+        }
+
+        .group_modal_input {
+            padding: 0 8.7% 0 0;
+        }
+
+        .group_input>input {
+            border-radius: 99px;
+            border: 1px solid #757575;
+        }
+
+        .notice {
+            display: none;
+            padding-top: 10px;
+        }
+
+        .notice>p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #292929;
+        }
+
+        .modal_result {
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            margin: auto;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: #00000080;
+
+        }
+
+        .frame_result {
+            position: relative;
+            background-color: #FFF;
+            padding: 32px;
+            width: 50%;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .frame_result {
+            width: 50%;
+            margin: 20px;
+        }
+
+        .book_appointment_input>div {
+            margin-bottom: 20px
+        }
+
+        .group_input.group_email {
+            margin-bottom: 20px;
+        }
+
+        .group_input.group_portfolio textarea {
+            height: 200px;
+            border-radius: 30px;
+            border: 1px solid #757575;
+        }
+
+        label {
+            padding-left: 15px;
+        }
+
+        .close_result {
+            color: #FFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            height: 30px;
+            width: 30px;
+            border-radius: 20px;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+        }
+
+        .frame_result > h3 {
+            color: #0e1112;
+        }
+
+        .close_result:hover {
+            background-color: #0e1112;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+        .none {
+            display: none;
+        }
+
+        .page-book-appointment {
+            display: flex;
+            padding: 100px;
+            justify-content: space-evenly;
+        }
+
+        .booking {
+            display: flex;
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+
+        .booking>div {
+            width: 48%;
+        }
+
+        .booking>div>p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #292929;
+            margin-left: 12px;
+        }
+
+        .form-appointment {
+            width: 50%;
+        }
+
+        .font-store {
+            margin-bottom: 30px;
+        }
+
+        .font-store>p {
+            font-size: 14px;
+            color: #292929;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .book_appointment_info>p {
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #5C5C5C;
+        }
+
+        .fill.banner-link {
+            background-color: black;
+            opacity: 0.2;
+        }
+
+        .select-store {
+            width: 40%;
+        }
+
+        .color-disable {
+            color: gray;
+            opacity: 0.5;
+        }
+
+        .group_footer_sms > input {
+            border-radius: 99px; 
+            display:none;
+        }
+
+        @media screen and (max-width:1200px) {
+            .page-book-appointment {
+                padding: 50px;
+            }
+
+            td {
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width:850px) {
+            .page-book-appointment {
+                display: block;
+                padding: 0;
+            }
+
+            .select-store {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .form-appointment {
+                width: 100%;
+            }
+
+            .notice>p {
+                padding: 10px;
+            }
+
+            .text-inner.text-center > h2 {
+                font-size: 28px !important;
+            }
+
+            .text-inner.text-center > p {
+                font-weight: 400 !important;
+            }
+        }
+    </style>
+
+    <?php
+
+    global $wpdb;
+
+    $location_stores = $wpdb->get_results("
+            SELECT * 
+            FROM dafc_location_stores          
+            WHERE type = 1
+        ");
+
+    $booking_config = $wpdb->get_results("
+            SELECT * 
+            FROM dafc_booking_config
+    ");
+
+    ?>
+    <div class="page-book-appointment">
+        <div class="select-store">
+            <div class="font-store">
+                <p><?php echo $store ?></p>
+                <select name="stores" id="stores">
+                    <option selected="selected">Store</option>
+                    <?php
+                    foreach ($location_stores as $location_store) : ?>
+                        <option value="<?php echo $location_store->id ?>">
+                            <?php echo $location_store->name; ?>
+                        </option> <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="calendar" id="table">
+                <div class="month-header">
+                    <!-- <div id="date" style="display:none">
+                    </div> -->
+                    <div class="months">
+                        <button class="icon" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                        <div class="month" id="month-header">
+                        </div>
+                        <button class="icon" onclick="nextMonth()"><i class="fas fa-chevron-right "></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="booking">
+                <div>
+                    <?php
+                    $ngay_gio_hien_tai = date("d-m-Y H:i:s");
+                    $gio_hien_tai = date("H", strtotime($ngay_gio_hien_tai));
+                    $phut_hien_tai = date("i", strtotime($ngay_gio_hien_tai));
+                    $hour = $gio_hien_tai;
+                    $gio_bat_dau = date("H", strtotime($booking_config[0]->time_from));
+                    $current = $gio_bat_dau;
+                    $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                    ?>
+                    <p><?php echo $start_from ?></p>
+                    <select id="startTime" name="start-time">
+                    </select>
+                </div>
+                <div>
+                    <p><?php echo $finish_by ?></p>
+                    <select id="finishTime" name="end-time">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-appointment">
+            <div class="book_appointment_info" style="width:100%">
+                <p><?php echo $information ?></p>
+                <div class="book_appointment_input">
+                    <div class="group_top_sms">
+                        <div class="group_input group_name">
+                            <label for="name"><?php echo $name_of_you ?></label>
+                            <input class="group_input_input" name="name user" id="name" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="group_top_sms">
+                        <div class="group_input group_email">
+                            <label for="email"><?php echo $email_of_you ?></label>
+                            <input name="email" id="email" type="text" value="">
+                        </div>
+                        <div class="group_input group_phone">
+                            <label for="phone"><?php echo $phone_of_you ?></label>
+                            <input name="phone" type="text" value="" id="phone">
+                        </div>
+                    </div>
+                    <div class="group_input group_portfolio">
+                        <label for=""><?php echo $note_of_you ?></label>
+                        <textarea type="text" name="notes" id="notes" value=""></textarea>
+                    </div>
+                    <span id="error_text"></span>
+                    <div class="group_footer_sms">
+                        <input id="sendEmail" class="send_email" type="submit" value="SUBMIT">
+                    </div>
+                </div>
+            </div>
+            <div id="notice" class="notice">
+                <p><?php echo $selected ?> <b>DAFC</b> <?php echo $at ?> <b id="get_hour_start"></b> <?php echo $on ?> <b id="get_date"></b></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_result" class="modal_result">
+        <div class="frame_result">
+            <div id="close_result" class="close_result"><span class="dashicons dashicons-no"></span></div>
+            <h3><?php echo $order_success ?></h3>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+
+    <script>
+        jQuery(function($) {
+
+            $('select[name=stores]').on("change", function() {
+                if ($(this)[0].selectedIndex == 0) {
+                    $(".group_footer_sms input#sendEmail").css('display', 'none');
+                    $("#notice").css('display', 'none');
+                } else {
+                    $(".group_footer_sms input#sendEmail").css('display', 'block');
+                    $("#notice").css('display', 'block');
+
+                    date_active = (date.getDate() + [date.getMonth() + 1] + date.getFullYear());
+                    const date_now = new Date();
+                    if (date_active != (date_now.getDate() + [date_now.getMonth() + 1] + date_now.getFullYear())) {
+                        <?php
+                        $print = '';
+                        $gio_bat_dau = date("H", strtotime($booking_config[0]->time_from));
+                        $current = $gio_bat_dau;
+                        $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                        while ($current <= $gio_ket_thuc) {
+                            $G = $current . ":00:00";
+                            $gio = strtotime($G);
+                            $print = $print  . "<option value= " . date("H:i:s", $gio) . ">" . date("H:i:s", $gio) . "</option>";
+                            $current++;
+                        }
+                        ?>
+                        jQuery("#startTime").html('<?php echo $print ?>');
+
+                        <?php
+                        $print = '';
+                        $gio_bat_dau = date("H", strtotime($booking_config[0]->time_from));
+                        $current = $gio_bat_dau;
+                        $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                        while ($current <= $gio_ket_thuc) {
+                            $G = $current . ":00:00";
+                            $gio = strtotime($G);
+                            $print =  $print . "<option value= " . date("H:i:s", strtotime("+1 hour", $gio)) . ">" . date("H:i:s", strtotime("+1 hour", $gio)) . "</option>";
+                            $current++;
+                        }
+                        ?>
+                        jQuery("#finishTime").html('<?php echo $print ?>');
+
+                    }
+                    jQuery("#startTime").change(function() {
+                        document.getElementById("get_hour_start").innerHTML = jQuery("#startTime").val();
+                    })
+                    document.getElementById("get_hour_start").innerHTML = jQuery("#startTime").val();
+
+                    return false;
+                }
+            })
+
+            $('select[name=start-time]').on("change", function() {
+                var index = $(this)[0].selectedIndex;
+                $.each($('select[name=end-time] option'), function() {
+                    var endOptionIndex = $(this).index();
+                    if (endOptionIndex < index) {
+                        $(this).attr('class', 'disabled');
+                    } else {
+                        $(this).removeAttr('disabled').prop('selected', true);
+                        return false;
+                    }
+                });
+            });
+
+            $('#close_result').click(function() {
+                $('#modal_result').hide()
+            })
+
+            const validateEmail = (email) => {
+                if (!email || !email.length) return true
+                const re = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                return re.test(email);
+            };
+
+            const validatePhone = (v) => {
+                if (!v || !v.length) return false
+                const phone1 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                const phone2 = /^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                return v.match(phone1) || v.match(phone2)
+            };
+
+            $("#sendEmail").on('click', () => {
+
+                const obj = {};
+
+                obj.utm = window.location.href
+
+                obj.name = $('#name').val()
+
+                obj.stores = $('#stores').val()
+
+                obj.date = date.getTime();
+
+                obj.startTime = $('#startTime').val()
+
+                obj.finishTime = $('#finishTime').val()
+
+                obj.email = $('#email').val()
+
+                obj.phone = $('#phone').val()
+
+                obj.notes = $('#notes').val()
+
+                if (!obj.name.length) return $("#error_text").text("Tên của bạn không được để trống");
+
+                if (!obj.email.length) return $("#error_text").text("Email không được để trống");
+
+                if (!validateEmail(obj.email)) return $("#error_text").text("Email của bạn không đúng");
+
+                if (!obj.phone.length) return $("#error_text").text("Số điện thoại không được để trống");
+
+                if (!validatePhone(obj.phone)) return $("#error_text").text("Số điện thoại không đúng");
+
+                let formUpload = new FormData();
+
+                formUpload.append('action', 'send_email_appointment');
+
+                formUpload.append('name', obj.name);
+
+                formUpload.append('stores', obj.stores);
+
+                formUpload.append('date', obj.date);
+
+                formUpload.append('startTime', obj.startTime);
+
+                formUpload.append('finishTime', obj.finishTime);
+
+                formUpload.append('email', obj.email);
+
+                formUpload.append('phone', obj.phone);
+
+                formUpload.append('utm', obj.utm);
+
+                formUpload.append('notes', obj.notes);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: formUpload,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $.blockUI({
+                            fadeIn: 500,
+                            message: '<div class="dot-gathering"></div>',
+                            css: {
+                                left: '50%',
+                                width: 'unset',
+                                justifyItems: 'center',
+                                backgroundColor: '#fff0',
+                                border: 'none',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        });
+                    },
+                    success: function(res) {
+                        try {
+                            let {
+                                status,
+                                msg
+                            } = JSON.parse(res)
+                            if (status === "ok" && msg === "success") {
+                                $('#modal_result').css({
+                                    "display": 'flex'
+                                })
+                            } else {
+                                msg = msgs[lang][msg] || null;
+                                if (msg) {
+                                    $('html, body').css({
+                                        overflow: 'visible',
+                                        height: 'unset',
+                                    });
+                                }
+                            }
+                        } catch (e) {
+                            // console.log(e)
+                        }
+                    },
+                    complete: function() {
+                        $('html, body').css({
+                            overflow: 'auto',
+                            height: 'unset'
+                        });
+                        $.unblockUI();
+
+                        $('#modal_result').css({
+                            "display": 'flex'
+                        })
+
+                        $('#notice').css({
+                            "display": 'flex'
+                        })
+                    },
+                    error: function(errorThrown) {
+                        console.log("ERROR", errorThrown)
+                    }
+                });
+            })
+        });
+
+        // calendar 
+
+        date_now = new Date();
+
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        const weekdays = ["Sunday", "Monday", "Tuesday", "Wesnesday", "Thursday", "Friday", "Saturday"];
+
+        let date = new Date();
+
+        function getCurrentDate(element, asString) {
+            if (element) {
+                if (asString) {
+                    return element.textContent = weekdays[date.getDay()] + ', ' + date.getDate() + months[date.getMonth()] + date.getFullYear();
+                }
+                return element.value = date.toISOString().substr(0, 10);
+            }
+            return date;
+        }
+
+        function generateCalendar() {
+            const calendar = document.getElementById('calendar');
+
+            if (calendar) {
+                calendar.remove();
+            }
+
+            const table = document.createElement("table");
+            table.id = "calendar";
+
+            const trHeader = document.createElement('tr');
+            trHeader.className = 'weekends';
+            weekdays.map(week => {
+                const th = document.createElement('th');
+                const w = document.createTextNode(week.substring(0, 2));
+                th.appendChild(w);
+                trHeader.appendChild(th);
+            });
+
+            table.appendChild(trHeader);
+
+            const weekDay = new Date(
+                date.getFullYear(),
+                date.getMonth(), 1
+            ).getDay();
+
+            const lastDay = new Date(
+                date.getFullYear(),
+                date.getMonth() + 1,
+                0
+            ).getDate();
+
+            let tr = document.createElement("tr");
+            let td = '';
+            let empty = '';
+            let btn = document.createElement('button');
+            let week = 0;
+
+            while (week < weekDay) {
+                td = document.createElement("td");
+                empty = document.createTextNode(' ');
+                td.appendChild(empty);
+                tr.appendChild(td);
+                week++;
+            }
+            if ((date_now.getFullYear()) == (date.getFullYear())) {
+
+                if ((date_now.getMonth() + 1) == (date.getMonth() + 1)) {
+                    for (let i = 1; i <= lastDay;) {
+                        while (week < 7) {
+                            td = document.createElement('td');
+                            let text = document.createTextNode(i);
+                            btn = document.createElement('button');
+                            btn.className = "btn-day";
+                            if ((week != 0 && week != 6) && (date_now.getDate() <= i)) {
+                                btn.addEventListener('click', function() {
+                                    changeDate(this)
+                                });
+                            }
+
+                            if (i < date_now.getDate()) {
+                                btn.className = "btn-day color-disable";
+                            }
+
+                            week++;
+
+                            if (i <= lastDay) {
+                                i++;
+                                btn.appendChild(text);
+                                td.appendChild(btn);
+                            } else {
+                                text = document.createTextNode(' ');
+                                td.appendChild(text);
+                            }
+                            tr.appendChild(td);
+                        }
+                        table.appendChild(tr);
+                        tr = document.createElement("tr");
+                        week = 0;
+                    }
+
+                } else if ((date_now.getMonth() + 1) < (date.getMonth() + 1)) {
+                    for (let i = 1; i <= lastDay;) {
+                        while (week < 7) {
+                            td = document.createElement('td');
+                            let text = document.createTextNode(i);
+                            btn = document.createElement('button');
+                            btn.className = "btn-day";
+                            if ((week != 0 && week != 6)) {
+                                btn.addEventListener('click', function() {
+                                    changeDate(this)
+                                });
+                            }
+                            week++;
+                            if (i <= lastDay) {
+                                i++;
+                                btn.appendChild(text);
+                                td.appendChild(btn)
+                            } else {
+                                text = document.createTextNode(' ');
+                                td.appendChild(text);
+                            }
+                            tr.appendChild(td);
+                        }
+                        table.appendChild(tr);
+                        tr = document.createElement("tr");
+                        week = 0;
+                    }
+                }
+            } else if ((date_now.getFullYear()) < (date.getFullYear())) {
+                for (let i = 1; i <= lastDay;) {
+                    while (week < 7) {
+                        td = document.createElement('td');
+                        let text = document.createTextNode(i);
+                        btn = document.createElement('button');
+                        btn.className = "btn-day";
+                        if ((week != 0 && week != 6)) {
+                            btn.addEventListener('click', function() {
+                                changeDate(this)
+                            });
+                        }
+                        week++;
+
+                        if (i <= lastDay) {
+                            i++;
+                            btn.appendChild(text);
+                            td.appendChild(btn)
+                        } else {
+                            text = document.createTextNode(' ');
+                            td.appendChild(text);
+                        }
+                        tr.appendChild(td);
+                    }
+                    table.appendChild(tr);
+                    tr = document.createElement("tr");
+                    week = 0;
+                }
+            }
+
+            const content = document.getElementById('table');
+            content.appendChild(table);
+            changeActive();
+            changeHeader(date);
+            document.getElementById('date').textContent = (date.getDate()) + " " + months[date.getMonth()] + " " + date.getFullYear();
+            getCurrentDate(document.getElementById("currentDate"), true);
+            getCurrentDate(document.getElementById("date"), false);
+
+        }
+
+        function setDate(form) {
+            let newDate = new Date(form.date.value);
+            date = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate() + 1);
+            generateCalendar();
+            return false;
+        }
+
+        function changeHeader(dateHeader) {
+            const month = document.getElementById("month-header");
+            if (month.childNodes[0]) {
+                month.removeChild(month.childNodes[0]);
+            }
+            const headerMonth = document.createElement("h1");
+            const textMonth = document.createTextNode(months[dateHeader.getMonth()].substring(0, 10) + " " + dateHeader.getFullYear());
+            headerMonth.appendChild(textMonth);
+            month.appendChild(headerMonth);
+        }
+
+        function changeActive() {
+            let btnList = document.querySelectorAll('button.active');
+            btnList.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            btnList = document.getElementsByClassName('btn-day');
+
+            for (let i = 0; i < btnList.length; i++) {
+                const btn = btnList[i];
+
+                if (btn.textContent === (date.getDate()).toString()) {
+                    btn.classList.add('active');
+                }
+            }
+
+
+            date_active = (date.getDate() + [date.getMonth() + 1] + date.getFullYear());
+            const date_now = new Date();
+
+            if (date_active != (date_now.getDate() + [date_now.getMonth() + 1] + date_now.getFullYear())) {
+                <?php
+                $print = '';
+                $gio_bat_dau = date("H", strtotime($booking_config[0]->time_from));
+                $current = $gio_bat_dau;
+                $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                while ($current <= $gio_ket_thuc) {
+                    $G = $current . ":00:00";
+                    $gio = strtotime($G);
+                    $print = $print  . "<option value= " . date("H:i:s", $gio) . ">" . date("H:i:s", $gio) . "</option>";
+                    $current++;
+                }
+                ?>
+                jQuery("#startTime").html('<?php echo $print ?>');
+
+                <?php
+                $print = '';
+                $gio_bat_dau = date("H", strtotime($booking_config[0]->time_from));
+                $current = $gio_bat_dau;
+                $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                while ($current <= $gio_ket_thuc) {
+                    $G = $current . ":00:00";
+                    $gio = strtotime($G);
+                    $print =  $print . "<option value= " . date("H:i:s", strtotime("+1 hour", $gio)) . ">" . date("H:i:s", strtotime("+1 hour", $gio)) . "</option>";
+                    $current++;
+                }
+                ?>
+                jQuery("#finishTime").html('<?php echo $print ?>');
+
+            } else {
+                <?php
+                $print = '';
+                $current = $gio_bat_dau;
+                $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                if ($gio_hien_tai < $gio_bat_dau) {
+                    while ($current <= $gio_ket_thuc) {
+                        $G = $current . ":00:00";
+                        $gio = strtotime($G);
+                        $print = $print  . "<option value= " . date("H:i:s", $gio) . ">" . date("H:i:s", $gio) . "</option>";
+                        $current++;
+                    }
+                } else if (($gio_hien_tai >= $gio_bat_dau) && ($gio_hien_tai < $gio_ket_thuc)) {
+                    if ($phut_hien_tai != 0) {
+                        while (($hour < $gio_ket_thuc)) {
+                            $GIO = $hour . ":00:00";
+                            $giod = strtotime($GIO);
+                            $print = $print  . "<option value= " . date('H:i:s', strtotime('+1 hour', $giod)) . ">" . date('H:i:s', strtotime('+1 hour', $giod)) . "</option>";
+                            $hour++;
+                        }
+                    } else {
+                        while (($hour < $gio_ket_thuc)) {
+                            $GI = $hour . ":00:00";
+                            $gi = strtotime($GI);
+                            $print = $print  . "<option value= " . date("H:i:s", $gi) . ">" . date("H:i:s", $gi) . "</option>";
+                            $hour++;
+                        }
+                    }
+                } else {
+                    $print = $print  . "";
+                }  ?>
+                jQuery("#startTime").html('<?php echo $print ?>')
+
+
+                <?php
+                $print = '';
+                $gio_bat_dau = date("H", strtotime($booking_config[0]->time_from));
+                $current = $gio_bat_dau;
+                $hour = $gio_hien_tai;
+                $gio_ket_thuc = date("H", strtotime($booking_config[0]->time_to));
+                if ($gio_hien_tai < $gio_bat_dau) {
+                    while ($current <= $gio_ket_thuc) {
+                        $G = $current . ":00:00";
+                        $gio = strtotime($G);
+                        $print = $print  . "<option value= " . date("H:i:s", strtotime("+" . $booking_config[0]->time_block . "minutes", $gio)) . ">" . date("H:i:s", strtotime("+" . $booking_config[0]->time_block . "minutes", $gio))  . "</option>";
+                        $current++;
+                    }
+                } else if (($gio_hien_tai >= $gio_bat_dau) && ($gio_hien_tai < $gio_ket_thuc)) {
+                    if ($phut_hien_tai != 0) {
+                        while (($hour < $gio_ket_thuc)) {
+                            $GIO = $hour . ":00:00";
+                            $giod = strtotime($GIO);
+                            $print = $print  . "<option value= " . date('H:i:s', strtotime('+1 hour +' . $booking_config[0]->time_block . "minutes", $giod)) . ">" . date('H:i:s', strtotime('+1 hour +' . $booking_config[0]->time_block . "minutes", $giod)) . "</option>";
+                            $hour++;
+                        }
+                    } else {
+                        while (($hour < $gio_ket_thuc)) {
+                            $GI = $hour . ":00:00";
+                            $gi = strtotime($GI);
+                            $print = $print  . "<option value= " . date("H:i:s", strtotime("+" . $booking_config[0]->time_block . "minutes", $gi)) . ">" . date("H:i:s", strtotime("+" . $booking_config[0]->time_block . "minutes", $gi)) . "</option>";
+                            $hour++;
+                        }
+                    }
+                } else {
+                    $print =  $print . "";
+                }  ?>
+                jQuery("#finishTime").html('<?php echo $print ?>')
+
+
+                const today = new Date();
+                if (today.getDay() == 6 || today.getDay() == 0) {
+                    <?php $print = ''; ?>
+                    jQuery("#startTime").html('<?php echo $print ?>');
+                    jQuery("#finishTime").html('<?php echo $print ?>');
+                }
+
+            }
+
+            jQuery("#startTime").change(function() {
+                document.getElementById("get_hour_start").innerHTML = jQuery("#startTime").val();
+            })
+
+            document.getElementById("get_hour_start").innerHTML = jQuery("#startTime").val();
+            document.getElementById("get_date").innerHTML = (date.getDate() + "/" + [date.getMonth() + 1] + "/" + date.getFullYear());
+
+        }
+
+        function changeDate(button) {
+            let newDay = parseInt(button.textContent);
+            date = new Date(date.getFullYear(), date.getMonth(), newDay);
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            date = new Date(date.getFullYear(), date.getMonth() + 1, date_now.getDate());
+            generateCalendar(date);
+        }
+
+        function prevMonth() {
+            date = new Date(date.getFullYear(), date.getMonth() - 1, date_now.getDate());
+            generateCalendar(date);
+        }
+        document.onload = generateCalendar(date);
+
+        //end calendar
+    </script>
+
+
+<?php
+
+}
+
+add_shortcode('book_appointment', 'book_appointment');
+?>
+
+
+<?php
+
+function get_email_appointment_message_html()
+{
+
+    $email = $_POST['email'];
+
+    $name = $_POST['name'];
+
+    $phone = $_POST['phone'];
+
+    $notes = $_POST['notes'];
+
+    ob_start();
+
+    echo 'Dear Admin,<br>';
+
+    echo 'Họ tên khách hàng: ' . $name . '. <br>';
+
+    echo 'Số điện thoại: ' . $phone . '. <br>';
+
+    echo 'Email: ' . $email . '. <br>';
+
+    echo 'Notes: ' . $notes . '. <br>';
+
+    $message = ob_get_clean();
+
+    return $message;
+}
+
+
+function send_email_appointment()
+{
+    try {
+
+        if (!(isset($_POST["action"]) && $_POST["action"] === "send_email_appointment")) {
+
+            echo json_encode(array('status' => 'error', 'msg' => "error"));
+
+            exit;
+        }
+
+        global  $wpdb;
+
+        $email = $_POST['email'];
+
+        $name = $_POST['name'];
+
+        $phone = $_POST['phone'];
+
+        $utm = $_POST['utm'];
+
+        $store_id = $_POST['stores'];
+
+        $get_email_store =  $wpdb->get_results(" SELECT * FROM dafc_location_stores WHERE id = $store_id ");
+
+        $email_store = $get_email_store[0]->email;
+
+        $booking_date = substr($_POST['date'], 0, 10);
+
+        $booking_date = date('Y-m-d', $booking_date);
+
+        $booking_time_start = $_POST['startTime'];
+
+        $booking_time_end = $_POST['finishTime'];
+
+        $notes = $_POST['notes'];
+
+        $wpdb->insert('dafc_booking_order', array(
+
+            'type'          => 2,
+
+            'name'          => $name,
+
+            'phone'         => $phone,
+
+            'email'         => $email,
+
+            'utm'           => $utm,
+
+            'store_id'      => $store_id,
+
+            'booking_date'  => $booking_date,
+
+            'booking_time_start'  => $booking_time_start,
+
+            'booking_time_end'    => $booking_time_end,
+
+            'notes'         => $notes,
+
+        ));
+
+        $emailTest = ['vu.ngo@dafc.com.vn'];
+
+        $emailAdmin = [];
+
+        $subject = "Thông tin đăng ký Book an Appointment ";
+
+        foreach ($emailTest as $value) {
+
+            $result = wp_mail(
+
+                $value,
+
+                $subject,
+
+                get_email_appointment_message_html([]),
+
+                array('Content-type: text/html; charset=UTF-8'),
+
+            );
+        }
+
+        $emailKH = [$email];
+
+        $subject = "Thông tin đăng ký Book an Appointment";
+
+        $msg_email = 'Xin Chào ' . $name . '. Cám ơn bạn đã đặt lịch ở DAFC. Lịch của bạn sẽ bắt đầu vào ' . $booking_time_start . ' đến ' . $booking_time_end . ' vào ngày '  . $booking_date;
+
+        foreach ($emailKH as $value) {
+
+            $result = wp_mail(
+
+                $value,
+
+                $subject,
+
+                $msg_email,
+
+                array('Content-type: text/html; charset=UTF-8'),
+
+            );
+        }
+
+
+        if (!$email_store) {
+
+        $emailStore = $email_store;
+
+        $subject = "Cửa hàng có thông tin đăng ký ";
+
+        $msg_email_store = 'Xin Chào, cửa hàng bạn được ';
+
+        $result = wp_mail(
+
+            $emailStore,
+
+            $subject,
+
+            $msg_email_store,
+
+            array('Content-type: text/html; charset=UTF-8'),
+
+        );
+        }
+
+        // $msg = 'Xin Chào '. $name .'. Cám ơn bạn đã đặt lịch ở DAFC. Lịch của bạn sẽ vào ngày '. $booking_date . '. Từ '. $booking_time_start . ' đến '. $booking_time_end ;
+
+        // sendSmsEcode($phone, $msg);
+
+        echo json_encode(array(
+
+            'status' => 'ok',
+
+            "msg" => "success",
+
+        ));
+
+        exit;
+    } catch (Exception $e) {
+
+        echo json_encode(array('status' => 'error', 'error' => $e->getMessage()));
+
+        exit;
+    }
+}
+
+add_action('wp_ajax_send_email_appointment', 'send_email_appointment');
+
+add_action('wp_ajax_nopriv_send_email_appointment', 'send_email_appointment');
+
+?>

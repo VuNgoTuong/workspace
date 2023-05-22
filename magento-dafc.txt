@@ -1,0 +1,33 @@
+window.otpData : opt console
+
+app > design > frontend > dafc > dafc > (cac file nam trong nay)
+
+menu desktop nam trong file top_menu.phtml
+
+customerTemplateGenerator.php (file create customer)
+
+<?php if($themeHelper->getStoreConfig('megamenu/general/homelogo')): ?> : active
+
+code / Dafc / ShopWomen / view / frontend / layout / women_index_index.xml ( trong các file này để title của từng block admin vào là nhận được)
+
+.fa-plus:before {
+    content: "\f107";
+}
+
+chỉnh dropdown menu mobile -> content: "\f107" .fa-plus trong file font-awesome.css
+
+file script.phtml: viet script scroll back top
+
+file vetical.phtml: chia headher theo reponsive
+
+Thêm search -> vào file header.phtml thêm div, vào megamenu_reponsive.less max-width:1199px thêm css
+
+<?php echo $block->getChildHtml() ?>
+
+<?php echo $block->getChildHtml('top.links.mobile') ?> : sign in sign up
+
+ <?php echo $topSearch ?>: search form 
+
+
+php bin/magento setup:store-config:set --base-url="http://localhost:8099"
+php bin/magento setup:store-config:set --base-url-secure="https://localhost:8099"

@@ -1,0 +1,16 @@
+chen code tat ca ngon ngu vao khi su dung dieu kien js
+
+
+
+chen js vao html
+document.getElementById("get_hour_start").innerHTML = jQuery("#startTime").val();
+document.getElementById("get_date").innerHTML = (date.getDate() + "/" + [date.getMonth() + 1] + "/" + date.getFullYear());
+
+
+
+bash json encode -> decode 
+
+const token = req.headers.authorization.split(' ')[1];
+  let base64Url = token.split('.')[1]; 
+  let base64 = base64Url.replace('-', '+').replace('_', '/');
+  let user = JSON.parse(Buffer.from(base64, 'base64').toString('binary'));

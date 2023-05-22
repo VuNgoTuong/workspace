@@ -1,0 +1,13 @@
+// RECORD VÀO DB dùng SEQUELIZE (nodejs)
+tạo 1 hàm ghi vào db
+folder utils -> dbService.js (tạo 1 function record) :
+                                            const createOne = async (model, data) => {
+                                            const result = await model.create(data);
+                                            return result; };
+
+function thực hiện thêm vào db ( thực thi mà không thêm vào db thì k tồn tại )
+                          await dbService.createOne(model.userToken, {
+                                      userId: user.id,
+                                      token: newAccessToken,
+                                      tokenExpiredTime: expire,
+                             });

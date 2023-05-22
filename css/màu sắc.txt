@@ -1,0 +1,23 @@
+Màu nền:  background-color:(red, white,...) ;
+
+màu văn bản: color: (red, white,...);
+
+màu viền: border: 1px solid (tomato, dodgerblue, violet, blue, red....)
+
+giá trị màu: rgb(255, 0, 0)
+		rgba(255, 99, 71, 0.5 )
+		#000000
+		hsl(0, 100%, 50%)
+
+
+hover 
+ 	.prev:hover, .next:hover {
+         background-color: rgba(0,0,0,0.8);
+      }
+
+background: linear-gradient(white 20%,#F5F2EC 0);
+
+background-blend-mode:
+	pha trộn màu: hình ảnh, màu nền, gradient
+
+filter: đổi màu ảnh svg

@@ -1,0 +1,14 @@
+
+Mối quan hệ: magento blank là cha của magento luma
+Content => configuration => edit global => Applied theme => save configuration => click cache management => Flush magento cache
+registration.php và theme.xml
+Tạo 1 giao dien moi: vào app\design\frontend\ tạo folder (tên), trong folder này có folder theme(tên) chứa 2 file 
+				registration.php và theme.xml
+chay lenh php bin/magento setup:static-content:deploy -f de load
+
+https://www.codextblog.com/magento-2/create-a-custom-child-theme-from-luma-theme/ (huong dan)
+
+lam sao de bat edit with builder => vao stores => setting => configuration
+
+
+khi bi loi autoload chay lenh: composer dumpautoload

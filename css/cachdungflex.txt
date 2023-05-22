@@ -1,0 +1,10 @@
+1/ nếu chiều rộng của bạn nhỏ hơn X, hãy ngắt thành một dòng mới”. 
+Chúng ta có thể làm điều đó bằng cách đặt thuộc flex-basis
+
+.card__title {
+  flex-grow: 1;
+  flex-basis: 190px;
+}
+
+2/
+flex:1 vào tiêu đề thẻ để làm cho nó lấp đầy khoảng trống có sẵn

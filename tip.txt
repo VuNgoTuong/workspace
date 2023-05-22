@@ -1,0 +1,26 @@
+Muốn kiểm tra phần hover: ấn vào nơi cần kiểm tra -> style -> chọn hover ...hoac setTimeout(function(){debugger},3000)
+background: linear-gradient(white 20%,#F5F2EC 0);-> màu nền điểm cắt màu trên trắng 20% còn lại màu dưới 
+Khi 2 class có cùng tên, muốn class này css nhưng class kia lại không đổi thì viết 1 class tên mới và vào class cần đổi trong wordpress rồi dán vào
+z-index: -1; -> thuộc tính thiết lập thứ tự xếp chồng lên nhau của một phần tử vị trí
+!important : độ ưu tiên
+css cố định: dùng position fixed
+first-child, last-child: chỌn phần tử đầu và cuối cùng của list khi cần trỏ đến (đôi khi ul:last-child > li:last-child ..)
+max-width, max-height (vw, vh)
+Accordition trong ux block: nut so xuong menu footer
+Page: tao 1 trang english-> ấn dấu + để tạo thêm trang vi-> vietnam (để tạo 1 trang change en vi)
+Mỗi lần update ip => vào admin => vào language => sửa en và vi => update
+Chinh khoang cach giua cac dong css: min-height, line-height
+Position: đưa các div hợp lý->position: absolute; right:0; bottom:0;
+fix logo img search => vao page trang => edit => upload lai file anh => update
+fix ảnh to - selected: max-width:60%
+scale: dieu chinh kich co doi tuong
+gap trong ux block: tăng giảm khoảng cách
+tool-> direct -> link cu -> link moi
+sửa nội dung email -> setting -> email template
+Translate nội dung: vào contact form-> form -> thêm {} vào từng biến muốn translate-> qua language-> language translate
+	-> form contact -> filter -> dịch vn en
+tip log:  write_log(var_dump($..))
+css con tro chuot: cursor: (thuoc tinh)
+Di chuyen bo cuc: row-> bottom
+Muon banner lam nen cho header -> ux block -> rang cua -> set template page full width-transper header
+Dùng Plugin Advance CF7 DB để lưu lại thông tin từng form của form contact 7 khi không thể lưu trong DB và có thể export ra file

@@ -1,0 +1,2 @@
+let: có thể thay đổi giá trị
+const: không thay đổi giá trị

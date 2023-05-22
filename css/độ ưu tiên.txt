@@ -1,0 +1,10 @@
+Khi hover vào mà không thấy gì thì set nó = z-index:1 để nó đè lên thằng cha
+	ví dụ: img { 
+			position:absolute;
+ 			left: 0px;
+			top: 0px;
+			z-index:-1;}
+
+		=> thì hình ảnh sẽ đứng phía sau văn bản
+
+!important: để độ ưu tiên cao nhất khi không nhận được css

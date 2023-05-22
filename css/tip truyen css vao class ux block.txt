@@ -1,0 +1,10 @@
+Đặt tên class rồi để vào trong class ux block
+
+vào visual code: .class > thẻ > thẻ (trỏ đến thẻ cần css)
+
+vd: .slider-post > div > a > p { 
+		scale: 2;
+		z-index:1;
+		background-color: white;
+		color: black;
+	}	
